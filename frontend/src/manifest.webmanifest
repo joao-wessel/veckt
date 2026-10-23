@@ -1,22 +1,22 @@
 {
-  "name": "Arqly",
-  "short_name": "Arqly",
+  "name": "Vectk",
+  "short_name": "Vectk",
   "description": "Plataforma SaaS para gerenciamento de projetos de arquitetura.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f7faf9",
-  "theme_color": "#066b64",
+  "background_color": "#EAEDF0",
+  "theme_color": "#5B7F86",
   "icons": [
     {
-      "src": "assets/logo-mark.svg",
+      "src": "assets/brand/vectk-app-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "assets/favicon.svg",
+      "src": "assets/brand/vectk-app-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }

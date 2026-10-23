@@ -15,7 +15,7 @@ export interface FilePreviewFile {
     <div class="modal-overlay fixed inset-0 z-[75] grid place-items-center p-4">
       <section class="modal-panel card flex h-[90vh] w-full max-w-6xl flex-col overflow-hidden">
         <header class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-          <div class="min-w-0"><p class="text-xs font-extrabold uppercase tracking-[0.16em] text-arqly-700">Pré-visualização</p><h3 class="mt-1 truncate text-xl font-extrabold">{{ file.name }}</h3></div>
+          <div class="min-w-0"><p class="text-xs font-extrabold uppercase tracking-[0.16em] text-vectk-700">Pré-visualização</p><h3 class="mt-1 truncate text-xl font-extrabold">{{ file.name }}</h3></div>
           <button class="btn-secondary px-3 py-2" type="button" (click)="closed.emit()"><lucide-icon name="X" size="18" /></button>
         </header>
         <div class="min-h-0 flex-1 bg-slate-100 p-4">

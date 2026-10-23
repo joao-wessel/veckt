@@ -4,8 +4,8 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { ApiResponse } from '../../core/auth/auth.models';
-import { ArqlyDatePickerComponent } from '../../shared/components/arqly-date-picker.component';
-import { ArqlySelectComponent } from '../../shared/components/arqly-select.component';
+import { VectkDatePickerComponent } from '../../shared/components/vectk-date-picker.component';
+import { VectkSelectComponent } from '../../shared/components/vectk-select.component';
 import { ToastService } from '../../shared/components/toast/toast.service';
 
 type ClientPersonType = 'NATURAL_PERSON' | 'LEGAL_ENTITY';
@@ -67,7 +67,7 @@ interface Page<T> {
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, LucideAngularModule, ArqlySelectComponent, ArqlyDatePickerComponent],
+  imports: [ReactiveFormsModule, DatePipe, LucideAngularModule, VectkSelectComponent, VectkDatePickerComponent],
   template: `
     <section class="space-y-5">
       <div class="card overflow-hidden">
@@ -86,9 +86,9 @@ interface Page<T> {
           <input class="field md:col-span-2" placeholder="Nome" formControlName="name">
           <input class="field" placeholder="CPF/CNPJ" formControlName="document">
           <input class="field" placeholder="Cidade" formControlName="city">
-          <app-arqly-select formControlName="status" placeholder="Status" [options]="statusFilterOptions" />
-          <app-arqly-select formControlName="personType" placeholder="Tipo" [options]="personTypeFilterOptions" />
-          <app-arqly-select formControlName="portal" placeholder="Portal" [options]="portalFilterOptions" />
+          <app-vectk-select formControlName="status" placeholder="Status" [options]="statusFilterOptions" />
+          <app-vectk-select formControlName="personType" placeholder="Tipo" [options]="personTypeFilterOptions" />
+          <app-vectk-select formControlName="portal" placeholder="Portal" [options]="portalFilterOptions" />
           <button class="btn-secondary md:col-span-7" type="submit">
             <lucide-icon name="Search" size="18"></lucide-icon>
             Pesquisar
@@ -123,15 +123,15 @@ interface Page<T> {
                   <td class="px-6 py-4 text-slate-600">{{ client.city }}/{{ client.state }}</td>
                   <td class="px-6 py-4">
                     <span class="rounded-full px-3 py-1 text-xs font-bold"
-                          [class.bg-arqly-50]="client.portalActive"
-                          [class.text-arqly-700]="client.portalActive"
+                          [class.bg-vectk-50]="client.portalActive"
+                          [class.text-vectk-700]="client.portalActive"
                           [class.bg-slate-100]="!client.portalActive"
                           [class.text-slate-500]="!client.portalActive">
                       {{ client.portalActive ? 'Ativo' : 'Sem acesso' }}
                     </span>
                   </td>
                   <td class="px-6 py-4">
-                    <span class="rounded-full bg-arqly-50 px-3 py-1 text-xs font-bold text-arqly-700">{{ client.status === 'ACTIVE' ? 'Ativo' : 'Inativo' }}</span>
+                    <span class="rounded-full bg-vectk-50 px-3 py-1 text-xs font-bold text-vectk-700">{{ client.status === 'ACTIVE' ? 'Ativo' : 'Inativo' }}</span>
                   </td>
                   <td class="px-6 py-4">
                     <div class="flex justify-end gap-2">
@@ -167,7 +167,7 @@ interface Page<T> {
                   <p class="truncate font-extrabold">{{ client.displayName }}</p>
                   <p class="mt-1 truncate text-sm text-slate-500">{{ client.document }}</p>
                 </div>
-                <span class="shrink-0 rounded-full bg-arqly-50 px-3 py-1 text-xs font-bold text-arqly-700">{{ client.status === 'ACTIVE' ? 'Ativo' : 'Inativo' }}</span>
+                <span class="shrink-0 rounded-full bg-vectk-50 px-3 py-1 text-xs font-bold text-vectk-700">{{ client.status === 'ACTIVE' ? 'Ativo' : 'Inativo' }}</span>
               </div>
               <p class="mt-3 text-sm text-slate-600">{{ client.city }}/{{ client.state }} · {{ client.email }}</p>
               <div class="mt-4 grid grid-cols-4 gap-2">
@@ -205,7 +205,7 @@ interface Page<T> {
             @for (tab of tabs; track tab.value) {
               <button class="rounded-xl px-4 py-3 text-sm font-bold transition" type="button"
                       [class.bg-white]="activeTab() === tab.value"
-                      [class.text-arqly-700]="activeTab() === tab.value"
+                      [class.text-vectk-700]="activeTab() === tab.value"
                       [class.shadow-sm]="activeTab() === tab.value"
                       [class.text-slate-500]="activeTab() !== tab.value"
                       (click)="activeTab.set(tab.value)">
@@ -218,17 +218,17 @@ interface Page<T> {
             <section class="space-y-4">
               <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                 <div class="mb-4">
-                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Identificação</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Identificação</p>
                   <p class="mt-1 text-sm text-slate-500">Preencha somente os dados essenciais agora. O restante pode ser completado depois.</p>
                 </div>
                 <div class="grid gap-4 md:grid-cols-2">
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Tipo de pessoa <span class="text-red-500">*</span></span>
-                    <app-arqly-select formControlName="personType" placeholder="Selecione o tipo" [options]="personTypeOptions" />
+                    <app-vectk-select formControlName="personType" placeholder="Selecione o tipo" [options]="personTypeOptions" />
                   </label>
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Status <span class="text-red-500">*</span></span>
-                    <app-arqly-select formControlName="status" placeholder="Selecione o status" [options]="statusOptions" />
+                    <app-vectk-select formControlName="status" placeholder="Selecione o status" [options]="statusOptions" />
                   </label>
                   @if (clientForm.controls.personType.value === 'NATURAL_PERSON') {
                     <label class="space-y-1">
@@ -245,7 +245,7 @@ interface Page<T> {
                     </label>
                     <div class="space-y-1">
                       <span class="text-xs font-bold text-slate-500">Data de nascimento</span>
-                      <app-arqly-date-picker formControlName="birthDate" placeholder="Selecione" />
+                      <app-vectk-date-picker formControlName="birthDate" placeholder="Selecione" />
                     </div>
                   } @else {
                     <label class="space-y-1">
@@ -270,7 +270,7 @@ interface Page<T> {
 
               <div class="rounded-2xl border border-slate-200 bg-white p-4">
                 <div class="mb-4">
-                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Contato</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Contato</p>
                 </div>
                 <div class="grid gap-4 md:grid-cols-3">
                   <label class="space-y-1 md:col-span-3">
@@ -293,7 +293,7 @@ interface Page<T> {
           @if (activeTab() === 'address') {
             <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
               <div class="mb-4">
-                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Endereço</p>
+                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Endereço</p>
                 <p class="mt-1 text-sm text-slate-500">Informe o CEP para preencher o endereço automaticamente.</p>
               </div>
               <div class="grid gap-4 md:grid-cols-2">
@@ -332,7 +332,7 @@ interface Page<T> {
           @if (activeTab() === 'notes') {
             <section class="rounded-2xl border border-slate-200 bg-white p-4">
               <div class="mb-4">
-                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Observações</p>
+                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Observações</p>
                 <p class="mt-1 text-sm text-slate-500">Use este espaço para preferências, restrições, contexto comercial ou lembretes internos.</p>
               </div>
               <textarea class="field min-h-44" placeholder="Escreva observações úteis para a equipe..." formControlName="notes"></textarea>
@@ -367,7 +367,7 @@ interface Page<T> {
         <div class="modal-panel card max-h-[92vh] w-full max-w-3xl space-y-5 overflow-y-auto p-6">
           <div class="flex items-start justify-between gap-4">
             <div>
-              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Portal do cliente</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Portal do cliente</p>
               <h3 class="mt-2 text-xl font-extrabold">{{ currentClient()?.displayName || selectedClient()?.displayName }}</h3>
               <p class="mt-1 text-sm text-slate-500">Gerencie o link público de acesso deste cliente.</p>
             </div>

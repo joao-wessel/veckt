@@ -46,31 +46,31 @@ export class AuthService {
   }
 
   token(): string | null {
-    return localStorage.getItem('arqly.token');
+    return localStorage.getItem('vectk.token');
   }
 
   scope(): AuthScope | null {
-    return localStorage.getItem('arqly.scope') as AuthScope | null;
+    return localStorage.getItem('vectk.scope') as AuthScope | null;
   }
 
   logout() {
-    localStorage.removeItem('arqly.token');
-    localStorage.removeItem('arqly.user');
-    localStorage.removeItem('arqly.scope');
+    localStorage.removeItem('vectk.token');
+    localStorage.removeItem('vectk.user');
+    localStorage.removeItem('vectk.scope');
     this.currentUserSignal.set(null);
     void this.router.navigateByUrl('/login');
   }
 
   private persist(scope: AuthScope, user: AuthResponse) {
-    localStorage.setItem('arqly.token', user.accessToken);
-    localStorage.setItem('arqly.user', JSON.stringify(user));
-    localStorage.setItem('arqly.scope', scope);
+    localStorage.setItem('vectk.token', user.accessToken);
+    localStorage.setItem('vectk.user', JSON.stringify(user));
+    localStorage.setItem('vectk.scope', scope);
     this.currentUserSignal.set(user);
     this.theme.applyUserPreferences(user);
   }
 
   private readUser(): AuthResponse | null {
-    const raw = localStorage.getItem('arqly.user');
+    const raw = localStorage.getItem('vectk.user');
     return raw ? JSON.parse(raw) as AuthResponse : null;
   }
 }

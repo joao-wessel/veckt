@@ -16,11 +16,11 @@ type SettingsTab = 'general' | 'smtp';
       <section class="card overflow-hidden">
         <div class="flex flex-col gap-5 border-b border-slate-200 p-6 lg:flex-row lg:items-center lg:justify-between">
           <div class="flex items-start gap-4">
-            <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-arqly-50 text-arqly-700">
+            <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-vectk-50 text-vectk-700">
               <lucide-icon name="Settings" size="24"></lucide-icon>
             </div>
             <div>
-              <p class="text-sm font-bold uppercase tracking-[0.18em] text-arqly-600">Administração</p>
+              <p class="text-sm font-bold uppercase tracking-[0.18em] text-vectk-600">Administração</p>
               <h2 class="mt-1 text-3xl font-extrabold tracking-tight">Configurações</h2>
               <p class="mt-2 max-w-2xl text-slate-500">Parâmetros globais da plataforma, URLs públicas e servidor de e-mail transacional.</p>
             </div>
@@ -36,10 +36,10 @@ type SettingsTab = 'general' | 'smtp';
                   type="button"
                   [class.bg-white]="activeTab() === 'general'"
                   [class.shadow-sm]="activeTab() === 'general'"
-                  [class.text-arqly-700]="activeTab() === 'general'"
+                  [class.text-vectk-700]="activeTab() === 'general'"
                   [class.text-slate-500]="activeTab() !== 'general'"
                   (click)="activeTab.set('general')">
-            <span class="grid h-10 w-10 place-items-center rounded-xl bg-arqly-50 text-arqly-700">
+            <span class="grid h-10 w-10 place-items-center rounded-xl bg-vectk-50 text-vectk-700">
               <lucide-icon name="SlidersHorizontal" size="18"></lucide-icon>
             </span>
             <span>
@@ -51,10 +51,10 @@ type SettingsTab = 'general' | 'smtp';
                   type="button"
                   [class.bg-white]="activeTab() === 'smtp'"
                   [class.shadow-sm]="activeTab() === 'smtp'"
-                  [class.text-arqly-700]="activeTab() === 'smtp'"
+                  [class.text-vectk-700]="activeTab() === 'smtp'"
                   [class.text-slate-500]="activeTab() !== 'smtp'"
                   (click)="activeTab.set('smtp')">
-            <span class="grid h-10 w-10 place-items-center rounded-xl bg-arqly-50 text-arqly-700">
+            <span class="grid h-10 w-10 place-items-center rounded-xl bg-vectk-50 text-vectk-700">
               <lucide-icon name="Mail" size="18"></lucide-icon>
             </span>
             <span>
@@ -79,7 +79,7 @@ type SettingsTab = 'general' | 'smtp';
               </label>
               <label class="space-y-1">
                 <span class="text-xs font-bold text-slate-500">URL pública <span class="text-red-500">*</span></span>
-                <input class="field" placeholder="https://app.arqly.com.br" formControlName="publicUrl">
+                <input class="field" placeholder="https://app.example.com" formControlName="publicUrl">
               </label>
             </div>
             <div class="grid gap-4 md:grid-cols-2">
@@ -142,11 +142,11 @@ type SettingsTab = 'general' | 'smtp';
             <div class="grid gap-4 md:grid-cols-2">
               <label class="space-y-1">
                 <span class="text-xs font-bold text-slate-500">E-mail remetente <span class="text-red-500">*</span></span>
-                <input class="field" placeholder="contato@arqly.com.br" formControlName="senderEmail">
+                <input class="field" placeholder="contato@example.com" formControlName="senderEmail">
               </label>
               <label class="space-y-1">
                 <span class="text-xs font-bold text-slate-500">Nome do remetente <span class="text-red-500">*</span></span>
-                <input class="field" placeholder="Arqly" formControlName="senderName">
+                <input class="field" placeholder="Vectk" formControlName="senderName">
               </label>
             </div>
             <div class="grid gap-3 md:grid-cols-2">
@@ -170,7 +170,7 @@ type SettingsTab = 'general' | 'smtp';
       }
 
       @if (message()) {
-        <p class="rounded-xl bg-arqly-50 px-4 py-3 text-sm font-semibold text-arqly-700">{{ message() }}</p>
+        <p class="rounded-xl bg-vectk-50 px-4 py-3 text-sm font-semibold text-vectk-700">{{ message() }}</p>
       }
     </form>
   `

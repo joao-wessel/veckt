@@ -5,8 +5,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { ApiResponse } from '../../core/auth/auth.models';
-import { ArqlyDatePickerComponent } from '../../shared/components/arqly-date-picker.component';
-import { ArqlySelectComponent } from '../../shared/components/arqly-select.component';
+import { VectkDatePickerComponent } from '../../shared/components/vectk-date-picker.component';
+import { VectkSelectComponent } from '../../shared/components/vectk-select.component';
 import { ToastService } from '../../shared/components/toast/toast.service';
 import { ContextDocumentsComponent } from '../../shared/components/context-documents.component';
 import { FileExplorerComponent } from '../../shared/files/file-explorer.component';
@@ -107,12 +107,12 @@ interface ProjectApproval {
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, DecimalPipe, LucideAngularModule, RouterLink, ArqlySelectComponent, ArqlyDatePickerComponent],
+  imports: [ReactiveFormsModule, DatePipe, DecimalPipe, LucideAngularModule, RouterLink, VectkSelectComponent, VectkDatePickerComponent],
   template: `
     <section class="space-y-5">
       <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Execução</p>
+          <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Execução</p>
           <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Projetos</h2>
           <p class="mt-2 text-slate-500">Acompanhe projetos, modelos, fases e etapas de execução.</p>
         </div>
@@ -124,7 +124,7 @@ interface ProjectApproval {
       </div>
 
       <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <div class="card p-5"><p class="text-sm font-bold text-slate-500">Projetos ativos</p><strong class="mt-2 block text-3xl text-arqly-700">{{ stats()?.active || 0 }}</strong></div>
+        <div class="card p-5"><p class="text-sm font-bold text-slate-500">Projetos ativos</p><strong class="mt-2 block text-3xl text-vectk-700">{{ stats()?.active || 0 }}</strong></div>
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Concluídos</p><strong class="mt-2 block text-3xl">{{ stats()?.completed || 0 }}</strong></div>
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Pausados</p><strong class="mt-2 block text-3xl text-amber-600">{{ stats()?.paused || 0 }}</strong></div>
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Etapas atrasadas</p><strong class="mt-2 block text-3xl text-red-600">{{ stats()?.delayedStages || 0 }}</strong></div>
@@ -134,22 +134,22 @@ interface ProjectApproval {
         <div class="flex flex-col gap-3 border-b border-slate-200 p-4 md:flex-row md:items-center md:justify-between">
           <div class="grid gap-2 rounded-2xl bg-slate-50/70 p-2 md:grid-cols-2">
             <button class="rounded-xl px-4 py-3 text-sm font-bold transition" type="button"
-              [class.bg-white]="mode() === 'projects'" [class.text-arqly-700]="mode() === 'projects'" [class.shadow-sm]="mode() === 'projects'" [class.text-slate-500]="mode() !== 'projects'"
+              [class.bg-white]="mode() === 'projects'" [class.text-vectk-700]="mode() === 'projects'" [class.shadow-sm]="mode() === 'projects'" [class.text-slate-500]="mode() !== 'projects'"
               (click)="switchMode('projects')">Projetos</button>
             <button class="rounded-xl px-4 py-3 text-sm font-bold transition" type="button"
-              [class.bg-white]="mode() === 'templates'" [class.text-arqly-700]="mode() === 'templates'" [class.shadow-sm]="mode() === 'templates'" [class.text-slate-500]="mode() !== 'templates'"
+              [class.bg-white]="mode() === 'templates'" [class.text-vectk-700]="mode() === 'templates'" [class.shadow-sm]="mode() === 'templates'" [class.text-slate-500]="mode() !== 'templates'"
               (click)="switchMode('templates')">Modelos de Projeto</button>
           </div>
         </div>
 
         @if (mode() === 'projects') {
           <form class="grid gap-3 border-b border-slate-200 bg-slate-50/70 p-4 md:grid-cols-7" [formGroup]="filterForm" (ngSubmit)="search()">
-            <app-arqly-select formControlName="clientId" placeholder="Cliente" [options]="clientOptions()" />
-            <app-arqly-select formControlName="status" placeholder="Situação" [options]="statusOptions" />
-            <app-arqly-select formControlName="templateId" placeholder="Modelo" [options]="templateFilterOptions()" />
+            <app-vectk-select formControlName="clientId" placeholder="Cliente" [options]="clientOptions()" />
+            <app-vectk-select formControlName="status" placeholder="Situação" [options]="statusOptions" />
+            <app-vectk-select formControlName="templateId" placeholder="Modelo" [options]="templateFilterOptions()" />
             <input class="field" placeholder="Responsável" formControlName="responsible">
-            <app-arqly-date-picker formControlName="from" placeholder="Data inicial" />
-            <app-arqly-date-picker formControlName="to" placeholder="Data final" />
+            <app-vectk-date-picker formControlName="from" placeholder="Data inicial" />
+            <app-vectk-date-picker formControlName="to" placeholder="Data final" />
             <button class="btn-secondary h-12 justify-center px-4" type="submit"><lucide-icon name="Search" size="18"></lucide-icon>Pesquisar</button>
           </form>
           <div class="overflow-x-auto">
@@ -167,7 +167,7 @@ interface ProjectApproval {
                     <td class="px-6 py-4 text-slate-600">{{ project.responsibleArchitect || '-' }}</td>
                     <td class="px-6 py-4"><span class="rounded-full px-3 py-1 text-xs font-bold" [class]="statusClass(project.status)">{{ statusLabel(project.status) }}</span></td>
                     <td class="px-6 py-4">
-                      <div class="h-2 w-32 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-arqly-600" [style.width.%]="project.progressPercentage || 0"></div></div>
+                      <div class="h-2 w-32 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-vectk-600" [style.width.%]="project.progressPercentage || 0"></div></div>
                       <span class="mt-1 block text-xs font-bold text-slate-500">{{ project.progressPercentage || 0 | number:'1.0-0' }}%</span>
                     </td>
                     <td class="px-6 py-4 text-slate-500">{{ project.expectedEndDate ? (project.expectedEndDate | date:'dd/MM/yyyy') : '-' }}</td>
@@ -201,12 +201,12 @@ interface ProjectApproval {
               </thead>
               <tbody>
                 @for (template of templates(); track template.id) {
-                  <tr class="border-t border-slate-100" [class.bg-arqly-50]="selectedTemplate()?.id === template.id">
+                  <tr class="border-t border-slate-100" [class.bg-vectk-50]="selectedTemplate()?.id === template.id">
                     <td class="px-6 py-4"><p class="font-bold">{{ template.name }}</p><p class="text-xs text-slate-500">{{ template.description || '-' }}</p></td>
                     <td class="px-6 py-4">{{ template.phaseCount || 0 }}</td>
                     <td class="px-6 py-4">{{ template.stageCount || 0 }}</td>
                     <td class="px-6 py-4">{{ template.projectsUsing || 0 }}</td>
-                    <td class="px-6 py-4"><span class="rounded-full px-3 py-1 text-xs font-bold" [class.bg-arqly-50]="template.active" [class.text-arqly-700]="template.active" [class.bg-slate-100]="!template.active" [class.text-slate-500]="!template.active">{{ template.active ? 'Ativo' : 'Inativo' }}</span></td>
+                    <td class="px-6 py-4"><span class="rounded-full px-3 py-1 text-xs font-bold" [class.bg-vectk-50]="template.active" [class.text-vectk-700]="template.active" [class.bg-slate-100]="!template.active" [class.text-slate-500]="!template.active">{{ template.active ? 'Ativo' : 'Inativo' }}</span></td>
                     <td class="px-6 py-4">
                       <div class="flex justify-end gap-2">
                         <button class="btn-secondary px-3 py-2" type="button" (click)="selectTemplate(template)"><lucide-icon name="ListChecks" size="16"></lucide-icon>Fases</button>
@@ -229,7 +229,7 @@ interface ProjectApproval {
         <div class="card overflow-hidden">
           <div class="flex flex-col gap-3 border-b border-slate-200 p-5 md:flex-row md:items-center md:justify-between">
             <div>
-              <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-arqly-700">Editor do modelo</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-vectk-700">Editor do modelo</p>
               <h3 class="mt-1 text-xl font-extrabold">{{ selectedTemplate()!.name }}</h3>
             </div>
             <button class="btn-primary" type="button" (click)="openPhaseModal()"><lucide-icon name="Plus" size="18"></lucide-icon>Adicionar fase</button>
@@ -299,7 +299,7 @@ interface ProjectApproval {
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Nome <span class="text-red-500">*</span></span><input class="field" formControlName="name" placeholder="Ex.: Planejamento"></label>
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Ordem</span><input class="field" type="number" formControlName="order"></label>
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Cor</span><input class="field h-12" type="color" formControlName="color"></label>
-            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Ícone</span><app-arqly-select formControlName="icon" placeholder="Selecione um ícone" [options]="iconOptions" panelMode="fixed" /></label>
+            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Ícone</span><app-vectk-select formControlName="icon" placeholder="Selecione um ícone" [options]="iconOptions" panelMode="fixed" /></label>
           </div>
           <label class="space-y-1 block"><span class="text-xs font-bold text-slate-500">Descrição</span><textarea class="field min-h-24" formControlName="description" placeholder="Resumo da fase dentro do fluxo de trabalho"></textarea></label>
           <label class="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3"><span class="text-sm font-bold text-slate-800">Fase ativa</span><input class="checkbox" type="checkbox" formControlName="active"></label>
@@ -316,7 +316,7 @@ interface ProjectApproval {
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Nome <span class="text-red-500">*</span></span><input class="field" formControlName="name" placeholder="Ex.: Levantamento"></label>
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Ordem</span><input class="field" type="number" formControlName="order"></label>
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Peso (%)</span><input class="field" type="number" min="0" max="100" formControlName="weightPercentage"></label>
-            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Cálculo de progresso</span><app-arqly-select formControlName="progressCalculationMode" placeholder="Modo de cálculo" [options]="progressModeOptions" panelMode="fixed" /></label>
+            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Cálculo de progresso</span><app-vectk-select formControlName="progressCalculationMode" placeholder="Modo de cálculo" [options]="progressModeOptions" panelMode="fixed" /></label>
           </div>
           <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Descrição</span><textarea class="field min-h-24" formControlName="description" placeholder="Descreva o objetivo desta etapa"></textarea></label>
           <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Checklist padrão</span><textarea class="field min-h-32" formControlName="checklistText" placeholder="Um item por linha"></textarea></label>
@@ -331,7 +331,7 @@ interface ProjectApproval {
         <form class="modal-panel card w-full max-w-3xl space-y-5 p-6" [formGroup]="projectCreateForm" (ngSubmit)="createProject()">
           <div class="flex items-start justify-between gap-4">
             <div>
-              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Novo projeto</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Novo projeto</p>
               <h3 class="mt-2 text-xl font-extrabold">Como deseja criar este projeto?</h3>
             </div>
             <button class="btn-secondary px-3 py-2" type="button" (click)="closeProjectCreateModal()"><lucide-icon name="X" size="18"></lucide-icon></button>
@@ -341,7 +341,7 @@ interface ProjectApproval {
             @for (step of createSteps; track step.value) {
               <button class="rounded-xl px-4 py-3 text-sm font-bold transition" type="button"
                 [class.bg-white]="projectCreateStep() === step.value"
-                [class.text-arqly-700]="projectCreateStep() === step.value"
+                [class.text-vectk-700]="projectCreateStep() === step.value"
                 [class.shadow-sm]="projectCreateStep() === step.value"
                 [class.text-slate-500]="projectCreateStep() !== step.value"
                 (click)="goToProjectCreateStep(step.value)">{{ step.label }}</button>
@@ -350,10 +350,10 @@ interface ProjectApproval {
 
           @if (projectCreateStep() === 'client') {
             <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Cliente</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Cliente</p>
               <label class="mt-4 block space-y-1">
                 <span class="text-xs font-bold text-slate-500">Cliente <span class="text-red-500">*</span></span>
-                <app-arqly-select formControlName="clientId" placeholder="Selecione o cliente" [options]="clientOptions()" panelMode="fixed" />
+                <app-vectk-select formControlName="clientId" placeholder="Selecione o cliente" [options]="clientOptions()" panelMode="fixed" />
               </label>
             </section>
           }
@@ -362,16 +362,16 @@ interface ProjectApproval {
             <section class="space-y-4">
               <div class="grid gap-3 md:grid-cols-2">
                 <button class="rounded-2xl border p-4 text-left transition" type="button"
-                  [class.border-arqly-500]="projectCreateMode() === 'PROPOSAL'"
-                  [class.bg-arqly-50]="projectCreateMode() === 'PROPOSAL'"
+                  [class.border-vectk-500]="projectCreateMode() === 'PROPOSAL'"
+                  [class.bg-vectk-50]="projectCreateMode() === 'PROPOSAL'"
                   [class.border-slate-200]="projectCreateMode() !== 'PROPOSAL'"
                   (click)="setProjectCreateMode('PROPOSAL')">
                   <strong class="block">A partir de uma proposta</strong>
                   <span class="mt-1 block text-sm text-slate-500">Mantém a rastreabilidade comercial completa.</span>
                 </button>
                 <button class="rounded-2xl border p-4 text-left transition" type="button"
-                  [class.border-arqly-500]="projectCreateMode() === 'MANUAL'"
-                  [class.bg-arqly-50]="projectCreateMode() === 'MANUAL'"
+                  [class.border-vectk-500]="projectCreateMode() === 'MANUAL'"
+                  [class.bg-vectk-50]="projectCreateMode() === 'MANUAL'"
                   [class.border-slate-200]="projectCreateMode() !== 'MANUAL'"
                   (click)="setProjectCreateMode('MANUAL')">
                   <strong class="block">Criar manualmente</strong>
@@ -381,7 +381,7 @@ interface ProjectApproval {
               @if (projectCreateMode() === 'PROPOSAL') {
                 <label class="block space-y-1">
                   <span class="text-xs font-bold text-slate-500">Proposta aprovada <span class="text-red-500">*</span></span>
-                  <app-arqly-select formControlName="proposalId" placeholder="Selecione a proposta aprovada" [options]="approvedProposalOptions()" panelMode="fixed" />
+                  <app-vectk-select formControlName="proposalId" placeholder="Selecione a proposta aprovada" [options]="approvedProposalOptions()" panelMode="fixed" />
                 </label>
               } @else {
                 <p class="rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-500">Projetos criados manualmente não possuem rastreabilidade completa do processo comercial.</p>
@@ -392,10 +392,10 @@ interface ProjectApproval {
           @if (projectCreateStep() === 'info') {
             <section class="grid gap-4 md:grid-cols-2">
               <label class="space-y-1 md:col-span-2"><span class="text-xs font-bold text-slate-500">Título <span class="text-red-500">*</span></span><input class="field" formControlName="name" placeholder="Ex.: Residência Vila Nova"></label>
-              <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Modelo do projeto</span><app-arqly-select formControlName="templateId" placeholder="Sem modelo" [options]="templateCreateOptions()" panelMode="fixed" /></label>
-              <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Responsável</span><app-arqly-select formControlName="responsibleUserId" placeholder="Selecione um usuário" [options]="tenantUserOptions()" panelMode="fixed" /></label>
-              <div class="space-y-1"><span class="text-xs font-bold text-slate-500">Início previsto</span><app-arqly-date-picker formControlName="startDate" placeholder="Selecione" /></div>
-              <div class="space-y-1"><span class="text-xs font-bold text-slate-500">Previsão de conclusão</span><app-arqly-date-picker formControlName="expectedEndDate" placeholder="Selecione" /></div>
+              <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Modelo do projeto</span><app-vectk-select formControlName="templateId" placeholder="Sem modelo" [options]="templateCreateOptions()" panelMode="fixed" /></label>
+              <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Responsável</span><app-vectk-select formControlName="responsibleUserId" placeholder="Selecione um usuário" [options]="tenantUserOptions()" panelMode="fixed" /></label>
+              <div class="space-y-1"><span class="text-xs font-bold text-slate-500">Início previsto</span><app-vectk-date-picker formControlName="startDate" placeholder="Selecione" /></div>
+              <div class="space-y-1"><span class="text-xs font-bold text-slate-500">Previsão de conclusão</span><app-vectk-date-picker formControlName="expectedEndDate" placeholder="Selecione" /></div>
               <label class="space-y-1 md:col-span-2"><span class="text-xs font-bold text-slate-500">Descrição</span><textarea class="field min-h-24" formControlName="description" placeholder="Resumo do escopo e objetivo do projeto"></textarea></label>
             </section>
           }
@@ -403,7 +403,7 @@ interface ProjectApproval {
           @if (projectCreateStep() === 'summary') {
             <section class="grid gap-4 md:grid-cols-[1fr_18rem]">
               <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
-                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Resumo</p>
+                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Resumo</p>
                 <h4 class="mt-3 text-2xl font-extrabold">{{ projectCreateForm.controls.name.value || 'Novo projeto' }}</h4>
                 <p class="mt-2 text-sm text-slate-500">{{ selectedProjectClientName() || 'Cliente não selecionado' }}</p>
                 <p class="mt-4 text-sm text-slate-600">{{ projectCreateMode() === 'PROPOSAL' ? 'Projeto criado a partir de proposta aprovada.' : 'Projeto criado manualmente, sem proposta vinculada.' }}</p>
@@ -706,9 +706,9 @@ export class ProjectsComponent implements OnInit {
   }
 
   statusLabel(status: ProjectStatus) { return ({ PLANNING: 'Planejamento', IN_PROGRESS: 'Em andamento', ON_HOLD: 'Pausado', COMPLETED: 'Concluído', CANCELLED: 'Cancelado' }[status]); }
-  statusClass(status: ProjectStatus) { if (status === 'COMPLETED') return 'bg-arqly-50 text-arqly-700'; if (status === 'IN_PROGRESS') return 'bg-blue-50 text-blue-700'; if (status === 'ON_HOLD') return 'bg-amber-50 text-amber-700'; if (status === 'CANCELLED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
+  statusClass(status: ProjectStatus) { if (status === 'COMPLETED') return 'bg-vectk-50 text-vectk-700'; if (status === 'IN_PROGRESS') return 'bg-blue-50 text-blue-700'; if (status === 'ON_HOLD') return 'bg-amber-50 text-amber-700'; if (status === 'CANCELLED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
   originLabel(origin: OriginType | ProjectCreateMode) { return origin === 'PROPOSAL' ? 'Proposta' : origin === 'BRIEFING' ? 'Briefing' : 'Manual'; }
-  originClass(origin: OriginType) { return origin === 'PROPOSAL' ? 'bg-arqly-50 text-arqly-700' : 'bg-blue-50 text-blue-700'; }
+  originClass(origin: OriginType) { return origin === 'PROPOSAL' ? 'bg-vectk-50 text-vectk-700' : 'bg-blue-50 text-blue-700'; }
   approvedProposalOptions() {
     const clientId = this.projectCreateForm.controls.clientId.value;
     return this.approvedProposals()
@@ -735,19 +735,19 @@ export class ProjectsComponent implements OnInit {
 @Component({
   selector: 'app-project-detail',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, DecimalPipe, LucideAngularModule, RouterLink, ArqlySelectComponent, ArqlyDatePickerComponent, ContextDocumentsComponent, FileExplorerComponent, RecentFilesComponent],
+  imports: [ReactiveFormsModule, DatePipe, DecimalPipe, LucideAngularModule, RouterLink, VectkSelectComponent, VectkDatePickerComponent, ContextDocumentsComponent, FileExplorerComponent, RecentFilesComponent],
   template: `
     @if (project()) {
       <section class="space-y-5">
-        <a class="inline-flex items-center gap-2 text-sm font-bold text-arqly-700" routerLink="/app/projects"><lucide-icon name="ArrowLeft" size="16"></lucide-icon>Voltar</a>
+        <a class="inline-flex items-center gap-2 text-sm font-bold text-vectk-700" routerLink="/app/projects"><lucide-icon name="ArrowLeft" size="16"></lucide-icon>Voltar</a>
         <div class="card p-6">
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-            <div><p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">{{ project()!.code }}</p><h2 class="mt-2 text-3xl font-extrabold">{{ project()!.name }}</h2><p class="mt-2 text-slate-500">{{ project()!.clientName }} · {{ project()!.proposalNumber || 'Projeto manual' }}</p></div>
-            <div class="grid gap-2 text-sm md:text-right"><span class="rounded-full bg-arqly-50 px-3 py-1 font-bold text-arqly-700">{{ statusLabel(project()!.status) }}</span><strong>R$ {{ project()!.contractedValue || 0 | number:'1.2-2' }}</strong><span class="text-slate-500">{{ project()!.responsibleArchitect || 'Sem responsável' }}</span></div>
+            <div><p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">{{ project()!.code }}</p><h2 class="mt-2 text-3xl font-extrabold">{{ project()!.name }}</h2><p class="mt-2 text-slate-500">{{ project()!.clientName }} · {{ project()!.proposalNumber || 'Projeto manual' }}</p></div>
+            <div class="grid gap-2 text-sm md:text-right"><span class="rounded-full bg-vectk-50 px-3 py-1 font-bold text-vectk-700">{{ statusLabel(project()!.status) }}</span><strong>R$ {{ project()!.contractedValue || 0 | number:'1.2-2' }}</strong><span class="text-slate-500">{{ project()!.responsibleArchitect || 'Sem responsável' }}</span></div>
           </div>
           <div class="mt-5">
             <div class="flex items-center justify-between text-xs font-bold text-slate-500"><span>Progresso geral</span><span>{{ project()!.progressPercentage || 0 | number:'1.0-0' }}%</span></div>
-            <div class="mt-2 h-3 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-arqly-600" [style.width.%]="project()!.progressPercentage || 0"></div></div>
+            <div class="mt-2 h-3 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-vectk-600" [style.width.%]="project()!.progressPercentage || 0"></div></div>
           </div>
         </div>
         <div class="rounded-3xl border border-slate-200 bg-white p-2 shadow-sm">
@@ -757,7 +757,7 @@ export class ProjectsComponent implements OnInit {
               type="button"
               [disabled]="tab.disabled"
               [class.bg-white]="activeTab() === tab.value"
-              [class.text-arqly-700]="activeTab() === tab.value"
+              [class.text-vectk-700]="activeTab() === tab.value"
               [class.shadow-sm]="activeTab() === tab.value"
               [class.text-slate-500]="activeTab() !== tab.value && !tab.disabled"
               [class.opacity-50]="tab.disabled"
@@ -775,7 +775,7 @@ export class ProjectsComponent implements OnInit {
             <div class="card p-6">
               <div class="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
                 <div>
-                  <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-arqly-700">Visão geral</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-vectk-700">Visão geral</p>
                   <h3 class="mt-2 text-2xl font-extrabold">{{ project()!.name }}</h3>
                   <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-500">{{ project()!.description || 'Projeto criado a partir da proposta aceita. Use as fases e etapas para conduzir a execução.' }}</p>
                 </div>
@@ -783,7 +783,7 @@ export class ProjectsComponent implements OnInit {
               </div>
               <div class="mt-6">
                 <div class="flex items-center justify-between text-xs font-bold text-slate-500"><span>Progresso do projeto</span><span>{{ project()!.progressPercentage || 0 | number:'1.0-0' }}%</span></div>
-                <div class="mt-2 h-3 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-arqly-600" [style.width.%]="project()!.progressPercentage || 0"></div></div>
+                <div class="mt-2 h-3 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-vectk-600" [style.width.%]="project()!.progressPercentage || 0"></div></div>
               </div>
               <div class="mt-6 grid gap-3 md:grid-cols-3">
                 <div class="rounded-2xl bg-slate-50/70 p-4"><p class="text-xs font-bold text-slate-400">Valor contratado</p><strong class="mt-2 block text-xl">R$ {{ project()!.contractedValue || 0 | number:'1.2-2' }}</strong></div>
@@ -797,7 +797,7 @@ export class ProjectsComponent implements OnInit {
                     @for (phase of phases().slice(0, 5); track phase.id) {
                       <div>
                         <div class="flex items-center justify-between gap-3 text-sm"><span class="truncate font-bold">{{ phase.name }}</span><span class="text-xs font-bold text-slate-400">{{ phase.completionPercentage || 0 | number:'1.0-0' }}%</span></div>
-                        <div class="mt-2 h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-arqly-600" [style.width.%]="phase.completionPercentage || 0"></div></div>
+                        <div class="mt-2 h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-vectk-600" [style.width.%]="phase.completionPercentage || 0"></div></div>
                       </div>
                     } @empty {
                       <p class="text-sm text-slate-500">Nenhuma fase cadastrada.</p>
@@ -808,7 +808,7 @@ export class ProjectsComponent implements OnInit {
                   <div class="mb-4 flex items-center justify-between"><h4 class="font-extrabold">Próximas etapas</h4><span class="text-xs font-bold text-slate-400">{{ openStages().length }} aberta(s)</span></div>
                   <div class="space-y-3">
                     @for (stage of openStages().slice(0, 4); track stage.id) {
-                      <a class="block rounded-2xl bg-slate-50/70 p-3 transition hover:bg-arqly-50" [routerLink]="['/app/projects', project()!.id, 'stages', stage.id]">
+                      <a class="block rounded-2xl bg-slate-50/70 p-3 transition hover:bg-vectk-50" [routerLink]="['/app/projects', project()!.id, 'stages', stage.id]">
                         <div class="flex items-center justify-between gap-3"><strong class="truncate text-sm">{{ stage.name }}</strong><span class="rounded-full px-2 py-1 text-[11px] font-bold" [class]="stageStatusClass(stage.status)">{{ stageStatusLabel(stage.status) }}</span></div>
                         <p class="mt-1 text-xs font-semibold text-slate-400">{{ stage.responsible || 'Sem responsável' }} · {{ stage.completionPercentage || 0 | number:'1.0-0' }}%</p>
                       </a>
@@ -820,7 +820,7 @@ export class ProjectsComponent implements OnInit {
               </div>
             </div>
             <aside class="card h-fit p-6">
-              <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-arqly-700">Dados do projeto</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-vectk-700">Dados do projeto</p>
               <div class="mt-5 divide-y divide-slate-100 text-sm">
                 <div class="flex items-start justify-between gap-4 py-3"><span class="font-bold text-slate-400">Cliente</span><strong class="text-right">{{ project()!.clientName }}</strong></div>
                 <div class="flex items-start justify-between gap-4 py-3"><span class="font-bold text-slate-400">Origem</span><strong class="text-right">{{ originLabel(project()!.originType) }}</strong></div>
@@ -856,15 +856,15 @@ export class ProjectsComponent implements OnInit {
                       <lucide-icon [name]="expandedPhases().has(phase.id) ? 'ChevronUp' : 'ChevronDown'" size="18"></lucide-icon>
                     </span>
                   </button>
-                  <div class="px-5 pb-4"><div class="h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-arqly-600" [style.width.%]="phase.completionPercentage || 0"></div></div></div>
+                  <div class="px-5 pb-4"><div class="h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-vectk-600" [style.width.%]="phase.completionPercentage || 0"></div></div></div>
                   @if (expandedPhases().has(phase.id)) {
                     <div class="space-y-3 border-t border-slate-100 p-4">
                       @for (stage of phase.stages; track stage.id) {
                         <div class="grid gap-4 rounded-2xl bg-slate-50/70 p-4 md:grid-cols-[1fr_auto]" draggable="true" (dragstart)="startStageDrag(stage)" (dragover)="allowDrop($event)" (drop)="dropStage(phase, stage)">
                           <div>
-                            <div class="flex flex-wrap items-center gap-2"><a class="font-extrabold text-slate-900 transition hover:text-arqly-700" [routerLink]="['/app/projects', project()!.id, 'stages', stage.id]">{{ stage.order }}. {{ stage.name }}</a><span class="rounded-full px-3 py-1 text-xs font-bold" [class]="stageStatusClass(stage.status)">{{ stageStatusLabel(stage.status) }}</span><span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-500">{{ stage.completionPercentage || 0 }}%</span></div>
+                            <div class="flex flex-wrap items-center gap-2"><a class="font-extrabold text-slate-900 transition hover:text-vectk-700" [routerLink]="['/app/projects', project()!.id, 'stages', stage.id]">{{ stage.order }}. {{ stage.name }}</a><span class="rounded-full px-3 py-1 text-xs font-bold" [class]="stageStatusClass(stage.status)">{{ stageStatusLabel(stage.status) }}</span><span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-500">{{ stage.completionPercentage || 0 }}%</span></div>
                             <p class="mt-1 text-sm text-slate-500">{{ stage.description || 'Sem descrição' }}</p>
-                            <div class="mt-3 h-2 max-w-xl overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-arqly-600" [style.width.%]="stage.completionPercentage || 0"></div></div>
+                            <div class="mt-3 h-2 max-w-xl overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-vectk-600" [style.width.%]="stage.completionPercentage || 0"></div></div>
                             <div class="mt-3 flex flex-wrap gap-3 text-xs font-bold text-slate-400">
                               <span>Previsto: {{ stage.plannedStart ? (stage.plannedStart | date:'dd/MM/yyyy') : '-' }} → {{ stage.plannedEnd ? (stage.plannedEnd | date:'dd/MM/yyyy') : '-' }}</span>
                               <span>Responsável: {{ stage.responsible || 'A definir' }}</span>
@@ -905,16 +905,16 @@ export class ProjectsComponent implements OnInit {
         @if (activeTab() === 'info') {
           <form class="card space-y-6 overflow-visible p-6" [formGroup]="form" (ngSubmit)="save()">
             <div class="flex flex-col gap-2 border-b border-slate-100 pb-5">
-              <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-arqly-700">Informações</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-vectk-700">Informações</p>
               <h3 class="text-xl font-extrabold">Dados editáveis</h3>
               <p class="max-w-3xl text-sm leading-6 text-slate-500">Atualize apenas os dados operacionais do projeto. Cliente, proposta e serviços contratados permanecem como histórico da conversão.</p>
             </div>
             <div class="grid gap-4 md:grid-cols-2">
               <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Nome *</span><input class="field w-full" formControlName="name" placeholder="Ex.: Residência Vila Nova"></label>
-              <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Status</span><app-arqly-select formControlName="status" placeholder="Selecione o status" [options]="statusOptions" panelMode="fixed" /></label>
-              <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Responsável</span><app-arqly-select formControlName="responsibleUserId" placeholder="Selecione um usuário" [options]="tenantUserOptions()" panelMode="fixed" /></label>
-              <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Gerente do projeto</span><app-arqly-select formControlName="projectManagerId" placeholder="Opcional" [options]="tenantUserOptions(true)" panelMode="fixed" /></label>
-              <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Previsão de conclusão</span><app-arqly-date-picker formControlName="expectedEndDate" placeholder="Selecione" /></div>
+              <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Status</span><app-vectk-select formControlName="status" placeholder="Selecione o status" [options]="statusOptions" panelMode="fixed" /></label>
+              <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Responsável</span><app-vectk-select formControlName="responsibleUserId" placeholder="Selecione um usuário" [options]="tenantUserOptions()" panelMode="fixed" /></label>
+              <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Gerente do projeto</span><app-vectk-select formControlName="projectManagerId" placeholder="Opcional" [options]="tenantUserOptions(true)" panelMode="fixed" /></label>
+              <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Previsão de conclusão</span><app-vectk-date-picker formControlName="expectedEndDate" placeholder="Selecione" /></div>
             </div>
             <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Descrição</span><textarea class="field min-h-28 w-full" formControlName="description" placeholder="Resumo do escopo e objetivo do projeto"></textarea></label>
             <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Dados internos</span><textarea class="field min-h-28 w-full" formControlName="internalNotes" placeholder="Notas internas para a equipe"></textarea></label>
@@ -935,18 +935,18 @@ export class ProjectsComponent implements OnInit {
             <section class="space-y-5">
               <div class="card p-6">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div><p class="text-xs font-extrabold uppercase tracking-[0.2em] text-arqly-700">Acompanhamento da obra</p><h3 class="mt-2 text-xl font-extrabold">Diário de Obra</h3><p class="mt-2 text-sm text-slate-500">Visitas, decisões, ocorrências e arquivos registrados para este projeto.</p></div>
+                  <div><p class="text-xs font-extrabold uppercase tracking-[0.2em] text-vectk-700">Acompanhamento da obra</p><h3 class="mt-2 text-xl font-extrabold">Diário de Obra</h3><p class="mt-2 text-sm text-slate-500">Visitas, decisões, ocorrências e arquivos registrados para este projeto.</p></div>
                   <a class="btn-primary" [routerLink]="['/app/construction-diary/new']" [queryParams]="{projectId: project()!.id}"><lucide-icon name="Plus" size="17"></lucide-icon>Novo registro</a>
                 </div>
                 <div class="mt-6 grid gap-3 sm:grid-cols-3">
                   <div class="rounded-2xl bg-slate-50/70 p-4"><p class="text-xs font-bold text-slate-400">REGISTROS</p><strong class="mt-2 block text-2xl">{{ diaryEntries().length }}</strong></div>
-                  <div class="rounded-2xl bg-slate-50/70 p-4"><p class="text-xs font-bold text-slate-400">PUBLICADOS</p><strong class="mt-2 block text-2xl text-arqly-700">{{ publishedDiaryCount() }}</strong></div>
+                  <div class="rounded-2xl bg-slate-50/70 p-4"><p class="text-xs font-bold text-slate-400">PUBLICADOS</p><strong class="mt-2 block text-2xl text-vectk-700">{{ publishedDiaryCount() }}</strong></div>
                   <div class="rounded-2xl bg-slate-50/70 p-4"><p class="text-xs font-bold text-slate-400">OCORRÊNCIAS</p><strong class="mt-2 block text-2xl text-amber-600">{{ diaryOccurrenceCount() }}</strong></div>
                 </div>
               </div>
               <div class="card overflow-hidden">
-                <div class="flex items-center justify-between border-b border-slate-200 p-5"><div><h3 class="font-extrabold">Registros recentes</h3><p class="mt-1 text-sm text-slate-500">Acompanhe os últimos acontecimentos da obra.</p></div><a class="text-sm font-bold text-arqly-700" [routerLink]="['/app/construction-diary']" [queryParams]="{projectId: project()!.id}">Ver todos</a></div>
-                <div class="divide-y divide-slate-100">@for (entry of diaryEntries().slice(0, 5); track entry.id) {<a class="block p-5 transition hover:bg-slate-50" [routerLink]="['/app/construction-diary', entry.id]"><div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div><div class="flex flex-wrap items-center gap-2"><span class="rounded-full bg-arqly-50 px-3 py-1 text-xs font-bold text-arqly-700">{{ diaryTypeLabel(entry.entryType) }}</span><span class="rounded-full px-3 py-1 text-xs font-bold" [class]="diaryStatusClass(entry.status)">{{ diaryStatusLabel(entry.status) }}</span><span class="text-xs font-bold text-slate-400">{{ entry.entryDate | date:'dd/MM/yyyy' }}</span></div><strong class="mt-3 block">{{ entry.title }}</strong><p class="mt-1 text-sm text-slate-500">{{ entry.responsibleName || 'Sem responsável' }} · {{ entry.photoCount }} foto(s) · {{ entry.occurrenceCount }} ocorrência(s)</p></div><span class="text-xs font-bold" [class.text-arqly-700]="entry.visibility === 'CLIENT_VISIBLE'" [class.text-slate-400]="entry.visibility !== 'CLIENT_VISIBLE'">{{ entry.visibility === 'CLIENT_VISIBLE' ? 'Visível ao cliente' : 'Interno' }}</span></div></a>} @empty {<p class="p-8 text-center text-sm text-slate-500">Nenhum registro de Diário de Obra para este projeto.</p>}</div>
+                <div class="flex items-center justify-between border-b border-slate-200 p-5"><div><h3 class="font-extrabold">Registros recentes</h3><p class="mt-1 text-sm text-slate-500">Acompanhe os últimos acontecimentos da obra.</p></div><a class="text-sm font-bold text-vectk-700" [routerLink]="['/app/construction-diary']" [queryParams]="{projectId: project()!.id}">Ver todos</a></div>
+                <div class="divide-y divide-slate-100">@for (entry of diaryEntries().slice(0, 5); track entry.id) {<a class="block p-5 transition hover:bg-slate-50" [routerLink]="['/app/construction-diary', entry.id]"><div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div><div class="flex flex-wrap items-center gap-2"><span class="rounded-full bg-vectk-50 px-3 py-1 text-xs font-bold text-vectk-700">{{ diaryTypeLabel(entry.entryType) }}</span><span class="rounded-full px-3 py-1 text-xs font-bold" [class]="diaryStatusClass(entry.status)">{{ diaryStatusLabel(entry.status) }}</span><span class="text-xs font-bold text-slate-400">{{ entry.entryDate | date:'dd/MM/yyyy' }}</span></div><strong class="mt-3 block">{{ entry.title }}</strong><p class="mt-1 text-sm text-slate-500">{{ entry.responsibleName || 'Sem responsável' }} · {{ entry.photoCount }} foto(s) · {{ entry.occurrenceCount }} ocorrência(s)</p></div><span class="text-xs font-bold" [class.text-vectk-700]="entry.visibility === 'CLIENT_VISIBLE'" [class.text-slate-400]="entry.visibility !== 'CLIENT_VISIBLE'">{{ entry.visibility === 'CLIENT_VISIBLE' ? 'Visível ao cliente' : 'Interno' }}</span></div></a>} @empty {<p class="p-8 text-center text-sm text-slate-500">Nenhum registro de Diário de Obra para este projeto.</p>}</div>
               </div>
             </section>
           }
@@ -954,13 +954,13 @@ export class ProjectsComponent implements OnInit {
             <div class="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
               <form class="card space-y-4 p-6" [formGroup]="approvalForm" (ngSubmit)="createApproval()">
                 <div>
-                  <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-arqly-700">Portal do cliente</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-vectk-700">Portal do cliente</p>
                   <h3 class="mt-2 text-xl font-extrabold">Solicitar aprovação</h3>
                   <p class="mt-2 text-sm leading-6 text-slate-500">Crie uma pendência para o cliente aprovar ou solicitar ajustes pelo portal.</p>
                 </div>
                 <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Descrição *</span><textarea class="field min-h-28 w-full" formControlName="description" placeholder="Ex.: Aprovar estudo preliminar"></textarea></label>
-                <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Etapa</span><app-arqly-select formControlName="stageId" placeholder="Projeto geral" [options]="stageApprovalOptions()" panelMode="fixed" /></label>
-                <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Prazo</span><app-arqly-date-picker formControlName="deadline" placeholder="Selecione a data" /></div>
+                <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Etapa</span><app-vectk-select formControlName="stageId" placeholder="Projeto geral" [options]="stageApprovalOptions()" panelMode="fixed" /></label>
+                <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Prazo</span><app-vectk-date-picker formControlName="deadline" placeholder="Selecione a data" /></div>
                 <div class="flex justify-end"><button class="btn-primary" type="submit"><lucide-icon name="Send" size="18"></lucide-icon>Solicitar</button></div>
               </form>
               <section class="card overflow-hidden">
@@ -996,7 +996,7 @@ export class ProjectsComponent implements OnInit {
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Nome <span class="text-red-500">*</span></span><input class="field" formControlName="name" placeholder="Ex.: Planejamento"></label>
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Ordem</span><input class="field" type="number" formControlName="order"></label>
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Cor</span><input class="field h-12" type="color" formControlName="color"></label>
-            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Ícone</span><app-arqly-select formControlName="icon" placeholder="Selecione um ícone" [options]="iconOptions" panelMode="fixed" /></label>
+            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Ícone</span><app-vectk-select formControlName="icon" placeholder="Selecione um ícone" [options]="iconOptions" panelMode="fixed" /></label>
           </div>
           <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Descrição</span><textarea class="field min-h-24" formControlName="description" placeholder="Resumo da fase dentro deste projeto"></textarea></label>
           <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Observações</span><textarea class="field min-h-24" formControlName="notes" placeholder="Informações internas sobre a fase"></textarea></label>
@@ -1011,13 +1011,13 @@ export class ProjectsComponent implements OnInit {
           <div class="flex items-center justify-between"><h3 class="text-xl font-extrabold">{{ editingStage() ? 'Editar etapa' : 'Nova etapa' }}</h3><button class="btn-secondary px-3 py-2" type="button" (click)="closeStageModal()"><lucide-icon name="X" size="18"></lucide-icon></button></div>
           <div class="grid gap-4 md:grid-cols-2">
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Nome <span class="text-red-500">*</span></span><input class="field" formControlName="name" placeholder="Ex.: Estudo Preliminar"></label>
-            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Status</span><app-arqly-select formControlName="status" placeholder="Selecione o status" [options]="stageStatusOptions" panelMode="fixed" /></label>
+            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Status</span><app-vectk-select formControlName="status" placeholder="Selecione o status" [options]="stageStatusOptions" panelMode="fixed" /></label>
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Ordem</span><input class="field" type="number" formControlName="order"></label>
             <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Percentual</span><input class="field" type="number" min="0" max="100" formControlName="completionPercentage"></label>
-            <div class="space-y-1"><span class="text-xs font-bold text-slate-500">Início previsto</span><app-arqly-date-picker formControlName="plannedStart" placeholder="Selecione" /></div>
-            <div class="space-y-1"><span class="text-xs font-bold text-slate-500">Término previsto</span><app-arqly-date-picker formControlName="plannedEnd" placeholder="Selecione" /></div>
-            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Responsável</span><app-arqly-select formControlName="responsibleUserId" placeholder="Herdar do projeto" [options]="tenantUserOptions(true)" panelMode="fixed" /></label>
-            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Cálculo de progresso</span><app-arqly-select formControlName="progressCalculationMode" placeholder="Modo de cálculo" [options]="progressModeOptions" panelMode="fixed" /></label>
+            <div class="space-y-1"><span class="text-xs font-bold text-slate-500">Início previsto</span><app-vectk-date-picker formControlName="plannedStart" placeholder="Selecione" /></div>
+            <div class="space-y-1"><span class="text-xs font-bold text-slate-500">Término previsto</span><app-vectk-date-picker formControlName="plannedEnd" placeholder="Selecione" /></div>
+            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Responsável</span><app-vectk-select formControlName="responsibleUserId" placeholder="Herdar do projeto" [options]="tenantUserOptions(true)" panelMode="fixed" /></label>
+            <label class="space-y-1"><span class="text-xs font-bold text-slate-500">Cálculo de progresso</span><app-vectk-select formControlName="progressCalculationMode" placeholder="Modo de cálculo" [options]="progressModeOptions" panelMode="fixed" /></label>
           </div>
           <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Descrição</span><textarea class="field min-h-24" formControlName="description" placeholder="Descreva o objetivo desta etapa"></textarea></label>
           <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Observações</span><textarea class="field min-h-24" formControlName="notes" placeholder="Anotações internas da etapa"></textarea></label>
@@ -1121,23 +1121,23 @@ export class ProjectDetailComponent implements OnInit {
     this.http.patch<ApiResponse<ProjectPhase[]>>(`${this.baseUrl}/${this.projectId()}/phases/${targetPhase.id}/stages/reorder`, { items }).subscribe((r) => this.phases.set(r.data || []));
   }
   statusLabel(status: ProjectStatus) { return ({ PLANNING: 'Planejamento', IN_PROGRESS: 'Em andamento', ON_HOLD: 'Pausado', COMPLETED: 'Concluído', CANCELLED: 'Cancelado' }[status]); }
-  statusClass(status: ProjectStatus) { if (status === 'COMPLETED') return 'bg-arqly-50 text-arqly-700'; if (status === 'IN_PROGRESS') return 'bg-blue-50 text-blue-700'; if (status === 'ON_HOLD') return 'bg-amber-50 text-amber-700'; if (status === 'CANCELLED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
+  statusClass(status: ProjectStatus) { if (status === 'COMPLETED') return 'bg-vectk-50 text-vectk-700'; if (status === 'IN_PROGRESS') return 'bg-blue-50 text-blue-700'; if (status === 'ON_HOLD') return 'bg-amber-50 text-amber-700'; if (status === 'CANCELLED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
   originLabel(origin: OriginType | ProjectCreateMode) { return origin === 'PROPOSAL' ? 'Proposta' : origin === 'BRIEFING' ? 'Briefing' : 'Manual'; }
   stageStatusLabel(status: StageStatus) { return ({ NOT_STARTED: 'Não iniciada', IN_PROGRESS: 'Em andamento', WAITING_CLIENT: 'Aguardando cliente', WAITING_APPROVAL: 'Aguardando aprovação', ON_HOLD: 'Pausada', COMPLETED: 'Concluída', CANCELLED: 'Cancelada' }[status]); }
   completedChecklist(stage: ProjectStage) { return stage.checklist.filter((item) => item.completed).length; }
-  stageStatusClass(status: StageStatus) { if (status === 'COMPLETED') return 'bg-arqly-50 text-arqly-700'; if (status === 'IN_PROGRESS') return 'bg-blue-50 text-blue-700'; if (status === 'ON_HOLD' || status.startsWith('WAITING')) return 'bg-amber-50 text-amber-700'; if (status === 'CANCELLED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
+  stageStatusClass(status: StageStatus) { if (status === 'COMPLETED') return 'bg-vectk-50 text-vectk-700'; if (status === 'IN_PROGRESS') return 'bg-blue-50 text-blue-700'; if (status === 'ON_HOLD' || status.startsWith('WAITING')) return 'bg-amber-50 text-amber-700'; if (status === 'CANCELLED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
   totalStages() { return this.phases().reduce((total, phase) => total + phase.stages.length, 0); }
   openStages() { return this.phases().flatMap((phase) => phase.stages).filter((stage) => stage.status !== 'COMPLETED' && stage.status !== 'CANCELLED'); }
   billingUnitLabel(unit: string) { return ({ UN: 'Unidade', M2: 'm²', M: 'Metro', HOUR: 'Hora', DAY: 'Dia', MONTH: 'Mês', PROJECT: 'Projeto', VISIT: 'Visita', OTHER: 'Outro' }[unit] || unit); }
   diaryStatusLabel(status: string) { return ({ DRAFT: 'Rascunho', PUBLISHED: 'Publicado', ARCHIVED: 'Arquivado' }[status] || status); }
-  diaryStatusClass(status: string) { return status === 'PUBLISHED' ? 'bg-arqly-50 text-arqly-700' : status === 'ARCHIVED' ? 'bg-slate-100 text-slate-500' : 'bg-amber-50 text-amber-700'; }
+  diaryStatusClass(status: string) { return status === 'PUBLISHED' ? 'bg-vectk-50 text-vectk-700' : status === 'ARCHIVED' ? 'bg-slate-100 text-slate-500' : 'bg-amber-50 text-amber-700'; }
   diaryTypeLabel(type: string) { return ({ VISIT: 'Visita', FOLLOW_UP: 'Acompanhamento', INSPECTION: 'Inspeção', MEETING: 'Reunião', OCCURRENCE: 'Ocorrência', OTHER: 'Outro' }[type] || type); }
   publishedDiaryCount() { return this.diaryEntries().filter(entry => entry.status === 'PUBLISHED').length; }
   diaryOccurrenceCount() { return this.diaryEntries().reduce((total, entry) => total + entry.occurrenceCount, 0); }
   tenantUserOptions(includeEmpty = false) { const options = this.tenantUsers().map((user) => ({ label: `${user.name} · ${user.tenantAdmin ? 'Administrador' : 'Usuário comum'}`, value: user.id })); return includeEmpty ? [{ label: 'Herdar do projeto', value: '' }, ...options] : options; }
   stageApprovalOptions() { return [{ label: 'Projeto geral', value: '' }, ...this.phases().flatMap((phase) => phase.stages.map((stage) => ({ label: `${phase.name} · ${stage.name}`, value: stage.id })))]; }
   approvalStatusLabel(status: ProjectApproval['status']) { return ({ PENDING: 'Pendente', APPROVED: 'Aprovada', REJECTED: 'Ajustes solicitados', EXPIRED: 'Expirada', CANCELLED: 'Cancelada' }[status]); }
-  approvalStatusClass(status: ProjectApproval['status']) { if (status === 'APPROVED') return 'bg-arqly-50 text-arqly-700'; if (status === 'REJECTED') return 'bg-red-50 text-red-700'; if (status === 'PENDING') return 'bg-amber-50 text-amber-700'; return 'bg-slate-100 text-slate-600'; }
+  approvalStatusClass(status: ProjectApproval['status']) { if (status === 'APPROVED') return 'bg-vectk-50 text-vectk-700'; if (status === 'REJECTED') return 'bg-red-50 text-red-700'; if (status === 'PENDING') return 'bg-amber-50 text-amber-700'; return 'bg-slate-100 text-slate-600'; }
   checklistToText(items: ChecklistItem[]) { return items.map((item) => item.title).join('\n'); }
   textToChecklist(text: string) { return (text || '').split('\n').map((line) => line.trim()).filter(Boolean).map((title, index) => ({ title, order: index + 1, completed: false })); }
   reordered<T extends { id: string }>(items: T[], draggedId: string, targetId: string) { const ordered = [...items]; const from = ordered.findIndex((item) => item.id === draggedId); const to = ordered.findIndex((item) => item.id === targetId); if (from < 0 || to < 0) return ordered; ordered.splice(to, 0, ordered.splice(from, 1)[0]); return ordered; }

@@ -12,11 +12,11 @@ import { FileOwnerType } from '../../shared/files/file.models';
     <section class="space-y-5">
       <div>
         @if (contextual()) {
-          <a class="mb-4 inline-flex items-center gap-2 text-sm font-bold text-arqly-700" [routerLink]="backLink()">
+          <a class="mb-4 inline-flex items-center gap-2 text-sm font-bold text-vectk-700" [routerLink]="backLink()">
             <span aria-hidden="true">←</span> Voltar
           </a>
         }
-        <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Acervo do escritório</p>
+        <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Acervo do escritório</p>
         <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Arquivos</h2>
         <p class="mt-2 text-slate-500">Gerencie arquivos, versões, pastas e documentos técnicos em um só lugar.</p>
       </div>

@@ -29,7 +29,7 @@ interface Page<T> {
       <div class="flex flex-col gap-4 border-b border-slate-200 p-6 md:flex-row md:items-center md:justify-between">
         <div>
           <h2 class="text-3xl font-extrabold tracking-tight">Usuários administrativos</h2>
-          <p class="mt-2 text-slate-500">Administradores globais da plataforma Arqly.</p>
+          <p class="mt-2 text-slate-500">Administradores globais da plataforma Vectk.</p>
         </div>
         <button class="btn-primary" type="button" (click)="openUserModal()">
           <lucide-icon name="UserPlus" size="18"></lucide-icon>
@@ -59,8 +59,8 @@ interface Page<T> {
                 <td class="px-6 py-4 text-slate-600">{{ user.email }}</td>
                 <td class="px-6 py-4">
                   <span class="rounded-full px-3 py-1 text-xs font-bold"
-                        [class.bg-arqly-50]="user.active"
-                        [class.text-arqly-700]="user.active"
+                        [class.bg-vectk-50]="user.active"
+                        [class.text-vectk-700]="user.active"
                         [class.bg-slate-100]="!user.active"
                         [class.text-slate-500]="!user.active">
                     {{ user.active ? 'Ativo' : 'Inativo' }}
@@ -97,8 +97,8 @@ interface Page<T> {
                 <p class="mt-1 truncate text-sm text-slate-500">{{ user.email }}</p>
               </div>
               <span class="shrink-0 rounded-full px-3 py-1 text-xs font-bold"
-                    [class.bg-arqly-50]="user.active"
-                    [class.text-arqly-700]="user.active"
+                    [class.bg-vectk-50]="user.active"
+                    [class.text-vectk-700]="user.active"
                     [class.bg-slate-100]="!user.active"
                     [class.text-slate-500]="!user.active">
                 {{ user.active ? 'Ativo' : 'Inativo' }}
@@ -144,7 +144,7 @@ interface Page<T> {
               </label>
               <label class="space-y-1">
                 <span class="text-xs font-bold text-slate-500">E-mail <span class="text-red-500">*</span></span>
-                <input class="field" type="email" placeholder="admin@arqly.com" formControlName="email">
+                <input class="field" type="email" placeholder="admin@example.com" formControlName="email">
               </label>
               <label class="space-y-1 md:col-span-2">
                 <span class="text-xs font-bold text-slate-500">{{ editingUser() ? 'Nova senha' : 'Senha inicial' }} <span class="text-red-500" [class.hidden]="editingUser()">*</span></span>

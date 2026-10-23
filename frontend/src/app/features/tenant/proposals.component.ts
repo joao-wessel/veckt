@@ -5,9 +5,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { RouterLink } from '@angular/router';
 import { ApiResponse } from '../../core/auth/auth.models';
-import { ArqlyCurrencyInputComponent } from '../../shared/components/arqly-currency-input.component';
-import { ArqlyDatePickerComponent } from '../../shared/components/arqly-date-picker.component';
-import { ArqlySelectComponent } from '../../shared/components/arqly-select.component';
+import { VectkCurrencyInputComponent } from '../../shared/components/vectk-currency-input.component';
+import { VectkDatePickerComponent } from '../../shared/components/vectk-date-picker.component';
+import { VectkSelectComponent } from '../../shared/components/vectk-select.component';
 import { ToastService } from '../../shared/components/toast/toast.service';
 import { ContextDocumentsComponent } from '../../shared/components/context-documents.component';
 
@@ -126,12 +126,12 @@ interface ProposalStats {
 @Component({
   selector: 'app-proposals',
   standalone: true,
-  imports: [ReactiveFormsModule, CurrencyPipe, DatePipe, DecimalPipe, LucideAngularModule, RouterLink, ArqlySelectComponent, ArqlyDatePickerComponent, ArqlyCurrencyInputComponent, ContextDocumentsComponent],
+  imports: [ReactiveFormsModule, CurrencyPipe, DatePipe, DecimalPipe, LucideAngularModule, RouterLink, VectkSelectComponent, VectkDatePickerComponent, VectkCurrencyInputComponent, ContextDocumentsComponent],
   template: `
     <section class="space-y-5">
       <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Comercial</p>
+          <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Comercial</p>
           <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Propostas</h2>
           <p class="mt-2 text-slate-500">Monte propostas comerciais, envie ao cliente e acompanhe aceite pelo portal.</p>
         </div>
@@ -144,7 +144,7 @@ interface ProposalStats {
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Propostas</p><strong class="mt-2 block text-3xl">{{ stats()?.quantity || 0 }}</strong></div>
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Valor total</p><strong class="mt-2 block text-2xl">R$ {{ stats()?.totalValue || 0 | number:'1.2-2' }}</strong></div>
-        <div class="card p-5"><p class="text-sm font-bold text-slate-500">Aceitas</p><strong class="mt-2 block text-3xl text-arqly-700">{{ stats()?.accepted || 0 }}</strong></div>
+        <div class="card p-5"><p class="text-sm font-bold text-slate-500">Aceitas</p><strong class="mt-2 block text-3xl text-vectk-700">{{ stats()?.accepted || 0 }}</strong></div>
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Pendentes</p><strong class="mt-2 block text-3xl text-amber-600">{{ stats()?.pending || 0 }}</strong></div>
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Recusadas</p><strong class="mt-2 block text-3xl text-red-600">{{ stats()?.rejected || 0 }}</strong></div>
       </div>
@@ -157,27 +157,27 @@ interface ProposalStats {
           </label>
           <label class="space-y-1">
             <span class="text-xs font-bold text-slate-500">Cliente</span>
-            <app-arqly-select formControlName="clientId" placeholder="Todos" [options]="clientFilterOptions()" />
+            <app-vectk-select formControlName="clientId" placeholder="Todos" [options]="clientFilterOptions()" />
           </label>
           <label class="space-y-1">
             <span class="text-xs font-bold text-slate-500">Status</span>
-            <app-arqly-select formControlName="status" placeholder="Todos" [options]="statusFilterOptions" />
+            <app-vectk-select formControlName="status" placeholder="Todos" [options]="statusFilterOptions" />
           </label>
           <div class="space-y-1">
             <span class="text-xs font-bold text-slate-500">Data inicial</span>
-            <app-arqly-date-picker formControlName="from" placeholder="Data inicial" />
+            <app-vectk-date-picker formControlName="from" placeholder="Data inicial" />
           </div>
           <div class="space-y-1">
             <span class="text-xs font-bold text-slate-500">Data final</span>
-            <app-arqly-date-picker formControlName="to" placeholder="Data final" />
+            <app-vectk-date-picker formControlName="to" placeholder="Data final" />
           </div>
           <label class="space-y-1">
             <span class="text-xs font-bold text-slate-500">Valor mínimo</span>
-            <app-arqly-currency-input formControlName="minValue" />
+            <app-vectk-currency-input formControlName="minValue" />
           </label>
           <label class="space-y-1">
             <span class="text-xs font-bold text-slate-500">Valor máximo</span>
-            <app-arqly-currency-input formControlName="maxValue" />
+            <app-vectk-currency-input formControlName="maxValue" />
           </label>
           <button class="btn-secondary h-12 self-end justify-center px-4" type="submit"><lucide-icon name="Search" size="18"></lucide-icon>Pesquisar</button>
         </form>
@@ -205,7 +205,7 @@ interface ProposalStats {
                   <td class="px-6 py-4">
                     <p class="font-bold">{{ proposal.title }}</p>
                     @if (proposal.projectCreated) {
-                      <p class="mt-1 text-xs font-bold text-arqly-700">Projeto criado</p>
+                      <p class="mt-1 text-xs font-bold text-vectk-700">Projeto criado</p>
                     }
                   </td>
                   <td class="px-6 py-4"><span class="rounded-full px-3 py-1 text-xs font-bold" [class]="originClass(proposal.originType)">{{ originLabel(proposal.originType) }}</span><p class="mt-1 text-xs text-slate-400">{{ proposal.briefingTitle || 'Sem briefing' }}</p></td>
@@ -282,7 +282,7 @@ interface ProposalStats {
         <form class="modal-panel card max-h-[92vh] w-full max-w-6xl space-y-5 overflow-y-auto p-6" [formGroup]="proposalForm" (ngSubmit)="save()">
           <div class="flex items-start justify-between gap-4">
             <div>
-              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Proposta comercial</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Proposta comercial</p>
               <h3 class="mt-2 text-xl font-extrabold">{{ readOnly() ? 'Visualizar proposta' : editingId() ? 'Editar proposta' : 'Nova proposta' }}</h3>
             </div>
             <button class="btn-secondary px-3 py-2" type="button" (click)="closeModal()"><lucide-icon name="X" size="18"></lucide-icon></button>
@@ -293,7 +293,7 @@ interface ProposalStats {
               @if (tab.value !== 'documents' || readOnly()) {
                 <button class="rounded-xl px-4 py-3 text-sm font-bold transition" type="button"
                         [class.bg-white]="activeTab() === tab.value"
-                        [class.text-arqly-700]="activeTab() === tab.value"
+                        [class.text-vectk-700]="activeTab() === tab.value"
                         [class.shadow-sm]="activeTab() === tab.value"
                         [class.text-slate-500]="activeTab() !== tab.value"
                         (click)="activeTab.set(tab.value)">{{ tab.label }}</button>
@@ -303,23 +303,23 @@ interface ProposalStats {
 
           @if (activeTab() === 'data') {
             <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Dados</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Dados</p>
               @if (!readOnly()) {
                 <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
                   <p class="text-sm font-extrabold">Deseja utilizar um briefing?</p>
                   <p class="mt-1 text-sm text-slate-500">O fluxo recomendado mantém a origem comercial registrada, mas a proposta também pode ser criada manualmente.</p>
                   <div class="mt-3 grid gap-3 md:grid-cols-2">
                     <button class="rounded-2xl border p-4 text-left transition" type="button"
-                      [class.border-arqly-500]="proposalOriginMode() === 'BRIEFING'"
-                      [class.bg-arqly-50]="proposalOriginMode() === 'BRIEFING'"
+                      [class.border-vectk-500]="proposalOriginMode() === 'BRIEFING'"
+                      [class.bg-vectk-50]="proposalOriginMode() === 'BRIEFING'"
                       [class.border-slate-200]="proposalOriginMode() !== 'BRIEFING'"
                       (click)="setProposalOriginMode('BRIEFING')">
                       <strong class="block">Sim, usar briefing</strong>
                       <span class="mt-1 block text-sm text-slate-500">Vincula a proposta ao primeiro contato.</span>
                     </button>
                     <button class="rounded-2xl border p-4 text-left transition" type="button"
-                      [class.border-arqly-500]="proposalOriginMode() === 'MANUAL'"
-                      [class.bg-arqly-50]="proposalOriginMode() === 'MANUAL'"
+                      [class.border-vectk-500]="proposalOriginMode() === 'MANUAL'"
+                      [class.bg-vectk-50]="proposalOriginMode() === 'MANUAL'"
                       [class.border-slate-200]="proposalOriginMode() !== 'MANUAL'"
                       (click)="setProposalOriginMode('MANUAL')">
                       <strong class="block">Não, criar manualmente</strong>
@@ -334,17 +334,17 @@ interface ProposalStats {
               <div class="mt-4 grid gap-4 md:grid-cols-2">
                 <label class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Cliente <span class="text-red-500">*</span></span>
-                  <app-arqly-select formControlName="clientId" placeholder="Selecione o cliente" [options]="clientFormOptions()" />
+                  <app-vectk-select formControlName="clientId" placeholder="Selecione o cliente" [options]="clientFormOptions()" />
                 </label>
                 @if (proposalOriginMode() === 'BRIEFING') {
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Briefing <span class="text-red-500">*</span></span>
-                    <app-arqly-select formControlName="briefingId" placeholder="Selecione o briefing" [options]="briefingOptions()" panelMode="fixed" />
+                    <app-vectk-select formControlName="briefingId" placeholder="Selecione o briefing" [options]="briefingOptions()" panelMode="fixed" />
                   </label>
                 }
                 <div class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Validade</span>
-                  <app-arqly-date-picker formControlName="validUntil" placeholder="Selecione" />
+                  <app-vectk-date-picker formControlName="validUntil" placeholder="Selecione" />
                 </div>
                 <label class="space-y-1 md:col-span-2">
                   <span class="text-xs font-bold text-slate-500">Título <span class="text-red-500">*</span></span>
@@ -362,11 +362,11 @@ interface ProposalStats {
             <section class="space-y-4">
               @if (!readOnly()) {
               <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Adicionar serviço</p>
+                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Adicionar serviço</p>
                 <div class="mt-4 grid gap-3 md:grid-cols-6">
                   <label class="space-y-1 md:col-span-2">
                     <span class="text-xs font-bold text-slate-500">Serviço do catálogo <span class="text-red-500">*</span></span>
-                    <app-arqly-select [options]="serviceOptions()" placeholder="Selecione o serviço" [formControl]="itemForm.controls.serviceId" />
+                    <app-vectk-select [options]="serviceOptions()" placeholder="Selecione o serviço" [formControl]="itemForm.controls.serviceId" />
                   </label>
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Quantidade <span class="text-red-500">*</span></span>
@@ -374,11 +374,11 @@ interface ProposalStats {
                   </label>
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Valor unitário</span>
-                    <app-arqly-currency-input [formControl]="itemForm.controls.unitValue" />
+                    <app-vectk-currency-input [formControl]="itemForm.controls.unitValue" />
                   </label>
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Desconto</span>
-                    <app-arqly-currency-input [formControl]="itemForm.controls.discount" />
+                    <app-vectk-currency-input [formControl]="itemForm.controls.discount" />
                   </label>
                   <button class="btn-secondary h-12 self-end justify-center px-4" type="button" (click)="addItem()">Adicionar</button>
                   <label class="space-y-1 md:col-span-6">
@@ -422,7 +422,7 @@ interface ProposalStats {
             <section class="space-y-4">
               @if (!readOnly()) {
               <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Condições de pagamento</p>
+                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Condições de pagamento</p>
                 <div class="mt-4 grid gap-3 md:grid-cols-5">
                   <label class="space-y-1 md:col-span-2">
                     <span class="text-xs font-bold text-slate-500">Descrição <span class="text-red-500">*</span></span>
@@ -434,11 +434,11 @@ interface ProposalStats {
                   </label>
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Valor</span>
-                    <app-arqly-currency-input [formControl]="paymentForm.controls.value" />
+                    <app-vectk-currency-input [formControl]="paymentForm.controls.value" />
                   </label>
                   <div class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Vencimento</span>
-                    <app-arqly-date-picker [formControl]="paymentForm.controls.dueDate" placeholder="Selecione" />
+                    <app-vectk-date-picker [formControl]="paymentForm.controls.dueDate" placeholder="Selecione" />
                   </div>
                   <button class="btn-secondary md:col-span-5" type="button" (click)="addPayment()">Adicionar parcela</button>
                 </div>
@@ -489,7 +489,7 @@ interface ProposalStats {
           @if (activeTab() === 'summary') {
             <section class="grid gap-4 md:grid-cols-[1fr_24rem]">
               <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
-                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-arqly-700">Resumo</p>
+                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Resumo</p>
                 <h4 class="mt-3 text-2xl font-extrabold">{{ proposalForm.controls.title.value || 'Nova proposta' }}</h4>
                 <p class="mt-2 text-sm text-slate-500">{{ selectedClientName() || 'Selecione um cliente' }}</p>
                 <p class="mt-6 text-sm text-slate-600">{{ items().length }} serviço(s) e {{ payments().length }} condição(ões) de pagamento.</p>
@@ -497,18 +497,18 @@ interface ProposalStats {
               <div class="rounded-2xl border border-slate-200 bg-white p-5">
                 <label class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Desconto geral</span>
-                  <app-arqly-currency-input formControlName="discount" />
+                  <app-vectk-currency-input formControlName="discount" />
                 </label>
                 <label class="mt-3 block space-y-1">
                   <span class="text-xs font-bold text-slate-500">Acréscimo</span>
-                  <app-arqly-currency-input formControlName="addition" />
+                  <app-vectk-currency-input formControlName="addition" />
                 </label>
                 <div class="mt-5 space-y-3 text-sm">
                   <div class="flex justify-between"><span>Subtotal</span><strong>R$ {{ subtotal() | number:'1.2-2' }}</strong></div>
                   <div class="flex justify-between"><span>Desconto</span><strong>R$ {{ proposalForm.controls.discount.value || 0 | number:'1.2-2' }}</strong></div>
                   <div class="flex justify-between"><span>Acréscimo</span><strong>R$ {{ proposalForm.controls.addition.value || 0 | number:'1.2-2' }}</strong></div>
                   <div class="border-t border-slate-200 pt-3">
-                    <div class="flex justify-between text-lg"><span class="font-extrabold">Valor final</span><strong class="text-arqly-700">R$ {{ finalTotal() | number:'1.2-2' }}</strong></div>
+                    <div class="flex justify-between text-lg"><span class="font-extrabold">Valor final</span><strong class="text-vectk-700">R$ {{ finalTotal() | number:'1.2-2' }}</strong></div>
                   </div>
                 </div>
               </div>
@@ -539,8 +539,8 @@ interface ProposalStats {
         <section class="modal-panel card w-full max-w-md space-y-5 p-6">
           <div class="flex items-start gap-4">
             <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"
-                  [class.bg-arqly-50]="confirmAction() === 'send'"
-                  [class.text-arqly-700]="confirmAction() === 'send'"
+                  [class.bg-vectk-50]="confirmAction() === 'send'"
+                  [class.text-vectk-700]="confirmAction() === 'send'"
                   [class.bg-red-50]="confirmAction() === 'delete'"
                   [class.text-red-700]="confirmAction() === 'delete'"
                   [class.bg-amber-50]="confirmAction() === 'createProject'"
@@ -559,7 +559,7 @@ interface ProposalStats {
           </div>
           @if (confirmAction() === 'generateFinancial' && financialPreview()) {
             <div class="rounded-2xl border border-slate-200 p-4">
-              <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-arqly-700">Pré-visualização financeira</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-vectk-700">Pré-visualização financeira</p>
               <p class="mt-2 text-sm text-slate-600">{{ financialPreview()?.clientName }} · {{ financialPreview()?.total | currency:'BRL' }}</p>
               <div class="mt-3 space-y-2 text-sm">@for (item of financialPreview()?.installments || []; track $index) {<div class="flex justify-between"><span>{{ item.description }} · {{ item.dueDate | date:'dd/MM/yyyy' }}</span><strong>{{ item.amount | currency:'BRL' }}</strong></div>}</div>
             </div>
@@ -572,25 +572,25 @@ interface ProposalStats {
               </label>
               <label class="space-y-1">
                 <span class="text-xs font-bold text-slate-500">Modelo</span>
-                <app-arqly-select formControlName="templateId" placeholder="Sem modelo" [options]="projectTemplateOptions()" panelMode="fixed" />
+                <app-vectk-select formControlName="templateId" placeholder="Sem modelo" [options]="projectTemplateOptions()" panelMode="fixed" />
               </label>
               <div class="grid gap-3 md:grid-cols-2">
                 <div class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Início</span>
-                  <app-arqly-date-picker formControlName="startDate" placeholder="Selecione" />
+                  <app-vectk-date-picker formControlName="startDate" placeholder="Selecione" />
                 </div>
                 <div class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Previsão</span>
-                  <app-arqly-date-picker formControlName="expectedEndDate" placeholder="Selecione" />
+                  <app-vectk-date-picker formControlName="expectedEndDate" placeholder="Selecione" />
                 </div>
               </div>
               <label class="space-y-1">
                 <span class="text-xs font-bold text-slate-500">Responsável</span>
-                <app-arqly-select formControlName="responsibleUserId" placeholder="Selecione um usuário" [options]="tenantUserOptions()" panelMode="fixed" />
+                <app-vectk-select formControlName="responsibleUserId" placeholder="Selecione um usuário" [options]="tenantUserOptions()" panelMode="fixed" />
               </label>
               <label class="space-y-1">
                 <span class="text-xs font-bold text-slate-500">Gerente do projeto</span>
-                <app-arqly-select formControlName="projectManagerId" placeholder="Opcional" [options]="tenantUserOptions(true)" panelMode="fixed" />
+                <app-vectk-select formControlName="projectManagerId" placeholder="Opcional" [options]="tenantUserOptions(true)" panelMode="fixed" />
               </label>
             </form>
           }
@@ -1164,7 +1164,7 @@ export class ProposalsComponent implements OnInit {
   }
 
   statusClass(status: ProposalStatus) {
-    if (status === 'ACCEPTED') return 'bg-arqly-50 text-arqly-700';
+    if (status === 'ACCEPTED') return 'bg-vectk-50 text-vectk-700';
     if (status === 'REJECTED' || status === 'CANCELLED') return 'bg-red-50 text-red-700';
     if (status === 'EXPIRED') return 'bg-slate-100 text-slate-500';
     if (status === 'SENT' || status === 'VIEWED') return 'bg-amber-50 text-amber-700';
@@ -1172,7 +1172,7 @@ export class ProposalsComponent implements OnInit {
   }
 
   originLabel(origin: OriginType) { return origin === 'BRIEFING' ? 'Briefing' : origin === 'PROPOSAL' ? 'Proposta' : 'Manual'; }
-  originClass(origin: OriginType) { return origin === 'BRIEFING' ? 'bg-arqly-50 text-arqly-700' : 'bg-blue-50 text-blue-700'; }
+  originClass(origin: OriginType) { return origin === 'BRIEFING' ? 'bg-vectk-50 text-vectk-700' : 'bg-blue-50 text-blue-700'; }
 
   unitLabel(unit: BillingUnit) {
     return {

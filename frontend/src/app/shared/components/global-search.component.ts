@@ -18,14 +18,14 @@ const icons: Record<SearchResultType, string> = { CLIENT: 'UserRound', BRIEFING:
   selector: 'app-global-search', standalone: true, imports: [CommonModule, LucideAngularModule],
   template: `
     <div class="relative w-full" (click)="$event.stopPropagation()">
-      <div class="flex h-12 items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 text-slate-400 shadow-sm transition focus-within:border-arqly-300 focus-within:ring-4 focus-within:ring-arqly-50">
+      <div class="flex h-12 items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 text-slate-400 shadow-sm transition focus-within:border-vectk-300 focus-within:ring-4 focus-within:ring-vectk-50">
         <lucide-icon name="Search" size="19"></lucide-icon>
         <input #searchInput class="min-w-0 flex-1 bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400" type="search" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="global-search-results" [attr.aria-expanded]="open()" [attr.aria-activedescendant]="activeId()" [value]="query()" placeholder="Pesquisar clientes, projetos, propostas..." (focus)="show()" (input)="onInput($event)" (keydown)="onKeydown($event)">
-        @if (loading()) { <span class="h-4 w-4 animate-spin rounded-full border-2 border-arqly-200 border-t-arqly-700"></span> } @else { <kbd class="hidden rounded border border-slate-200 px-1.5 py-0.5 text-[10px] font-bold text-slate-400 lg:inline">Ctrl K</kbd> }
+        @if (loading()) { <span class="h-4 w-4 animate-spin rounded-full border-2 border-vectk-200 border-t-vectk-700"></span> } @else { <kbd class="hidden rounded border border-slate-200 px-1.5 py-0.5 text-[10px] font-bold text-slate-400 lg:inline">Ctrl K</kbd> }
       </div>
       @if (open()) {
         <div id="global-search-results" role="listbox" class="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 max-h-[min(32rem,calc(100vh-6rem))] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl">
-          @if (query().trim().length < 2) { <div class="flex items-center gap-3 px-4 py-5 text-sm text-slate-500"><lucide-icon name="Search" size="18" class="text-arqly-700"></lucide-icon>Digite ao menos 2 caracteres para pesquisar no Arqly.</div>
+          @if (query().trim().length < 2) { <div class="flex items-center gap-3 px-4 py-5 text-sm text-slate-500"><lucide-icon name="Search" size="18" class="text-vectk-700"></lucide-icon>Digite ao menos 2 caracteres para pesquisar no Vectk.</div>
           } @else if (loading()) { <div class="space-y-2 p-2">@for (item of [1,2,3]; track item) { <div class="h-14 animate-pulse rounded-xl bg-slate-100"></div> }</div>
           } @else if (failed()) { <div class="px-4 py-5 text-sm text-slate-500">Não foi possível pesquisar agora.</div>
           } @else if (!results().length) { <div class="px-4 py-5 text-sm text-slate-500">Nenhum resultado para “{{ query() }}”.</div>
@@ -33,13 +33,13 @@ const icons: Record<SearchResultType, string> = { CLIENT: 'UserRound', BRIEFING:
             @for (group of groups(); track group.type) {
               <div class="px-3 pb-1 pt-3 text-[11px] font-extrabold uppercase tracking-[.16em] text-slate-400">{{ group.label }}</div>
               @for (item of group.items; track item.type + item.id; let index = $index) {
-                <button type="button" role="option" [id]="optionId(item)" [attr.aria-selected]="flatIndex(item) === selectedIndex()" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition" [class.bg-arqly-50]="flatIndex(item) === selectedIndex()" (mouseenter)="selectedIndex.set(flatIndex(item))" (click)="openResult(item)">
-                  <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-slate-100 text-arqly-700"><lucide-icon [name]="icon(item)" size="17"></lucide-icon></span>
+                <button type="button" role="option" [id]="optionId(item)" [attr.aria-selected]="flatIndex(item) === selectedIndex()" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition" [class.bg-vectk-50]="flatIndex(item) === selectedIndex()" (mouseenter)="selectedIndex.set(flatIndex(item))" (click)="openResult(item)">
+                  <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-slate-100 text-vectk-700"><lucide-icon [name]="icon(item)" size="17"></lucide-icon></span>
                   <span class="min-w-0 flex-1"><span class="block truncate text-sm font-bold text-slate-800">{{ item.title }}</span><span *ngIf="item.subtitle" class="mt-0.5 block truncate text-xs text-slate-500">{{ item.subtitle }}</span></span><lucide-icon name="ArrowUpRight" size="16" class="shrink-0 text-slate-400"></lucide-icon>
                 </button>
               }
             }
-            @if (hasMore()) { <button type="button" class="mt-2 flex w-full items-center justify-center gap-2 border-t border-slate-100 px-3 py-3 text-sm font-bold text-arqly-700" (click)="viewAll()">Ver todos os resultados <lucide-icon name="ArrowRight" size="16"></lucide-icon></button> }
+            @if (hasMore()) { <button type="button" class="mt-2 flex w-full items-center justify-center gap-2 border-t border-slate-100 px-3 py-3 text-sm font-bold text-vectk-700" (click)="viewAll()">Ver todos os resultados <lucide-icon name="ArrowRight" size="16"></lucide-icon></button> }
           }
         </div>
       }

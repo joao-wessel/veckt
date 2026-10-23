@@ -12,25 +12,25 @@ import { GlobalSearchComponent } from '../shared/components/global-search.compon
   standalone: true,
   imports: [RouterOutlet, RouterLink, LucideAngularModule, LogoComponent, AppearanceControlsComponent, NotificationCenterComponent, GlobalSearchComponent],
   template: `
-    <div class="min-h-screen lg:grid lg:grid-cols-[280px_1fr]">
-      <aside class="fixed inset-y-0 left-0 z-20 hidden w-[280px] border-r border-slate-200/80 bg-white/90 p-6 backdrop-blur lg:flex lg:flex-col">
-        <app-logo />
+    <div class="min-h-screen lg:grid lg:grid-cols-[320px_1fr]">
+      <aside class="fixed inset-y-0 left-0 z-20 hidden w-[320px] border-r border-slate-200/80 bg-white/90 p-6 backdrop-blur lg:flex lg:flex-col">
+        <app-logo [sidebar]="true" style="--vectk-logo-width: 17rem" />
 
         <nav class="mt-10 space-y-2">
           @for (item of navItems(); track item.label) {
             <a [routerLink]="item.path"
-             [class.bg-arqly-600]="isActive(item)"
+             [class.bg-vectk-600]="isActive(item)"
              [class.text-white]="isActive(item)"
              [class.shadow-lg]="isActive(item)"
-             class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-arqly-50 hover:text-arqly-700">
-            <lucide-icon [name]="item.icon" size="20"></lucide-icon>
+             class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-vectk-50 hover:text-vectk-700">
+            <lucide-icon [name]="item.icon" size="22"></lucide-icon>
             {{ item.label }}
             </a>
           }
         </nav>
 
         <button class="mt-auto flex items-center gap-3 rounded-2xl border border-slate-200 p-3 text-left" (click)="auth.logout()">
-          <div class="grid h-11 w-11 place-items-center rounded-full bg-arqly-100 font-bold text-arqly-700">
+          <div class="grid h-11 w-11 place-items-center rounded-full bg-vectk-100 font-bold text-vectk-700">
             {{ initials() }}
           </div>
           <div class="min-w-0">
@@ -47,11 +47,13 @@ import { GlobalSearchComponent } from '../shared/components/global-search.compon
             <lucide-icon name="Menu" size="20"></lucide-icon>
           </button>
           <div class="min-w-0">
-            <p class="text-xs font-bold uppercase tracking-[0.18em] text-arqly-600">Arqly</p>
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-vectk-600">Vectk</p>
             <h1 class="truncate text-lg font-extrabold lg:text-xl">{{ title() }}</h1>
           </div>
           <div class="ml-auto hidden w-full max-w-xl md:block"><app-global-search /></div>
-          <div class="hidden sm:block"><app-notification-center /></div>
+          @if (auth.scope() === 'tenant') {
+            <div class="hidden sm:block"><app-notification-center /></div>
+          }
           <app-appearance-controls />
         </header>
 
@@ -64,7 +66,7 @@ import { GlobalSearchComponent } from '../shared/components/global-search.compon
         <div class="modal-overlay fixed inset-0 z-40 lg:hidden" (click)="mobileMenuOpen.set(false)"></div>
         <aside class="fixed inset-y-0 left-0 z-50 flex w-[min(22rem,86vw)] flex-col border-r border-slate-200 bg-white p-5 shadow-2xl lg:hidden">
           <div class="flex items-center justify-between">
-            <app-logo />
+            <app-logo [sidebar]="true" style="--vectk-logo-width: 17rem" />
             <button class="btn-secondary px-3 py-2" type="button" (click)="mobileMenuOpen.set(false)" aria-label="Fechar menu">
               <lucide-icon name="X" size="18"></lucide-icon>
             </button>
@@ -72,18 +74,18 @@ import { GlobalSearchComponent } from '../shared/components/global-search.compon
           <nav class="mt-8 space-y-2">
             @for (item of navItems(); track item.label) {
               <a [routerLink]="item.path"
-               [class.bg-arqly-600]="isActive(item)"
+               [class.bg-vectk-600]="isActive(item)"
                [class.text-white]="isActive(item)"
                [class.shadow-lg]="isActive(item)"
-               class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-arqly-50 hover:text-arqly-700"
+               class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-vectk-50 hover:text-vectk-700"
                (click)="mobileMenuOpen.set(false)">
-              <lucide-icon [name]="item.icon" size="20"></lucide-icon>
+              <lucide-icon [name]="item.icon" size="22"></lucide-icon>
               {{ item.label }}
               </a>
             }
           </nav>
           <button class="mt-auto flex items-center gap-3 rounded-2xl border border-slate-200 p-3 text-left" (click)="auth.logout()">
-            <div class="grid h-11 w-11 place-items-center rounded-full bg-arqly-100 font-bold text-arqly-700">
+            <div class="grid h-11 w-11 place-items-center rounded-full bg-vectk-100 font-bold text-vectk-700">
               {{ initials() }}
             </div>
             <div class="min-w-0">
@@ -98,10 +100,10 @@ import { GlobalSearchComponent } from '../shared/components/global-search.compon
       <nav class="fixed inset-x-3 bottom-3 z-30 grid grid-cols-4 rounded-3xl border border-slate-200 bg-white p-2 shadow-[0_18px_60px_rgba(15,23,42,0.18)] lg:hidden">
         @for (item of mobileNavItems(); track item.label) {
           <a [routerLink]="item.path"
-             [class.bg-arqly-600]="isActive(item)"
+             [class.bg-vectk-600]="isActive(item)"
              [class.text-white]="isActive(item)"
-             class="flex min-w-0 flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[0.68rem] font-bold text-slate-500 transition hover:bg-arqly-50 hover:text-arqly-700">
-            <lucide-icon [name]="item.icon" size="19"></lucide-icon>
+             class="flex min-w-0 flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[0.68rem] font-bold text-slate-500 transition hover:bg-vectk-50 hover:text-vectk-700">
+            <lucide-icon [name]="item.icon" size="21"></lucide-icon>
             <span class="max-w-full truncate">{{ item.label }}</span>
           </a>
         }

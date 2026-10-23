@@ -23,11 +23,11 @@ import { ToastService } from '../../shared/components/toast/toast.service';
           }
           <input class="field" type="password" placeholder="Nova senha" formControlName="password">
           @if (message) {
-            <p class="rounded-xl bg-arqly-50 px-4 py-3 text-sm text-arqly-700">{{ message }}</p>
+            <p class="rounded-xl bg-vectk-50 px-4 py-3 text-sm text-vectk-700">{{ message }}</p>
           }
           <button class="btn-primary w-full" type="submit">Salvar senha</button>
         </form>
-        <a routerLink="/login" class="mt-5 inline-block text-sm font-semibold text-arqly-700">Voltar ao login</a>
+        <a routerLink="/login" class="mt-5 inline-block text-sm font-semibold text-vectk-700">Voltar ao login</a>
       </section>
     </main>
   `

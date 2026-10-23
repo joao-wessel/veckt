@@ -2,10 +2,10 @@
 set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ARQLY_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-ARQLY_ENV_FILE="${ARQLY_ENV_FILE:-$ARQLY_ROOT/.env}"
-ARQLY_BACKUP_DIR="${ARQLY_BACKUP_DIR:-$ARQLY_ROOT/backups}"
-ARQLY_STAGING_HTTPS="${ARQLY_STAGING_HTTPS:-true}"
+VECTK_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+VECTK_ENV_FILE="${VECTK_ENV_FILE:-$VECTK_ROOT/.env}"
+VECTK_BACKUP_DIR="${VECTK_BACKUP_DIR:-$VECTK_ROOT/backups}"
+VECTK_STAGING_HTTPS="${VECTK_STAGING_HTTPS:-true}"
 
 fail() {
   printf 'ERROR: %s\n' "$*" >&2
@@ -17,32 +17,32 @@ require_command() {
 }
 
 load_environment() {
-  [[ -f "$ARQLY_ENV_FILE" ]] || fail "Arquivo de ambiente não encontrado: $ARQLY_ENV_FILE"
+  [[ -f "$VECTK_ENV_FILE" ]] || fail "Arquivo de ambiente não encontrado: $VECTK_ENV_FILE"
   set -a
   # shellcheck disable=SC1090
-  source "$ARQLY_ENV_FILE"
+  source "$VECTK_ENV_FILE"
   set +a
 
   : "${POSTGRES_DB:?POSTGRES_DB é obrigatório}"
   : "${POSTGRES_USER:?POSTGRES_USER é obrigatório}"
-  : "${ARQLY_VOLUME_PREFIX:=arqly_staging}"
+  : "${VECTK_VOLUME_PREFIX:=vectk_staging}"
 
   [[ "$POSTGRES_DB" != "postgres" ]] || fail "POSTGRES_DB não pode ser o banco administrativo postgres"
 }
 
 configure_compose() {
-  local env_file="$ARQLY_ENV_FILE"
-  local staging_file="$ARQLY_ROOT/docker-compose.staging.yml"
-  local https_file="$ARQLY_ROOT/docker-compose.staging.https.yml"
+  local env_file="$VECTK_ENV_FILE"
+  local staging_file="$VECTK_ROOT/docker-compose.staging.yml"
+  local https_file="$VECTK_ROOT/docker-compose.staging.https.yml"
   if [[ "${OSTYPE:-}" == msys* || "${OSTYPE:-}" == mingw* ]]; then
     env_file="$(cygpath -w "$env_file")"
     staging_file="$(cygpath -w "$staging_file")"
     https_file="$(cygpath -w "$https_file")"
   fi
   COMPOSE=(docker compose --env-file "$env_file")
-  [[ -n "${ARQLY_COMPOSE_PROJECT:-}" ]] && COMPOSE+=(-p "$ARQLY_COMPOSE_PROJECT")
+  [[ -n "${VECTK_COMPOSE_PROJECT:-}" ]] && COMPOSE+=(-p "$VECTK_COMPOSE_PROJECT")
   COMPOSE+=(-f "$staging_file")
-  if [[ "$ARQLY_STAGING_HTTPS" == "true" ]]; then
+  if [[ "$VECTK_STAGING_HTTPS" == "true" ]]; then
     COMPOSE+=(-f "$https_file")
   fi
 }
@@ -65,7 +65,7 @@ docker_run() {
 }
 
 uploads_volume() {
-  printf '%s_uploads\n' "$ARQLY_VOLUME_PREFIX"
+  printf '%s_uploads\n' "$VECTK_VOLUME_PREFIX"
 }
 
 ensure_staging_dependencies() {

@@ -11,7 +11,7 @@ import { ToastService } from '../../shared/components/toast/toast.service';
   template: `
     <section class="mx-auto max-w-3xl space-y-6">
       <div>
-        <p class="text-sm font-bold uppercase tracking-[0.18em] text-arqly-600">Minha conta</p>
+        <p class="text-sm font-bold uppercase tracking-[0.18em] text-vectk-600">Minha conta</p>
         <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Alterar senha</h2>
         <p class="mt-2 text-slate-500">Atualize sua senha de acesso mantendo sua conta protegida.</p>
       </div>
@@ -19,7 +19,7 @@ import { ToastService } from '../../shared/components/toast/toast.service';
       <form class="card overflow-hidden" [formGroup]="form" (ngSubmit)="submit()">
         <div class="border-b border-slate-200 p-6">
           <div class="flex items-center gap-3">
-            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-arqly-50 text-arqly-700">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-vectk-50 text-vectk-700">
               <lucide-icon name="ShieldCheck" size="22"></lucide-icon>
             </div>
             <div>
@@ -46,7 +46,7 @@ import { ToastService } from '../../shared/components/toast/toast.service';
           </div>
 
           @if (message) {
-            <p class="rounded-xl bg-arqly-50 px-4 py-3 text-sm font-semibold text-arqly-700">{{ message }}</p>
+            <p class="rounded-xl bg-vectk-50 px-4 py-3 text-sm font-semibold text-vectk-700">{{ message }}</p>
           }
 
           <div class="flex justify-end gap-3">

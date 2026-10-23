@@ -14,7 +14,7 @@ import { renderMarkdown } from './markdown.utils';
     multi: true
   }],
   template: `
-    <div class="arqly-rich-editor NgxEditor__Wrapper" [style.--editor-min-height]="minHeight + 'px'"
+    <div class="vectk-rich-editor NgxEditor__Wrapper" [style.--editor-min-height]="minHeight + 'px'"
          (click)="preventToolbarSubmit($event)">
       <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [disabled]="disabled" />
       <ngx-editor [editor]="editor" [ngModel]="html" [ngModelOptions]="{ standalone: true }"
@@ -24,7 +24,7 @@ import { renderMarkdown } from './markdown.utils';
   `,
   styles: [`
     :host { display: block; }
-    :host ::ng-deep .arqly-rich-editor {
+    :host ::ng-deep .vectk-rich-editor {
       --ngx-editor-border-radius: 1rem;
       --ngx-editor-background-color: var(--color-panel);
       --ngx-editor-text-color: var(--color-heading);
@@ -36,19 +36,19 @@ import { renderMarkdown } from './markdown.utils';
       --ngx-editor-menubar-height: 2.75rem;
       --ngx-editor-icon-size: 2.5rem;
       --ngx-editor-menu-item-border-radius: 0.75rem;
-      --ngx-editor-menu-item-active-color: rgb(var(--arqly-700));
-      --ngx-editor-menu-item-active-bg-color: rgb(var(--arqly-100));
-      --ngx-editor-menu-item-hover-bg-color: rgb(var(--arqly-50));
-      --ngx-editor-focus-ring-color: rgb(var(--arqly-500));
+      --ngx-editor-menu-item-active-color: rgb(var(--vectk-700));
+      --ngx-editor-menu-item-active-bg-color: rgb(var(--vectk-100));
+      --ngx-editor-menu-item-hover-bg-color: rgb(var(--vectk-50));
+      --ngx-editor-focus-ring-color: rgb(var(--vectk-500));
       overflow: visible;
       background: var(--color-panel);
       transition: border-color 150ms ease, box-shadow 150ms ease;
     }
-    :host ::ng-deep .arqly-rich-editor:focus-within {
-      border-color: rgb(var(--arqly-500));
-      box-shadow: 0 0 0 4px rgb(var(--arqly-100));
+    :host ::ng-deep .vectk-rich-editor:focus-within {
+      border-color: rgb(var(--vectk-500));
+      box-shadow: 0 0 0 4px rgb(var(--vectk-100));
     }
-    :host ::ng-deep .arqly-rich-editor .NgxEditor__Content {
+    :host ::ng-deep .vectk-rich-editor .NgxEditor__Content {
       min-height: var(--editor-min-height);
       max-height: 32rem;
       overflow-y: auto;
@@ -57,17 +57,17 @@ import { renderMarkdown } from './markdown.utils';
       font-size: 0.875rem;
       line-height: 1.65;
     }
-    :host ::ng-deep .arqly-rich-editor .NgxEditor__Content ul {
+    :host ::ng-deep .vectk-rich-editor .NgxEditor__Content ul {
       margin: 0.75rem 0;
       padding-left: 1.5rem;
       list-style: disc;
     }
-    :host ::ng-deep .arqly-rich-editor .NgxEditor__Content a {
-      color: rgb(var(--arqly-700));
+    :host ::ng-deep .vectk-rich-editor .NgxEditor__Content a {
+      color: rgb(var(--vectk-700));
       font-weight: 700;
       text-decoration: underline;
     }
-    :host ::ng-deep .arqly-rich-editor .NgxEditor__Popup {
+    :host ::ng-deep .vectk-rich-editor .NgxEditor__Popup {
       z-index: 80;
       border: 1px solid rgb(226 232 240);
       color: var(--color-heading);

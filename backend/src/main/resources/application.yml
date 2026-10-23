@@ -1,6 +1,6 @@
 spring:
   application:
-    name: arqly-backend
+    name: vectk-backend
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
@@ -24,8 +24,8 @@ spring:
     port: ${SPRING_MAIL_PORT:1025}
   servlet:
     multipart:
-      max-file-size: ${ARQLY_MAX_FILE_SIZE:104857600B}
-      max-request-size: ${ARQLY_MAX_REQUEST_SIZE:524288000B}
+      max-file-size: ${VECTK_MAX_FILE_SIZE:104857600B}
+      max-request-size: ${VECTK_MAX_REQUEST_SIZE:524288000B}
 
 server:
   port: ${SERVER_PORT:8080}
@@ -49,17 +49,17 @@ management:
     mail:
       enabled: false
 
-arqly:
+vectk:
   security:
-    platform-secret: ${ARQLY_PLATFORM_JWT_SECRET}
-    tenant-secret: ${ARQLY_TENANT_JWT_SECRET}
-    issuer: ${ARQLY_JWT_ISSUER:arqly}
-    access-token-minutes: ${ARQLY_ACCESS_TOKEN_MINUTES:30}
+    platform-secret: ${VECTK_PLATFORM_JWT_SECRET}
+    tenant-secret: ${VECTK_TENANT_JWT_SECRET}
+    issuer: ${VECTK_JWT_ISSUER:vectk}
+    access-token-minutes: ${VECTK_ACCESS_TOKEN_MINUTES:30}
   initial-bootstrap:
-    enabled: ${ARQLY_INITIAL_BOOTSTRAP_ENABLED:false}
-    admin-name: ${ARQLY_INITIAL_ADMIN_NAME:}
-    admin-email: ${ARQLY_INITIAL_ADMIN_EMAIL:}
-    admin-password: ${ARQLY_INITIAL_ADMIN_PASSWORD:}
+    enabled: ${VECTK_INITIAL_BOOTSTRAP_ENABLED:false}
+    admin-name: ${VECTK_INITIAL_ADMIN_NAME:}
+    admin-email: ${VECTK_INITIAL_ADMIN_EMAIL:}
+    admin-password: ${VECTK_INITIAL_ADMIN_PASSWORD:}
   storage:
     local-root: ${APP_STORAGE_PATH}
   web:
@@ -74,4 +74,4 @@ logging:
     console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%X{requestId:-}] %logger{36} - %msg%n"
   level:
     root: INFO
-    com.arqly: INFO
+    com.vectk: INFO

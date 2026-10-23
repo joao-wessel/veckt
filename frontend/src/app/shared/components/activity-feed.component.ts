@@ -27,7 +27,7 @@ interface ActivityItem {
     <section class="space-y-5">
       <div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-arqly-700">Central de atividades</p>
+          <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-vectk-700">Central de atividades</p>
           <h3 class="mt-1 text-xl font-extrabold">Histórico unificado</h3>
           <p class="mt-1 text-sm text-slate-500">Comentários, checklist, status e eventos do sistema no mesmo feed.</p>
         </div>
@@ -41,7 +41,7 @@ interface ActivityItem {
         @for (option of filterOptions; track option.value) {
           <button class="whitespace-nowrap rounded-xl px-4 py-2 text-sm font-bold transition" type="button"
             [class.bg-white]="filter() === option.value"
-            [class.text-arqly-700]="filter() === option.value"
+            [class.text-vectk-700]="filter() === option.value"
             [class.shadow-sm]="filter() === option.value"
             [class.text-slate-500]="filter() !== option.value"
             (click)="setFilter(option.value)">{{ option.label }}</button>
@@ -51,7 +51,7 @@ interface ActivityItem {
       <div class="relative space-y-0 pl-8 before:absolute before:bottom-6 before:left-[1.15rem] before:top-6 before:w-px before:bg-slate-200">
         @for (activity of activities(); track activity.id) {
           <article class="relative pb-6">
-            <span class="absolute -left-8 top-1 z-10 grid h-9 w-9 place-items-center rounded-full border-4 border-white bg-arqly-50 text-arqly-700 shadow-sm">
+            <span class="absolute -left-8 top-1 z-10 grid h-9 w-9 place-items-center rounded-full border-4 border-white bg-vectk-50 text-vectk-700 shadow-sm">
               <lucide-icon [name]="activityIcon(activity.type)" size="16"></lucide-icon>
             </span>
             <div class="rounded-2xl border border-slate-200 bg-white p-4">
@@ -108,7 +108,7 @@ interface ActivityItem {
       @if (allowComments) {
         <form class="card p-5" [formGroup]="commentForm" (ngSubmit)="addComment()">
           <div class="mb-3">
-            <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-arqly-700">Novo comentário</p>
+            <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-vectk-700">Novo comentário</p>
             <p class="mt-1 text-sm text-slate-500">Registre decisões, dúvidas e detalhes técnicos da etapa.</p>
           </div>
           <div>
@@ -342,7 +342,7 @@ export class ActivityFeedComponent implements OnChanges, OnDestroy {
 
   typeClass(type: ActivityType) {
     if (type === 'COMMENT') return 'bg-blue-50 text-blue-700';
-    if (type === 'CHECKLIST_UPDATED' || type === 'STAGE_COMPLETED' || type === 'PROJECT_COMPLETED') return 'bg-arqly-50 text-arqly-700';
+    if (type === 'CHECKLIST_UPDATED' || type === 'STAGE_COMPLETED' || type === 'PROJECT_COMPLETED') return 'bg-vectk-50 text-vectk-700';
     if (type === 'STATUS_CHANGED' || type === 'ASSIGNED' || type === 'UNASSIGNED') return 'bg-amber-50 text-amber-700';
     if (type.startsWith('FILE_')) return 'bg-blue-50 text-blue-700';
     return 'bg-slate-100 text-slate-600';

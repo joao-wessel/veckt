@@ -15,7 +15,7 @@ interface PaletteOption {
   template: `
     <div class="relative" (click)="$event.stopPropagation()">
       <button
-        class="grid h-11 w-11 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:bg-arqly-50 hover:text-arqly-700"
+        class="grid h-11 w-11 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:bg-vectk-50 hover:text-vectk-700"
         type="button"
         title="Aparência"
         [attr.aria-expanded]="open()"
@@ -28,11 +28,11 @@ interface PaletteOption {
         <div class="absolute right-0 top-[calc(100%+0.75rem)] z-[80] w-72 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_22px_60px_rgba(15,23,42,0.16)]">
           <div class="px-2 pb-3">
             <p class="text-sm font-extrabold text-slate-950">Aparência</p>
-            <p class="mt-1 text-xs text-slate-500">Ajuste o modo e a paleta do Arqly.</p>
+            <p class="mt-1 text-xs text-slate-500">Ajuste o modo e a paleta da Vectk.</p>
           </div>
 
           <button
-            class="flex w-full items-center justify-between rounded-xl border border-slate-200 px-3.5 py-3 text-sm font-semibold text-slate-700 transition hover:border-arqly-200 hover:bg-arqly-50 hover:text-arqly-700"
+            class="flex w-full items-center justify-between rounded-xl border border-slate-200 px-3.5 py-3 text-sm font-semibold text-slate-700 transition hover:border-vectk-200 hover:bg-vectk-50 hover:text-vectk-700"
             type="button"
             (click)="theme.toggleMode()"
           >
@@ -51,8 +51,8 @@ interface PaletteOption {
               <button
                 class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
                 type="button"
-                [class.bg-arqly-50]="theme.palette() === palette.value"
-                [class.text-arqly-700]="theme.palette() === palette.value"
+                [class.bg-vectk-50]="theme.palette() === palette.value"
+                [class.text-vectk-700]="theme.palette() === palette.value"
                 (click)="theme.setPalette(palette.value)"
               >
                 <span
@@ -75,7 +75,7 @@ export class AppearanceControlsComponent {
   readonly theme = inject(ThemeService);
   readonly open = signal(false);
   readonly palettes: PaletteOption[] = [
-    { label: 'Verde petróleo', value: 'arqly', swatch: 'linear-gradient(135deg, #0d7b73, #9bd8cf)' },
+    { label: 'Azul cimento', value: 'vectk', swatch: 'linear-gradient(135deg, #5B7F86, #B9D2D7)' },
     { label: 'Terracota editorial', value: 'terracotta', swatch: 'linear-gradient(135deg, #b95f3b, #f0b58f)' },
     { label: 'Índigo blueprint', value: 'indigo', swatch: 'linear-gradient(135deg, #5750b5, #a7b4ff)' }
   ];

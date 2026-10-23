@@ -1,17 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-logo',
   standalone: true,
   template: `
-    <div class="flex items-center gap-3">
-      <svg class="h-11 w-11" viewBox="0 0 64 64" aria-hidden="true">
-        <path d="M5 58 25 6h15L20 58H5Z" style="fill: rgb(var(--arqly-600));"/>
-        <path d="M31 6h14l15 52H44L31 18V6Z" style="fill: rgb(var(--arqly-700));"/>
-        <path d="M22 58 32 32l10 26H22Z" style="fill: rgb(var(--arqly-100));"/>
-      </svg>
-      <span class="arqly-logo-text text-[2rem] font-extrabold tracking-tight text-slate-950">Arqly</span>
+    <div class="brand-logo" [class.brand-logo-compact]="compact">
+      @if (compact) {
+        <img class="brand-logo-default" src="assets/brand/vectk-logo-simple.svg" alt="Vectk">
+        <img class="brand-logo-dark" src="assets/brand/vectk-logo-simple-light.svg" alt="Vectk">
+      } @else if (sidebar) {
+        <img class="brand-logo-default" src="assets/brand/vectk-logo-full.svg" alt="Vectk">
+        <img class="brand-logo-dark" src="assets/brand/vectk-logo-full-light.svg" alt="Vectk">
+      } @else {
+        <img class="brand-logo-default" src="assets/brand/vectk-logo-full.svg" alt="Vectk">
+        <img class="brand-logo-dark" src="assets/brand/vectk-logo-full-light.svg" alt="Vectk">
+      }
     </div>
-  `
+  `,
+  styles: [`
+    .brand-logo { display: flex; align-items: center; width: var(--vectk-logo-width, 13.75rem); max-width: 100%; }
+    .brand-logo-compact { width: var(--vectk-logo-width, 4.5rem); }
+    img { display: block; width: 100%; height: auto; }
+    .brand-logo-dark { display: none; }
+    :host-context(.dark) .brand-logo-default { display: none; }
+    :host-context(.dark) .brand-logo-dark { display: block; }
+  `]
 })
-export class LogoComponent {}
+export class LogoComponent {
+  @Input() compact = false;
+  @Input() sidebar = false;
+}

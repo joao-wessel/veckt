@@ -15,11 +15,11 @@ import { ToastService } from '../../shared/components/toast/toast.service';
     <main class="grid min-h-screen lg:grid-cols-[1fr_0.9fr]">
       <section class="flex items-center justify-center p-6">
         <div class="w-full max-w-md">
-          <app-logo />
+          <app-logo style="--vectk-logo-width: 23rem" />
           <div class="mt-12">
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-arqly-600">{{ scope === 'platform' ? 'Área administrativa' : 'Área do escritório' }}</p>
-            <h1 class="mt-3 text-4xl font-extrabold tracking-tight">Entre no Arqly</h1>
-            <p class="mt-3 text-slate-500">Gestão de arquitetura com uma base limpa, segura e preparada para crescer.</p>
+            <p class="text-sm font-bold uppercase tracking-[0.2em] text-vectk-600">{{ scope === 'platform' ? 'Área administrativa' : 'Área do escritório' }}</p>
+            <h1 class="mt-3 text-4xl font-extrabold tracking-tight">Entre na Vectk</h1>
+            <p class="mt-3 text-slate-500">Organize o escritório. Liberte a criação.</p>
           </div>
 
           <form class="mt-8 space-y-4" [formGroup]="form" (ngSubmit)="submit()">
@@ -34,12 +34,12 @@ import { ToastService } from '../../shared/components/toast/toast.service';
             </button>
           </form>
 
-          <a [routerLink]="scope === 'platform' ? '/forgot-password/admin' : '/forgot-password'" class="mt-5 inline-block text-sm font-semibold text-arqly-700">Esqueci minha senha</a>
+          <a [routerLink]="scope === 'platform' ? '/forgot-password/admin' : '/forgot-password'" class="mt-5 inline-block text-sm font-semibold text-vectk-700">Esqueci minha senha</a>
         </div>
       </section>
 
-      <section class="hidden bg-arqly-700 p-8 lg:block">
-        <div class="relative flex h-full overflow-hidden rounded-[2rem] bg-gradient-to-br from-arqly-700 to-arqly-900 p-10 text-white shadow-2xl">
+      <section class="hidden bg-vectk-700 p-8 lg:block">
+        <div class="relative flex h-full overflow-hidden rounded-[2rem] bg-gradient-to-br from-vectk-700 to-vectk-900 p-10 text-white shadow-2xl">
           <div class="absolute inset-0 opacity-20"
                style="background-image: linear-gradient(rgba(255,255,255,.22) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.22) 1px, transparent 1px); background-size: 42px 42px;"></div>
           <div class="relative z-10 grid w-full place-items-center">
@@ -47,11 +47,11 @@ import { ToastService } from '../../shared/components/toast/toast.service';
               <div class="aspect-[4/3] rounded-3xl bg-white p-5 text-slate-900">
                 <div class="grid h-full grid-cols-[1.2fr_0.8fr] gap-4">
                   <div class="rounded-2xl border border-slate-200 p-4">
-                    <div class="h-28 rounded-xl bg-gradient-to-br from-slate-100 to-arqly-100"></div>
+                    <div class="h-28 rounded-xl bg-gradient-to-br from-slate-100 to-vectk-100"></div>
                     <div class="mt-5 h-3 w-2/3 rounded-full bg-slate-200"></div>
                     <div class="mt-3 h-3 w-1/2 rounded-full bg-slate-100"></div>
                     <div class="mt-8 space-y-3">
-                      <div class="h-2 rounded-full bg-arqly-600"></div>
+                      <div class="h-2 rounded-full bg-vectk-600"></div>
                       <div class="h-2 w-4/5 rounded-full bg-slate-200"></div>
                       <div class="h-2 w-3/5 rounded-full bg-slate-200"></div>
                     </div>
@@ -61,7 +61,7 @@ import { ToastService } from '../../shared/components/toast/toast.service';
                       <div class="rounded-2xl bg-slate-50 p-4">
                         <div class="flex items-center justify-between">
                           <span class="text-xs font-bold text-slate-500">{{ item.kicker }}</span>
-                          <span class="h-2 w-2 rounded-full bg-arqly-600"></span>
+                          <span class="h-2 w-2 rounded-full bg-vectk-600"></span>
                         </div>
                         <p class="mt-3 text-sm font-bold">{{ item.title }}</p>
                         <p class="mt-1 text-xs text-slate-500">{{ item.text }}</p>
@@ -113,7 +113,7 @@ export class LoginComponent {
     const { email, password } = this.form.getRawValue();
     this.auth.login(this.scope, email, password).subscribe({
       next: () => {
-        this.toast.success('Login realizado', 'Bem-vindo ao Arqly.');
+        this.toast.success('Login realizado', 'Bem-vindo ao Vectk.');
         void this.router.navigateByUrl(this.scope === 'platform' ? '/admin/dashboard' : '/app/dashboard');
       },
       error: () => {

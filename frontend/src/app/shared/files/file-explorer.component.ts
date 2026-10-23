@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
-import { ArqlySelectComponent } from '../components/arqly-select.component';
+import { VectkSelectComponent } from '../components/vectk-select.component';
 import { ToastService } from '../components/toast/toast.service';
 import { FileApiService } from './file-api.service';
 import { FileCardComponent } from './file-card.component';
@@ -16,12 +16,12 @@ import { VersionHistoryComponent } from './version-history.component';
 @Component({
   selector: 'app-file-explorer',
   standalone: true,
-  imports: [DatePipe, ReactiveFormsModule, LucideAngularModule, ArqlySelectComponent, FolderTreeComponent,
+  imports: [DatePipe, ReactiveFormsModule, LucideAngularModule, VectkSelectComponent, FolderTreeComponent,
     FileUploadComponent, FileCardComponent, FilePreviewComponent, VersionHistoryComponent],
   template: `
     <section class="card overflow-hidden">
       <header class="flex flex-col gap-4 border-b border-slate-200 p-5 md:flex-row md:items-center md:justify-between">
-        <div><p class="text-xs font-extrabold uppercase tracking-[0.18em] text-arqly-700">{{ eyebrow }}</p><h3 class="mt-1 text-xl font-extrabold">{{ title }}</h3><p class="mt-1 text-sm text-slate-500">Pastas, versões e arquivos relacionados a este contexto.</p></div>
+        <div><p class="text-xs font-extrabold uppercase tracking-[0.18em] text-vectk-700">{{ eyebrow }}</p><h3 class="mt-1 text-xl font-extrabold">{{ title }}</h3><p class="mt-1 text-sm text-slate-500">Pastas, versões e arquivos relacionados a este contexto.</p></div>
         <div class="flex flex-wrap gap-2">
           <button class="btn-secondary" type="button" (click)="openFolderModal()"><lucide-icon name="FolderPlus" size="17" />Nova pasta</button>
           <button class="btn-primary" type="button" (click)="uploadVisible.set(!uploadVisible())"><lucide-icon name="Upload" size="17" />Enviar arquivos</button>
@@ -40,8 +40,8 @@ import { VersionHistoryComponent } from './version-history.component';
         <input class="field h-12 py-0 sm:col-span-2 lg:col-span-3 xl:col-span-1" formControlName="search" placeholder="Pesquisar por nome">
         <input class="field h-12 py-0" formControlName="extension" placeholder="Extensão">
         <input class="field h-12 py-0" formControlName="author" placeholder="Autor">
-        <app-arqly-select class="file-filter-select" formControlName="ownerType" placeholder="Contexto" [options]="ownerTypeOptions" panelMode="fixed" />
-        <app-arqly-select class="file-filter-select" formControlName="status" placeholder="Status" [options]="statusOptions" panelMode="fixed" />
+        <app-vectk-select class="file-filter-select" formControlName="ownerType" placeholder="Contexto" [options]="ownerTypeOptions" panelMode="fixed" />
+        <app-vectk-select class="file-filter-select" formControlName="status" placeholder="Status" [options]="statusOptions" panelMode="fixed" />
         <button class="btn-secondary h-12 justify-center whitespace-nowrap px-4 py-0" type="submit"><lucide-icon name="Search" size="17" />Pesquisar</button>
       </form>
 
@@ -58,7 +58,7 @@ import { VersionHistoryComponent } from './version-history.component';
               <tbody>
                 @for (file of files(); track file.id) {
                   <tr class="border-t border-slate-100">
-                    <td class="px-4 py-4"><div class="flex min-w-0 items-center gap-3"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-arqly-50 text-arqly-700"><lucide-icon [name]="fileIcon(file)" size="18" /></span><div class="min-w-0"><p class="truncate font-bold">{{ file.name }}</p><p class="mt-1 text-xs uppercase text-slate-400">{{ file.extension || 'arquivo' }} · {{ visibilityLabel(file.visibility) }}</p></div></div></td>
+                    <td class="px-4 py-4"><div class="flex min-w-0 items-center gap-3"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-vectk-50 text-vectk-700"><lucide-icon [name]="fileIcon(file)" size="18" /></span><div class="min-w-0"><p class="truncate font-bold">{{ file.name }}</p><p class="mt-1 text-xs uppercase text-slate-400">{{ file.extension || 'arquivo' }} · {{ visibilityLabel(file.visibility) }}</p></div></div></td>
                     @if (browseAll) {<td class="hidden px-4 py-4 xl:table-cell"><p class="truncate font-bold">{{ file.ownerLabel }}</p><p class="mt-1 text-xs text-slate-400">{{ ownerTypeLabel(file.ownerType) }}</p></td>}
                     <td class="hidden px-4 py-4 text-slate-500 xl:table-cell">{{ file.folderName || 'Raiz' }}</td>
                     <td class="px-3 py-4 font-bold">v{{ file.version }}</td>
@@ -83,7 +83,7 @@ import { VersionHistoryComponent } from './version-history.component';
 
     @if (folderModalOpen()) {
       <div class="modal-overlay fixed inset-0 z-[70] grid place-items-center p-4"><form class="modal-panel card w-full max-w-md p-6" [formGroup]="folderForm" (ngSubmit)="saveFolder()">
-        <div class="flex items-center justify-between"><div><p class="text-xs font-extrabold uppercase tracking-[0.16em] text-arqly-700">Organização</p><h3 class="mt-1 text-xl font-extrabold">Nova pasta</h3></div><button class="btn-secondary px-3 py-2" type="button" (click)="folderModalOpen.set(false)"><lucide-icon name="X" size="18" /></button></div>
+        <div class="flex items-center justify-between"><div><p class="text-xs font-extrabold uppercase tracking-[0.16em] text-vectk-700">Organização</p><h3 class="mt-1 text-xl font-extrabold">Nova pasta</h3></div><button class="btn-secondary px-3 py-2" type="button" (click)="folderModalOpen.set(false)"><lucide-icon name="X" size="18" /></button></div>
         <label class="mt-5 block space-y-1"><span class="text-xs font-bold text-slate-500">Nome <span class="text-red-500">*</span></span><input class="field" formControlName="name" placeholder="Ex.: Arquitetura"></label>
         <p class="mt-3 text-xs text-slate-400">A pasta será criada em {{ selectedFolderName() }}.</p>
         <div class="mt-6 flex justify-end gap-3"><button class="btn-secondary" type="button" (click)="folderModalOpen.set(false)">Cancelar</button><button class="btn-primary" type="submit"><lucide-icon name="Save" size="16" />Criar pasta</button></div>
@@ -92,7 +92,7 @@ import { VersionHistoryComponent } from './version-history.component';
 
     @if (details()) {
       <div class="modal-overlay fixed inset-0 z-[70] grid place-items-center p-4"><section class="modal-panel card flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden">
-        <header class="flex items-center justify-between border-b border-slate-200 px-6 py-5"><div class="min-w-0"><p class="text-xs font-extrabold uppercase tracking-[0.16em] text-arqly-700">Informações do arquivo</p><h3 class="mt-1 truncate text-xl font-extrabold">{{ details()!.name }}</h3></div><button class="btn-secondary px-3 py-2" type="button" (click)="closeDetails()"><lucide-icon name="X" size="18" /></button></header>
+        <header class="flex items-center justify-between border-b border-slate-200 px-6 py-5"><div class="min-w-0"><p class="text-xs font-extrabold uppercase tracking-[0.16em] text-vectk-700">Informações do arquivo</p><h3 class="mt-1 truncate text-xl font-extrabold">{{ details()!.name }}</h3></div><button class="btn-secondary px-3 py-2" type="button" (click)="closeDetails()"><lucide-icon name="X" size="18" /></button></header>
         <div class="min-h-0 flex-1 space-y-5 overflow-y-auto p-6">
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div class="rounded-2xl bg-slate-50 p-4"><p class="text-xs font-bold text-slate-400">Tipo</p><strong class="mt-1 block uppercase">{{ details()!.extension || 'Arquivo' }}</strong></div>
@@ -101,8 +101,8 @@ import { VersionHistoryComponent } from './version-history.component';
           </div>
           <form class="grid gap-4 md:grid-cols-2" [formGroup]="detailsForm" (ngSubmit)="saveDetails()">
             <label class="block space-y-1 md:col-span-2"><span class="text-xs font-bold text-slate-500">Nome</span><input class="field" formControlName="name"></label>
-            <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Pasta</span><app-arqly-select formControlName="folderId" placeholder="Raiz" [options]="folderOptions()" panelMode="fixed" /></label>
-            <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Visibilidade</span><app-arqly-select formControlName="visibility" placeholder="Selecione" [options]="visibilityOptions" panelMode="fixed" /></label>
+            <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Pasta</span><app-vectk-select formControlName="folderId" placeholder="Raiz" [options]="folderOptions()" panelMode="fixed" /></label>
+            <label class="block space-y-1"><span class="text-xs font-bold text-slate-500">Visibilidade</span><app-vectk-select formControlName="visibility" placeholder="Selecione" [options]="visibilityOptions" panelMode="fixed" /></label>
             <label class="block space-y-1 md:col-span-2"><span class="text-xs font-bold text-slate-500">Tags</span><input class="field" formControlName="tags" placeholder="Aprovado, Cliente, Executivo"></label>
             <div class="flex justify-end md:col-span-2"><button class="btn-primary" type="submit"><lucide-icon name="Save" size="16" />Salvar alterações</button></div>
           </form>

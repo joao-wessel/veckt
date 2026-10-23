@@ -5,8 +5,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { ApiResponse } from '../../core/auth/auth.models';
-import { ArqlyDatePickerComponent } from '../../shared/components/arqly-date-picker.component';
-import { ArqlySelectComponent } from '../../shared/components/arqly-select.component';
+import { VectkDatePickerComponent } from '../../shared/components/vectk-date-picker.component';
+import { VectkSelectComponent } from '../../shared/components/vectk-select.component';
 import { ActivityFeedComponent } from '../../shared/components/activity-feed.component';
 import { ToastService } from '../../shared/components/toast/toast.service';
 import { FileExplorerComponent } from '../../shared/files/file-explorer.component';
@@ -31,23 +31,23 @@ interface StageWorkspace {
 @Component({
   selector: 'app-stage-workspace',
   standalone: true,
-  imports: [DatePipe, DecimalPipe, ReactiveFormsModule, RouterLink, LucideAngularModule, ArqlySelectComponent, ArqlyDatePickerComponent, ActivityFeedComponent, FileExplorerComponent],
+  imports: [DatePipe, DecimalPipe, ReactiveFormsModule, RouterLink, LucideAngularModule, VectkSelectComponent, VectkDatePickerComponent, ActivityFeedComponent, FileExplorerComponent],
   template: `
     <section class="space-y-5">
       @if (workspace(); as stage) {
         <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div class="min-w-0">
             <nav class="flex flex-wrap items-center gap-2 text-xs font-extrabold uppercase tracking-[0.18em] text-slate-400">
-              <a class="text-arqly-700" routerLink="/app/projects">Projetos</a>
+              <a class="text-vectk-700" routerLink="/app/projects">Projetos</a>
               <span>/</span>
-              <a class="text-arqly-700" [routerLink]="['/app/projects', stage.project.id]">{{ stage.project.name }}</a>
+              <a class="text-vectk-700" [routerLink]="['/app/projects', stage.project.id]">{{ stage.project.name }}</a>
               <span>/</span>
               <span>{{ stage.phase.name }}</span>
               <span>/</span>
               <span>{{ stage.name }}</span>
             </nav>
             <div class="mt-4 flex flex-wrap items-center gap-3">
-              <span class="grid h-12 w-12 place-items-center rounded-2xl text-white" [style.background]="stage.phase.color || 'var(--arqly-600)'">
+              <span class="grid h-12 w-12 place-items-center rounded-2xl text-white" [style.background]="stage.phase.color || 'var(--vectk-600)'">
                 <lucide-icon [name]="stage.phase.icon || 'ListChecks'" size="20"></lucide-icon>
               </span>
               <div>
@@ -69,7 +69,7 @@ interface StageWorkspace {
 
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
           <div class="card p-5"><p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">Status</p><span class="mt-3 inline-flex rounded-full px-3 py-1 text-xs font-bold" [class]="stageStatusClass(stage.status)">{{ stageStatusLabel(stage.status) }}</span></div>
-          <div class="card p-5"><p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">Percentual</p><strong class="mt-2 block text-3xl text-arqly-700">{{ stage.completionPercentage || 0 | number:'1.0-0' }}%</strong></div>
+          <div class="card p-5"><p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">Percentual</p><strong class="mt-2 block text-3xl text-vectk-700">{{ stage.completionPercentage || 0 | number:'1.0-0' }}%</strong></div>
           <div class="card p-5"><p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">Responsável</p><strong class="mt-2 block truncate text-lg">{{ stage.responsible || 'A definir' }}</strong></div>
           <div class="card p-5"><p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">Início previsto</p><strong class="mt-2 block text-lg">{{ stage.plannedStart ? (stage.plannedStart | date:'dd/MM/yyyy') : '-' }}</strong></div>
           <div class="card p-5"><p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">Fim previsto</p><strong class="mt-2 block text-lg">{{ stage.plannedEnd ? (stage.plannedEnd | date:'dd/MM/yyyy') : '-' }}</strong></div>
@@ -82,7 +82,7 @@ interface StageWorkspace {
               @for (tab of tabs; track tab.value) {
                 <button class="whitespace-nowrap rounded-2xl px-4 py-3 text-sm font-bold transition"
                   type="button"
-                  [class.bg-arqly-600]="activeTab() === tab.value"
+                  [class.bg-vectk-600]="activeTab() === tab.value"
                   [class.text-white]="activeTab() === tab.value"
                   [class.text-slate-500]="activeTab() !== tab.value"
                   (click)="activeTab.set(tab.value)">
@@ -98,25 +98,25 @@ interface StageWorkspace {
                 @if (editingStage()) {
                   <form class="card grid gap-4 bg-slate-50/70 p-5" [formGroup]="stageForm" (ngSubmit)="saveStage()">
                     <div>
-                      <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-arqly-700">Editar etapa</p>
+                      <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-vectk-700">Editar etapa</p>
                       <h3 class="mt-1 text-xl font-extrabold">Informações operacionais</h3>
                     </div>
                     <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Nome da etapa *</span><input class="field w-full" formControlName="name" placeholder="Ex.: Anteprojeto" /></label>
                     <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Descrição</span><textarea class="field w-full min-h-24" formControlName="description" placeholder="Descreva o objetivo desta etapa"></textarea></label>
                     <div class="grid gap-4 md:grid-cols-2">
-                      <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Status</span><app-arqly-select formControlName="status" placeholder="Selecione" [options]="stageStatusOptions" panelMode="fixed" /></label>
-                      <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Modo de cálculo</span><app-arqly-select formControlName="progressCalculationMode" placeholder="Selecione" [options]="progressModeOptions" panelMode="fixed" /></label>
+                      <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Status</span><app-vectk-select formControlName="status" placeholder="Selecione" [options]="stageStatusOptions" panelMode="fixed" /></label>
+                      <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Modo de cálculo</span><app-vectk-select formControlName="progressCalculationMode" placeholder="Selecione" [options]="progressModeOptions" panelMode="fixed" /></label>
                     </div>
                     <div class="grid gap-4 md:grid-cols-3">
                       <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Percentual</span><input class="field w-full" type="number" min="0" max="100" formControlName="completionPercentage" [readonly]="stageForm.controls.progressCalculationMode.value === 'CHECKLIST'" /></label>
                       <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Peso</span><input class="field w-full" type="number" min="0" max="100" formControlName="weightPercentage" readonly /></label>
-                      <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Responsável</span><app-arqly-select formControlName="responsibleUserId" placeholder="Herdar do projeto" [options]="tenantUserOptions(true)" panelMode="fixed" /></label>
+                      <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Responsável</span><app-vectk-select formControlName="responsibleUserId" placeholder="Herdar do projeto" [options]="tenantUserOptions(true)" panelMode="fixed" /></label>
                     </div>
                     <div class="grid gap-4 md:grid-cols-4">
-                      <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Início previsto</span><app-arqly-date-picker formControlName="plannedStart" placeholder="Selecione" /></div>
-                      <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Fim previsto</span><app-arqly-date-picker formControlName="plannedEnd" placeholder="Selecione" /></div>
-                      <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Início real</span><app-arqly-date-picker formControlName="actualStart" placeholder="Selecione" /></div>
-                      <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Fim real</span><app-arqly-date-picker formControlName="actualEnd" placeholder="Selecione" /></div>
+                      <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Início previsto</span><app-vectk-date-picker formControlName="plannedStart" placeholder="Selecione" /></div>
+                      <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Fim previsto</span><app-vectk-date-picker formControlName="plannedEnd" placeholder="Selecione" /></div>
+                      <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Início real</span><app-vectk-date-picker formControlName="actualStart" placeholder="Selecione" /></div>
+                      <div class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Fim real</span><app-vectk-date-picker formControlName="actualEnd" placeholder="Selecione" /></div>
                     </div>
                     <label class="block space-y-1"><span class="block text-xs font-bold text-slate-500">Observações</span><textarea class="field w-full min-h-24" formControlName="notes" placeholder="Observações internas da etapa"></textarea></label>
                     <div class="flex justify-end gap-3"><button class="btn-secondary" type="button" (click)="editingStage.set(false)">Cancelar</button><button class="btn-primary" type="submit"><lucide-icon name="Save" size="16"></lucide-icon>Salvar</button></div>
@@ -125,7 +125,7 @@ interface StageWorkspace {
                   <div class="card bg-slate-50/70 p-5">
                     <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                       <div>
-                        <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-arqly-700">Resumo da etapa</p>
+                        <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-vectk-700">Resumo da etapa</p>
                         <h3 class="mt-1 text-xl font-extrabold">{{ stage.name }}</h3>
                       </div>
                       <span class="w-fit rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-500">{{ progressModeLabel(stage.progressCalculationMode) }}</span>
@@ -165,13 +165,13 @@ interface StageWorkspace {
               </div>
               <aside [class.space-y-4]="editingStage()" [class.grid]="!editingStage()" [class.h-full]="!editingStage()" [class.grid-rows-3]="!editingStage()" [class.gap-4]="!editingStage()">
                 <div class="card p-5">
-                  <div class="flex items-center justify-between"><p class="text-sm font-extrabold">Progresso da etapa</p><strong class="text-arqly-700">{{ stage.completionPercentage || 0 | number:'1.0-0' }}%</strong></div>
-                  <div class="mt-4 h-3 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-arqly-600" [style.width.%]="stage.completionPercentage || 0"></div></div>
+                  <div class="flex items-center justify-between"><p class="text-sm font-extrabold">Progresso da etapa</p><strong class="text-vectk-700">{{ stage.completionPercentage || 0 | number:'1.0-0' }}%</strong></div>
+                  <div class="mt-4 h-3 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-vectk-600" [style.width.%]="stage.completionPercentage || 0"></div></div>
                   <p class="mt-3 text-xs font-semibold text-slate-500">Cálculo: {{ progressModeLabel(stage.progressCalculationMode) }}</p>
                 </div>
                 <div class="card p-5">
                   <p class="text-sm font-extrabold">Checklist</p>
-                  <strong class="mt-3 block text-3xl text-arqly-700">{{ completedChecklistCount(stage) }} de {{ stage.checklist.length }}</strong>
+                  <strong class="mt-3 block text-3xl text-vectk-700">{{ completedChecklistCount(stage) }} de {{ stage.checklist.length }}</strong>
                   <p class="mt-2 text-xs font-semibold text-slate-500">Itens concluídos nesta etapa.</p>
                 </div>
                 <div class="card p-5">
@@ -208,7 +208,7 @@ interface StageWorkspace {
                         <p class="font-bold" [class.line-through]="item.completed" [class.text-slate-400]="item.completed">{{ item.description }}</p>
                         <p class="mt-1 text-xs font-semibold text-slate-400">{{ item.notes || 'Sem observações' }}</p>
                         @if (item.completed) {
-                          <p class="mt-1 text-xs font-bold text-arqly-700">Concluído por {{ item.completedBy || 'sistema' }} em {{ item.completedAt | date:'dd/MM/yyyy HH:mm' }}</p>
+                          <p class="mt-1 text-xs font-bold text-vectk-700">Concluído por {{ item.completedBy || 'sistema' }} em {{ item.completedAt | date:'dd/MM/yyyy HH:mm' }}</p>
                         }
                       }
                     </div>
@@ -243,7 +243,7 @@ interface StageWorkspace {
           @if (activeTab() === 'diary') {
             <div class="p-5">
               <div class="rounded-3xl border border-dashed border-slate-300 bg-slate-50/70 p-8 text-center">
-                <lucide-icon class="mx-auto text-arqly-700" name="ClipboardList" size="34"></lucide-icon>
+                <lucide-icon class="mx-auto text-vectk-700" name="ClipboardList" size="34"></lucide-icon>
                 <p class="mt-4 font-extrabold">Registros vinculados a esta etapa</p>
                 <p class="mt-2 text-sm text-slate-500">Abra o Diário de Obra para registrar visitas, ocorrências, decisões e fotos desta etapa.</p>
                 <a class="btn-primary mt-5" [routerLink]="['/app/construction-diary']" [queryParams]="{projectId: stage.project.id, stageId: stage.id}">Abrir Diário de Obra</a>
@@ -451,7 +451,7 @@ export class StageWorkspaceComponent implements OnInit {
   }
 
   stageStatusClass(status: StageStatus) {
-    if (status === 'COMPLETED') return 'bg-arqly-50 text-arqly-700';
+    if (status === 'COMPLETED') return 'bg-vectk-50 text-vectk-700';
     if (status === 'IN_PROGRESS') return 'bg-blue-50 text-blue-700';
     if (status === 'ON_HOLD' || status.startsWith('WAITING')) return 'bg-amber-50 text-amber-700';
     if (status === 'CANCELLED') return 'bg-red-50 text-red-700';

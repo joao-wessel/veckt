@@ -3,14 +3,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        arqly: {
-          50: "rgb(var(--arqly-50) / <alpha-value>)",
-          100: "rgb(var(--arqly-100) / <alpha-value>)",
-          200: "rgb(var(--arqly-200) / <alpha-value>)",
-          500: "rgb(var(--arqly-500) / <alpha-value>)",
-          600: "rgb(var(--arqly-600) / <alpha-value>)",
-          700: "rgb(var(--arqly-700) / <alpha-value>)",
-          900: "rgb(var(--arqly-900) / <alpha-value>)"
+        vectk: {
+          50: "rgb(var(--vectk-50) / <alpha-value>)",
+          100: "rgb(var(--vectk-100) / <alpha-value>)",
+          200: "rgb(var(--vectk-200) / <alpha-value>)",
+          500: "rgb(var(--vectk-500) / <alpha-value>)",
+          600: "rgb(var(--vectk-600) / <alpha-value>)",
+          700: "rgb(var(--vectk-700) / <alpha-value>)",
+          900: "rgb(var(--vectk-900) / <alpha-value>)"
         }
       },
       boxShadow: {

@@ -9,7 +9,7 @@ export interface AuthResponse {
   email: string;
   roles: string[];
   themeMode: 'light' | 'dark';
-  colorPalette: 'arqly' | 'terracotta' | 'indigo';
+  colorPalette: 'vectk' | 'terracotta' | 'indigo';
 }
 
 export interface ApiResponse<T> {
