@@ -1,0 +1,6 @@
+package com.veckt.backend.entity;
+
+public enum CalendarSourceType {
+    MANUAL_EVENT, PROJECT_STAGE, APPROVAL, DIARY_VISIT, DIARY_OCCURRENCE, DIARY_INSTRUCTION,
+    FINANCIAL, TASK, PROPOSAL, DOCUMENT
+}

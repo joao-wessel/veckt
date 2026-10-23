@@ -1,4 +1,4 @@
-name: ${VECTK_COMPOSE_PROJECT:-vectk}
+name: ${VECKT_COMPOSE_PROJECT:-veckt}
 
 services:
   postgres:
@@ -12,7 +12,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - vectk_internal
+      - veckt_internal
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 10s
@@ -29,20 +29,20 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:?Defina POSTGRES_DB no arquivo .env}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:?Defina POSTGRES_USER no arquivo .env}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD no arquivo .env}
-      VECTK_PLATFORM_JWT_SECRET: ${VECTK_PLATFORM_JWT_SECRET:?Defina VECTK_PLATFORM_JWT_SECRET no arquivo .env}
-      VECTK_TENANT_JWT_SECRET: ${VECTK_TENANT_JWT_SECRET:?Defina VECTK_TENANT_JWT_SECRET no arquivo .env}
-      VECTK_JWT_ISSUER: ${VECTK_JWT_ISSUER:-vectk}
+      VECKT_PLATFORM_JWT_SECRET: ${VECKT_PLATFORM_JWT_SECRET:?Defina VECKT_PLATFORM_JWT_SECRET no arquivo .env}
+      VECKT_TENANT_JWT_SECRET: ${VECKT_TENANT_JWT_SECRET:?Defina VECKT_TENANT_JWT_SECRET no arquivo .env}
+      VECKT_JWT_ISSUER: ${VECKT_JWT_ISSUER:-veckt}
       APP_ALLOWED_ORIGINS: ${APP_ALLOWED_ORIGINS:?Defina APP_ALLOWED_ORIGINS no arquivo .env}
       APP_PUBLIC_WEBSITE_URL: ${APP_PUBLIC_WEBSITE_URL:?Defina APP_PUBLIC_WEBSITE_URL no arquivo .env}
       APP_PUBLIC_FRONTEND_URL: ${APP_PUBLIC_FRONTEND_URL:?Defina APP_PUBLIC_FRONTEND_URL no arquivo .env}
       APP_PUBLIC_BACKEND_URL: ${APP_PUBLIC_BACKEND_URL:?Defina APP_PUBLIC_BACKEND_URL no arquivo .env}
       APP_STORAGE_PATH: ${APP_STORAGE_PATH:-/app/storage}
-      VECTK_MAX_FILE_SIZE: ${VECTK_MAX_FILE_SIZE:-104857600B}
-      VECTK_MAX_REQUEST_SIZE: ${VECTK_MAX_REQUEST_SIZE:-524288000B}
-      VECTK_INITIAL_BOOTSTRAP_ENABLED: ${VECTK_INITIAL_BOOTSTRAP_ENABLED:-false}
-      VECTK_INITIAL_ADMIN_NAME: ${VECTK_INITIAL_ADMIN_NAME:-}
-      VECTK_INITIAL_ADMIN_EMAIL: ${VECTK_INITIAL_ADMIN_EMAIL:-}
-      VECTK_INITIAL_ADMIN_PASSWORD: ${VECTK_INITIAL_ADMIN_PASSWORD:-}
+      VECKT_MAX_FILE_SIZE: ${VECKT_MAX_FILE_SIZE:-104857600B}
+      VECKT_MAX_REQUEST_SIZE: ${VECKT_MAX_REQUEST_SIZE:-524288000B}
+      VECKT_INITIAL_BOOTSTRAP_ENABLED: ${VECKT_INITIAL_BOOTSTRAP_ENABLED:-false}
+      VECKT_INITIAL_ADMIN_NAME: ${VECKT_INITIAL_ADMIN_NAME:-}
+      VECKT_INITIAL_ADMIN_EMAIL: ${VECKT_INITIAL_ADMIN_EMAIL:-}
+      VECKT_INITIAL_ADMIN_PASSWORD: ${VECKT_INITIAL_ADMIN_PASSWORD:-}
       SPRING_MAIL_HOST: ${SPRING_MAIL_HOST:-}
       SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-587}
       SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME:-}
@@ -52,7 +52,7 @@ services:
     volumes:
       - uploads:${APP_STORAGE_PATH:-/app/storage}
     networks:
-      - vectk_internal
+      - veckt_internal
     depends_on:
       postgres:
         condition: service_healthy
@@ -68,7 +68,7 @@ services:
       context: ./frontend
     restart: unless-stopped
     networks:
-      - vectk_internal
+      - veckt_internal
     depends_on:
       backend:
         condition: service_healthy
@@ -86,8 +86,8 @@ services:
       - ./infra/nginx/http.conf.template:/etc/nginx/templates/default.conf.template:ro
       - certbot_www:/var/www/certbot:ro
     networks:
-      - vectk_public
-      - vectk_internal
+      - veckt_public
+      - veckt_internal
     depends_on:
       frontend:
         condition: service_started
@@ -108,7 +108,7 @@ services:
       - certbot_conf:/etc/letsencrypt
       - certbot_www:/var/www/certbot
     networks:
-      - vectk_public
+      - veckt_public
     entrypoint: /bin/sh
     command: >-
       -c 'trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet;
@@ -116,17 +116,17 @@ services:
 
 volumes:
   postgres_data:
-    name: ${VECTK_VOLUME_PREFIX:-vectk_staging}_postgres_data
+    name: ${VECKT_VOLUME_PREFIX:-veckt_staging}_postgres_data
   uploads:
-    name: ${VECTK_VOLUME_PREFIX:-vectk_staging}_uploads
+    name: ${VECKT_VOLUME_PREFIX:-veckt_staging}_uploads
   certbot_conf:
-    name: ${VECTK_VOLUME_PREFIX:-vectk_staging}_certbot_conf
+    name: ${VECKT_VOLUME_PREFIX:-veckt_staging}_certbot_conf
   certbot_www:
-    name: ${VECTK_VOLUME_PREFIX:-vectk_staging}_certbot_www
+    name: ${VECKT_VOLUME_PREFIX:-veckt_staging}_certbot_www
 
 networks:
-  vectk_public:
-    name: ${VECTK_VOLUME_PREFIX:-vectk_staging}_public
-  vectk_internal:
-    name: ${VECTK_VOLUME_PREFIX:-vectk_staging}_internal
+  veckt_public:
+    name: ${VECKT_VOLUME_PREFIX:-veckt_staging}_public
+  veckt_internal:
+    name: ${VECKT_VOLUME_PREFIX:-veckt_staging}_internal
     internal: true

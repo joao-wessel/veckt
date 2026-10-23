@@ -30,7 +30,7 @@ interface Page<T> {
       <div class="flex flex-col gap-4 border-b border-slate-200 p-6 md:flex-row md:items-center md:justify-between">
         <div>
           <h2 class="text-3xl font-extrabold tracking-tight">Usuários</h2>
-          <p class="mt-2 text-slate-500">Equipe com acesso ao escritório no Vectk.</p>
+          <p class="mt-2 text-slate-500">Equipe com acesso ao escritório no Veckt.</p>
         </div>
         <button class="btn-primary" type="button" (click)="openUserModal()">
           <lucide-icon name="UserPlus" size="18"></lucide-icon>
@@ -61,8 +61,8 @@ interface Page<T> {
                 <td class="px-6 py-4 text-slate-600">{{ user.tenantAdmin ? 'Administrador' : 'Usuário' }}</td>
                 <td class="px-6 py-4">
                   <span class="rounded-full px-3 py-1 text-xs font-bold"
-                        [class.bg-vectk-50]="user.active"
-                        [class.text-vectk-700]="user.active"
+                        [class.bg-veckt-50]="user.active"
+                        [class.text-veckt-700]="user.active"
                         [class.bg-slate-100]="!user.active"
                         [class.text-slate-500]="!user.active">
                     {{ user.active ? 'Ativo' : 'Inativo' }}
@@ -97,7 +97,7 @@ interface Page<T> {
                 <p class="truncate font-extrabold">{{ user.name }}</p>
                 <p class="mt-1 truncate text-sm text-slate-500">{{ user.email }}</p>
               </div>
-              <span class="shrink-0 rounded-full bg-vectk-50 px-3 py-1 text-xs font-bold text-vectk-700">{{ user.tenantAdmin ? 'Admin' : 'Usuário' }}</span>
+              <span class="shrink-0 rounded-full bg-veckt-50 px-3 py-1 text-xs font-bold text-veckt-700">{{ user.tenantAdmin ? 'Admin' : 'Usuário' }}</span>
             </div>
             <p class="mt-4 text-xs text-slate-500">Último acesso: {{ user.lastAccessAt ? (user.lastAccessAt | date:'short') : '-' }}</p>
             <div class="mt-4 grid grid-cols-2 gap-2">

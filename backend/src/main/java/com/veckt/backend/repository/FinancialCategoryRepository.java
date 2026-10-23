@@ -1,0 +1,1 @@
+package com.veckt.backend.repository;import com.veckt.backend.entity.*;import java.util.*;import org.springframework.data.jpa.repository.JpaRepository;public interface FinancialCategoryRepository extends JpaRepository<FinancialCategory,UUID>{List<FinancialCategory> findAllByTenantIdOrderByNameAsc(UUID tenant);Optional<FinancialCategory> findByIdAndTenantId(UUID id,UUID tenant);}

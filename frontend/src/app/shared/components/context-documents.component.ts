@@ -26,7 +26,7 @@ interface DocumentItem {
           <thead class="bg-slate-50 text-xs uppercase text-slate-500"><tr><th class="px-5 py-4">Tipo</th><th class="px-5 py-4">Nome</th><th class="px-5 py-4">Versão</th><th class="px-5 py-4">Data</th><th class="px-5 py-4">Autor</th><th class="px-5 py-4">Status</th></tr></thead>
           <tbody>
             @for (document of documents(); track document.id) {
-              <tr class="border-t border-slate-100"><td class="px-5 py-4 font-bold text-vectk-700">{{ categoryLabel(document.category) }}</td><td class="px-5 py-4"><strong>{{ document.title }}</strong><p class="mt-1 text-xs text-slate-400">{{ document.templateName }}</p></td><td class="px-5 py-4">v{{ document.version }}</td><td class="px-5 py-4">{{ document.generatedAt | date:'dd/MM/yyyy HH:mm' }}</td><td class="px-5 py-4">{{ document.generatedByName }}</td><td class="px-5 py-4"><span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold">{{ statusLabel(document.status) }}</span></td></tr>
+              <tr class="border-t border-slate-100"><td class="px-5 py-4 font-bold text-veckt-700">{{ categoryLabel(document.category) }}</td><td class="px-5 py-4"><strong>{{ document.title }}</strong><p class="mt-1 text-xs text-slate-400">{{ document.templateName }}</p></td><td class="px-5 py-4">v{{ document.version }}</td><td class="px-5 py-4">{{ document.generatedAt | date:'dd/MM/yyyy HH:mm' }}</td><td class="px-5 py-4">{{ document.generatedByName }}</td><td class="px-5 py-4"><span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold">{{ statusLabel(document.status) }}</span></td></tr>
             } @empty {
               <tr><td class="px-5 py-12 text-center text-slate-500" colspan="6">Nenhum documento vinculado.</td></tr>
             }

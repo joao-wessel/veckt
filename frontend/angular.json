@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "vectk-frontend": {
+    "veckt-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/vectk-frontend",
+            "outputPath": "dist/veckt-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -49,10 +49,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "vectk-frontend:build:production"
+              "buildTarget": "veckt-frontend:build:production"
             },
             "development": {
-              "buildTarget": "vectk-frontend:build:development"
+              "buildTarget": "veckt-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -60,7 +60,7 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "buildTarget": "vectk-frontend:build",
+            "buildTarget": "veckt-frontend:build",
             "tsConfig": "tsconfig.spec.json",
             "runner": "vitest",
             "watch": false

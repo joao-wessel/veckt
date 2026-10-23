@@ -1,0 +1,3 @@
+package com.veckt.backend.notification;
+import com.veckt.backend.entity.*;import com.veckt.backend.repository.NotificationPreferenceRepository;import org.springframework.stereotype.Service;
+@Service public class NotificationDispatcher {private final NotificationPreferenceRepository preferences;private final NotificationChannelRegistry channels;public NotificationDispatcher(NotificationPreferenceRepository preferences,NotificationChannelRegistry channels){this.preferences=preferences;this.channels=channels;}public void dispatch(NotificationRequest r){var pref=preferences.findByUserIdAndCategory(r.recipientUserId(),r.category()).orElse(null);if(!r.mandatory()&&pref!=null&&!pref.isInAppEnabled())return;channels.channels().forEach(c->c.dispatch(r));}}

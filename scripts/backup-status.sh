@@ -7,10 +7,10 @@ source "$SCRIPT_DIR/lib/staging-common.sh"
 
 load_environment
 
-max_age_hours="${VECTK_BACKUP_MAX_AGE_HOURS:-26}"
-latest="$(find "$VECTK_BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d -name '20??-??-??_??????' -printf '%f\n' 2>/dev/null | sort -r | head -n 1 || true)"
-[[ -n "$latest" ]] || fail "Nenhum backup encontrado em $VECTK_BACKUP_DIR"
-directory="$VECTK_BACKUP_DIR/$latest"
+max_age_hours="${VECKT_BACKUP_MAX_AGE_HOURS:-26}"
+latest="$(find "$VECKT_BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d -name '20??-??-??_??????' -printf '%f\n' 2>/dev/null | sort -r | head -n 1 || true)"
+[[ -n "$latest" ]] || fail "Nenhum backup encontrado em $VECKT_BACKUP_DIR"
+directory="$VECKT_BACKUP_DIR/$latest"
 grep -qx 'status=COMPLETE' "$directory/manifest.txt" || fail "Último backup não está completo: $directory"
 backup_epoch="$(backup_epoch_from_name "$latest")"
 age_seconds=$(( $(date +%s) - backup_epoch ))

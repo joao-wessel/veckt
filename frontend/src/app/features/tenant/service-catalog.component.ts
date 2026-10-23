@@ -4,8 +4,8 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { ApiResponse } from '../../core/auth/auth.models';
-import { VectkCurrencyInputComponent } from '../../shared/components/vectk-currency-input.component';
-import { VectkSelectComponent } from '../../shared/components/vectk-select.component';
+import { VecktCurrencyInputComponent } from '../../shared/components/veckt-currency-input.component';
+import { VecktSelectComponent } from '../../shared/components/veckt-select.component';
 import { ToastService } from '../../shared/components/toast/toast.service';
 
 type BillingUnit = 'UN' | 'M2' | 'M' | 'HOUR' | 'DAY' | 'MONTH' | 'PROJECT' | 'VISIT' | 'OTHER';
@@ -58,12 +58,12 @@ interface Stats {
 @Component({
   selector: 'app-service-catalog',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, DecimalPipe, LucideAngularModule, VectkSelectComponent, VectkCurrencyInputComponent],
+  imports: [ReactiveFormsModule, DatePipe, DecimalPipe, LucideAngularModule, VecktSelectComponent, VecktCurrencyInputComponent],
   template: `
     <section class="space-y-5">
       <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Catálogo</p>
+          <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Catálogo</p>
           <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Serviços</h2>
           <p class="mt-2 text-slate-500">Organize os serviços vendidos pelo escritório para propostas, projetos e indicadores futuros.</p>
         </div>
@@ -84,7 +84,7 @@ interface Stats {
         </div>
         <div class="card p-5">
           <p class="text-sm font-bold text-slate-500">Ativos</p>
-          <strong class="mt-2 block text-3xl text-vectk-700">{{ stats()?.activeServices || 0 }}</strong>
+          <strong class="mt-2 block text-3xl text-veckt-700">{{ stats()?.activeServices || 0 }}</strong>
         </div>
         <div class="card p-5">
           <p class="text-sm font-bold text-slate-500">Inativos</p>
@@ -97,13 +97,13 @@ interface Stats {
           <div class="grid gap-2 rounded-2xl bg-slate-50/70 p-2 md:grid-cols-2">
             <button class="rounded-xl px-4 py-3 text-sm font-bold transition"
                     [class.bg-white]="mode() === 'services'"
-                    [class.text-vectk-700]="mode() === 'services'"
+                    [class.text-veckt-700]="mode() === 'services'"
                     [class.shadow-sm]="mode() === 'services'"
                     [class.text-slate-500]="mode() !== 'services'"
                     type="button" (click)="switchMode('services')">Serviços</button>
             <button class="rounded-xl px-4 py-3 text-sm font-bold transition"
                     [class.bg-white]="mode() === 'categories'"
-                    [class.text-vectk-700]="mode() === 'categories'"
+                    [class.text-veckt-700]="mode() === 'categories'"
                     [class.shadow-sm]="mode() === 'categories'"
                     [class.text-slate-500]="mode() !== 'categories'"
                     type="button" (click)="switchMode('categories')">Categorias</button>
@@ -113,11 +113,11 @@ interface Stats {
         @if (mode() === 'services') {
           <form class="grid gap-3 border-b border-slate-200 bg-slate-50/70 p-4 md:grid-cols-7" [formGroup]="serviceFilterForm" (ngSubmit)="searchServices()">
             <input class="field md:col-span-2" placeholder="Pesquisar serviço" formControlName="name">
-            <app-vectk-select formControlName="categoryId" placeholder="Categoria" [options]="categoryFilterOptions()" />
-            <app-vectk-select formControlName="active" placeholder="Status" [options]="statusFilterOptions" />
-            <app-vectk-select formControlName="featured" placeholder="Destaque" [options]="featuredFilterOptions" />
-            <app-vectk-currency-input placeholder="Valor mín." formControlName="minValue" />
-            <app-vectk-currency-input placeholder="Valor máx." formControlName="maxValue" />
+            <app-veckt-select formControlName="categoryId" placeholder="Categoria" [options]="categoryFilterOptions()" />
+            <app-veckt-select formControlName="active" placeholder="Status" [options]="statusFilterOptions" />
+            <app-veckt-select formControlName="featured" placeholder="Destaque" [options]="featuredFilterOptions" />
+            <app-veckt-currency-input placeholder="Valor mín." formControlName="minValue" />
+            <app-veckt-currency-input placeholder="Valor máx." formControlName="maxValue" />
             <button class="btn-secondary md:col-span-7" type="submit"><lucide-icon name="Search" size="18"></lucide-icon>Pesquisar</button>
           </form>
 
@@ -144,14 +144,14 @@ interface Stats {
                     </td>
                     <td class="px-6 py-4">
                       @if (service.categoryName) {
-                        <span class="rounded-full px-3 py-1 text-xs font-bold" [style.background]="softColor(service.categoryColor)" [style.color]="service.categoryColor || 'var(--vectk-700)'">{{ service.categoryName }}</span>
+                        <span class="rounded-full px-3 py-1 text-xs font-bold" [style.background]="softColor(service.categoryColor)" [style.color]="service.categoryColor || 'var(--veckt-700)'">{{ service.categoryName }}</span>
                       } @else {
                         <span class="text-slate-400">Sem categoria</span>
                       }
                     </td>
                     <td class="px-6 py-4">R$ {{ service.baseValue || 0 | number:'1.2-2' }}</td>
                     <td class="px-6 py-4">{{ unitLabel(service.billingUnit) }}</td>
-                    <td class="px-6 py-4"><span class="rounded-full px-3 py-1 text-xs font-bold" [class.bg-vectk-50]="service.active" [class.text-vectk-700]="service.active" [class.bg-slate-100]="!service.active" [class.text-slate-500]="!service.active">{{ service.active ? 'Ativo' : 'Inativo' }}</span></td>
+                    <td class="px-6 py-4"><span class="rounded-full px-3 py-1 text-xs font-bold" [class.bg-veckt-50]="service.active" [class.text-veckt-700]="service.active" [class.bg-slate-100]="!service.active" [class.text-slate-500]="!service.active">{{ service.active ? 'Ativo' : 'Inativo' }}</span></td>
                     <td class="px-6 py-4">{{ service.featured ? 'Sim' : 'Não' }}</td>
                     <td class="px-6 py-4 text-slate-500">{{ service.createdAt | date:'dd/MM/yyyy' }}</td>
                     <td class="px-6 py-4">
@@ -180,7 +180,7 @@ interface Stats {
         } @else {
           <form class="grid gap-3 border-b border-slate-200 bg-slate-50/70 p-4 md:grid-cols-4" [formGroup]="categoryFilterForm" (ngSubmit)="searchCategories()">
             <input class="field md:col-span-2" placeholder="Pesquisar categoria" formControlName="name">
-            <app-vectk-select formControlName="active" placeholder="Status" [options]="statusFilterOptions" />
+            <app-veckt-select formControlName="active" placeholder="Status" [options]="statusFilterOptions" />
             <button class="btn-secondary" type="submit"><lucide-icon name="Search" size="18"></lucide-icon>Pesquisar</button>
           </form>
           <div class="overflow-x-auto">
@@ -203,7 +203,7 @@ interface Stats {
                       <p class="line-clamp-1 text-xs text-slate-500">{{ category.description || 'Sem descrição' }}</p>
                     </td>
                     <td class="px-6 py-4">{{ category.servicesCount }}</td>
-                    <td class="px-6 py-4"><span class="rounded-full px-3 py-1 text-xs font-bold" [class.bg-vectk-50]="category.active" [class.text-vectk-700]="category.active" [class.bg-slate-100]="!category.active" [class.text-slate-500]="!category.active">{{ category.active ? 'Ativa' : 'Inativa' }}</span></td>
+                    <td class="px-6 py-4"><span class="rounded-full px-3 py-1 text-xs font-bold" [class.bg-veckt-50]="category.active" [class.text-veckt-700]="category.active" [class.bg-slate-100]="!category.active" [class.text-slate-500]="!category.active">{{ category.active ? 'Ativa' : 'Inativa' }}</span></td>
                     <td class="px-6 py-4"><span class="inline-flex h-8 w-8 rounded-xl border border-slate-200" [style.background]="category.color || '#e2e8f0'"></span></td>
                     <td class="px-6 py-4">
                       <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
@@ -248,7 +248,7 @@ interface Stats {
             @for (tab of serviceTabs; track tab.value) {
               <button class="rounded-xl px-4 py-3 text-sm font-bold transition" type="button"
                       [class.bg-white]="activeServiceTab() === tab.value"
-                      [class.text-vectk-700]="activeServiceTab() === tab.value"
+                      [class.text-veckt-700]="activeServiceTab() === tab.value"
                       [class.shadow-sm]="activeServiceTab() === tab.value"
                       [class.text-slate-500]="activeServiceTab() !== tab.value"
                       (click)="activeServiceTab.set(tab.value)">{{ tab.label }}</button>
@@ -256,7 +256,7 @@ interface Stats {
           </div>
           @if (activeServiceTab() === 'general') {
             <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Dados gerais</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Dados gerais</p>
               <div class="mt-4 grid gap-4 md:grid-cols-2">
                 <label class="space-y-1 md:col-span-2">
                   <span class="text-xs font-bold text-slate-500">Nome do serviço <span class="text-red-500">*</span></span>
@@ -264,7 +264,7 @@ interface Stats {
                 </label>
                 <label class="space-y-1 md:col-span-2">
                   <span class="text-xs font-bold text-slate-500">Categoria</span>
-                  <app-vectk-select formControlName="categoryId" placeholder="Selecione uma categoria" [options]="categoryFormOptions()" />
+                  <app-veckt-select formControlName="categoryId" placeholder="Selecione uma categoria" [options]="categoryFormOptions()" />
                 </label>
                 <label class="space-y-1 md:col-span-2">
                   <span class="text-xs font-bold text-slate-500">Descrição curta</span>
@@ -279,33 +279,33 @@ interface Stats {
           }
           @if (activeServiceTab() === 'commercial') {
             <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Comercial</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Comercial</p>
               <div class="mt-4 grid gap-4 md:grid-cols-2">
                 <label class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Valor base</span>
-                  <app-vectk-currency-input formControlName="baseValue" />
+                  <app-veckt-currency-input formControlName="baseValue" />
                 </label>
                 <label class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Unidade de cobrança <span class="text-red-500">*</span></span>
-                  <app-vectk-select formControlName="billingUnit" placeholder="Selecione a unidade" [options]="billingUnitOptions" panelMode="fixed" />
+                  <app-veckt-select formControlName="billingUnit" placeholder="Selecione a unidade" [options]="billingUnitOptions" panelMode="fixed" />
                 </label>
               </div>
             </section>
           }
           @if (activeServiceTab() === 'settings') {
             <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Configurações</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Configurações</p>
               <p class="mt-1 text-sm text-slate-500">Controle a visibilidade do serviço nas listagens comerciais.</p>
               <div class="mt-4 grid gap-4 md:grid-cols-2">
                 <label class="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4">
-                  <input class="vectk-checkbox mt-1" type="checkbox" formControlName="active">
+                  <input class="veckt-checkbox mt-1" type="checkbox" formControlName="active">
                   <span>
                     <span class="block text-sm font-extrabold text-slate-800">Serviço ativo</span>
                     <span class="mt-1 block text-xs text-slate-500">Serviços ativos ficam disponíveis para uso em propostas e módulos futuros.</span>
                   </span>
                 </label>
                 <label class="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4">
-                  <input class="vectk-checkbox mt-1" type="checkbox" formControlName="featured">
+                  <input class="veckt-checkbox mt-1" type="checkbox" formControlName="featured">
                   <span>
                     <span class="block text-sm font-extrabold text-slate-800">Destacar serviço</span>
                     <span class="mt-1 block text-xs text-slate-500">Use destaque para serviços estratégicos ou mais vendidos.</span>
@@ -333,7 +333,7 @@ interface Stats {
           </div>
           <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
             <div class="mb-4">
-              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Dados da categoria</p>
+              <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Dados da categoria</p>
               <p class="mt-1 text-sm text-slate-500">Categorias ajudam a agrupar serviços por área de atuação ou tipo de entrega.</p>
             </div>
             <div class="grid gap-4 md:grid-cols-2">
@@ -354,10 +354,10 @@ interface Stats {
               </label>
               <label class="space-y-1">
                 <span class="text-xs font-bold text-slate-500">Ícone</span>
-                <app-vectk-select formControlName="icon" placeholder="Selecione um ícone" [options]="iconOptions" panelMode="fixed" />
+                <app-veckt-select formControlName="icon" placeholder="Selecione um ícone" [options]="iconOptions" panelMode="fixed" />
               </label>
               <label class="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4">
-                <input class="vectk-checkbox mt-1" type="checkbox" formControlName="active">
+                <input class="veckt-checkbox mt-1" type="checkbox" formControlName="active">
                 <span>
                   <span class="block text-sm font-extrabold text-slate-800">Categoria ativa</span>
                   <span class="mt-1 block text-xs text-slate-500">Categorias ativas aparecem na seleção de serviços.</span>
@@ -709,7 +709,7 @@ export class ServiceCatalogComponent implements OnInit {
   }
 
   softColor(color?: string | null) {
-    return color ? `${color}18` : 'var(--vectk-50)';
+    return color ? `${color}18` : 'var(--veckt-50)';
   }
 
   private paramsFrom(values: Record<string, unknown>) {

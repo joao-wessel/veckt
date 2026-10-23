@@ -1,0 +1,22 @@
+package com.veckt.backend.service.file;
+
+import com.veckt.backend.entity.FileOwnerType;
+import com.veckt.backend.exception.NotFoundException;
+import com.veckt.backend.repository.ProjectStageRepository;
+import java.util.UUID;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ProjectStageFileOwnerResolver implements FileOwnerResolver {
+    private final ProjectStageRepository repository;
+    public ProjectStageFileOwnerResolver(ProjectStageRepository repository) { this.repository = repository; }
+    public FileOwnerType type() { return FileOwnerType.PROJECT_STAGE; }
+    public FileOwnerContext resolve(UUID tenantId, UUID ownerId) {
+        var value = repository.findByIdAndTenantIdAndDeletedFalse(ownerId, tenantId)
+                .orElseThrow(() -> new NotFoundException("Etapa não encontrada."));
+        var phase = value.getProjectPhase();
+        var project = phase.getProject();
+        return new FileOwnerContext(ownerId, value.getName(), project.getId(), phase.getId(), value.getId(),
+                project.getProposal() == null ? null : project.getProposal().getId(), project.getClient().getId());
+    }
+}

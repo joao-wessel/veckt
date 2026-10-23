@@ -5,9 +5,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { ApiResponse } from '../../core/auth/auth.models';
-import { VectkCurrencyInputComponent } from '../../shared/components/vectk-currency-input.component';
-import { VectkDatePickerComponent } from '../../shared/components/vectk-date-picker.component';
-import { VectkSelectComponent, VectkSelectOption } from '../../shared/components/vectk-select.component';
+import { VecktCurrencyInputComponent } from '../../shared/components/veckt-currency-input.component';
+import { VecktDatePickerComponent } from '../../shared/components/veckt-date-picker.component';
+import { VecktSelectComponent, VecktSelectOption } from '../../shared/components/veckt-select.component';
 import { ToastService } from '../../shared/components/toast/toast.service';
 
 type BriefingStatus = 'DRAFT' | 'IN_PROGRESS' | 'COMPLETED' | 'ARCHIVED';
@@ -39,15 +39,15 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
     DatePipe,
     RouterLink,
     LucideAngularModule,
-    VectkSelectComponent,
-    VectkDatePickerComponent,
-    VectkCurrencyInputComponent
+    VecktSelectComponent,
+    VecktDatePickerComponent,
+    VecktCurrencyInputComponent
   ],
   template: `
     <section class="space-y-5">
       <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Primeiro contato</p>
+          <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Primeiro contato</p>
           <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Briefings</h2>
           <p class="mt-2 text-slate-500">Organize o programa de necessidades antes de transformar a demanda em proposta.</p>
         </div>
@@ -59,7 +59,7 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
 
       <div class="grid gap-4 md:grid-cols-4">
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Briefings</p><strong class="mt-2 block text-3xl">{{ stats()?.total || 0 }}</strong></div>
-        <div class="card p-5"><p class="text-sm font-bold text-slate-500">Em andamento</p><strong class="mt-2 block text-3xl text-vectk-700">{{ stats()?.inProgress || 0 }}</strong></div>
+        <div class="card p-5"><p class="text-sm font-bold text-slate-500">Em andamento</p><strong class="mt-2 block text-3xl text-veckt-700">{{ stats()?.inProgress || 0 }}</strong></div>
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Concluídos</p><strong class="mt-2 block text-3xl">{{ stats()?.completed || 0 }}</strong></div>
         <div class="card p-5"><p class="text-sm font-bold text-slate-500">Convertidos</p><strong class="mt-2 block text-3xl text-emerald-600">{{ stats()?.converted || 0 }}</strong></div>
       </div>
@@ -72,15 +72,15 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
           </label>
           <label class="space-y-1">
             <span class="text-xs font-bold text-slate-500">Cliente</span>
-            <app-vectk-select formControlName="clientId" placeholder="Todos" [options]="clientOptions()" />
+            <app-veckt-select formControlName="clientId" placeholder="Todos" [options]="clientOptions()" />
           </label>
           <label class="space-y-1">
             <span class="text-xs font-bold text-slate-500">Responsável</span>
-            <app-vectk-select formControlName="responsibleUserId" placeholder="Todos" [options]="userOptions()" />
+            <app-veckt-select formControlName="responsibleUserId" placeholder="Todos" [options]="userOptions()" />
           </label>
           <label class="space-y-1">
             <span class="text-xs font-bold text-slate-500">Status</span>
-            <app-vectk-select formControlName="status" placeholder="Todos" [options]="statusOptions" />
+            <app-veckt-select formControlName="status" placeholder="Todos" [options]="statusOptions" />
           </label>
           <button class="btn-secondary h-12 self-end justify-center px-4" type="submit">
             <lucide-icon name="Search" size="18"></lucide-icon>
@@ -109,10 +109,10 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
                   <td class="px-6 py-4 text-slate-600">{{ briefing.clientName }}</td>
                   <td class="px-6 py-4 text-slate-600">{{ briefing.projectTemplateName || 'A definir' }}</td>
                   <td class="px-6 py-4 text-slate-600">{{ briefing.responsibleName || 'A definir' }}</td>
-                  <td class="px-6 py-4"><span class="badge" [class.bg-vectk-50]="briefing.status !== 'ARCHIVED'" [class.text-vectk-700]="briefing.status !== 'ARCHIVED'">{{ statusLabel(briefing.status) }}</span></td>
+                  <td class="px-6 py-4"><span class="badge" [class.bg-veckt-50]="briefing.status !== 'ARCHIVED'" [class.text-veckt-700]="briefing.status !== 'ARCHIVED'">{{ statusLabel(briefing.status) }}</span></td>
                   <td class="px-6 py-4">
                     @if (briefing.proposalGenerated) {
-                      <a class="font-bold text-vectk-700" [routerLink]="['/app/proposals']">{{ briefing.proposalNumber }}</a>
+                      <a class="font-bold text-veckt-700" [routerLink]="['/app/proposals']">{{ briefing.proposalNumber }}</a>
                     } @else {
                       <span class="text-slate-400">Não gerada</span>
                     }
@@ -143,7 +143,7 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
                   <p class="font-extrabold">{{ briefing.title }}</p>
                   <p class="mt-1 text-sm text-slate-500">{{ briefing.clientName }}</p>
                 </div>
-                <span class="badge bg-vectk-50 text-vectk-700">{{ statusLabel(briefing.status) }}</span>
+                <span class="badge bg-veckt-50 text-veckt-700">{{ statusLabel(briefing.status) }}</span>
               </div>
               <div class="mt-4 flex flex-wrap gap-2">
                 <button class="btn-secondary px-3 py-2" type="button" (click)="openModal(briefing.id)">Abrir</button>
@@ -166,7 +166,7 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
               @for (tab of tabs; track tab.id) {
                 <button class="rounded-xl px-4 py-3 text-sm font-bold transition" type="button"
                         [class.bg-white]="activeTab() === tab.id"
-                        [class.text-vectk-700]="activeTab() === tab.id"
+                        [class.text-veckt-700]="activeTab() === tab.id"
                         [class.shadow-sm]="activeTab() === tab.id"
                         [class.text-slate-500]="activeTab() !== tab.id"
                         (click)="activeTab.set(tab.id)">
@@ -178,7 +178,7 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
             @if (activeTab() === 'general') {
               <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                 <div class="mb-4">
-                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Dados gerais</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Dados gerais</p>
                   <p class="mt-1 text-sm text-slate-500">Defina o cliente, o modelo e as informa&ccedil;&otilde;es iniciais da demanda.</p>
                 </div>
                 <div class="grid gap-4 md:grid-cols-2">
@@ -188,19 +188,19 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
                   </label>
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Cliente <span class="text-red-500">*</span></span>
-                    <app-vectk-select formControlName="clientId" placeholder="Selecione o cliente" [options]="clientOptions()" />
+                    <app-veckt-select formControlName="clientId" placeholder="Selecione o cliente" [options]="clientOptions()" />
                   </label>
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Modelo de projeto</span>
-                    <app-vectk-select formControlName="projectTemplateId" placeholder="Selecione o modelo" [options]="templateOptions()" />
+                    <app-veckt-select formControlName="projectTemplateId" placeholder="Selecione o modelo" [options]="templateOptions()" />
                   </label>
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Respons&aacute;vel</span>
-                    <app-vectk-select formControlName="responsibleUserId" placeholder="Selecione um usu&aacute;rio" [options]="userOptions()" />
+                    <app-veckt-select formControlName="responsibleUserId" placeholder="Selecione um usu&aacute;rio" [options]="userOptions()" />
                   </label>
                   <label class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Status</span>
-                    <app-vectk-select formControlName="status" placeholder="Selecione o status" [options]="statusOptions" />
+                    <app-veckt-select formControlName="status" placeholder="Selecione o status" [options]="statusOptions" />
                   </label>
                   <label class="space-y-1 md:col-span-2">
                     <span class="text-xs font-bold text-slate-500">Descri&ccedil;&atilde;o</span>
@@ -213,7 +213,7 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
             @if (activeTab() === 'projectInfo') {
               <section class="rounded-2xl border border-slate-200 bg-white p-4">
                 <div class="mb-4">
-                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Informa&ccedil;&otilde;es do projeto</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Informa&ccedil;&otilde;es do projeto</p>
                   <p class="mt-1 text-sm text-slate-500">Registre dados iniciais da obra para orientar proposta e projeto.</p>
                 </div>
                 <div class="grid gap-4 md:grid-cols-3">
@@ -223,11 +223,11 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
                   </label>
                   <div class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Prazo desejado</span>
-                    <app-vectk-date-picker formControlName="desiredDeadline" placeholder="Selecione a data" />
+                    <app-veckt-date-picker formControlName="desiredDeadline" placeholder="Selecione a data" />
                   </div>
                   <div class="space-y-1">
                     <span class="text-xs font-bold text-slate-500">Or&ccedil;amento previsto</span>
-                    <app-vectk-currency-input formControlName="expectedBudget" />
+                    <app-veckt-currency-input formControlName="expectedBudget" />
                   </div>
                   <label class="space-y-1 md:col-span-3">
                     <span class="text-xs font-bold text-slate-500">Endere&ccedil;o da obra</span>
@@ -249,7 +249,7 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
               <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                 <div class="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                   <div>
-                    <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Programa de necessidades</p>
+                    <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Programa de necessidades</p>
                     <p class="mt-1 text-sm text-slate-500">Liste ambientes, desejos e entregas esperadas pelo cliente.</p>
                   </div>
                   <button class="btn-secondary" type="button" (click)="addRequirement()" [disabled]="readOnly()"><lucide-icon name="Plus" size="16"></lucide-icon>Adicionar</button>
@@ -257,7 +257,7 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
                 <div class="space-y-3">
                   @for (item of requirements(); track $index) {
                     <div class="grid gap-3 rounded-2xl border border-slate-200 bg-white p-3 md:grid-cols-[auto_1fr_auto] md:items-center">
-                      <span class="grid h-10 w-10 place-items-center rounded-xl bg-vectk-50 text-sm font-extrabold text-vectk-700">{{ $index + 1 }}</span>
+                      <span class="grid h-10 w-10 place-items-center rounded-xl bg-veckt-50 text-sm font-extrabold text-veckt-700">{{ $index + 1 }}</span>
                       <input class="field" [value]="item.description" [disabled]="readOnly()" placeholder="Ex.: 3 su&iacute;tes, &aacute;rea gourmet, escrit&oacute;rio" (input)="updateRequirement($index, $any($event.target).value)">
                       <div class="flex gap-2">
                         <button class="btn-secondary px-3 py-2" type="button" [disabled]="$index === 0 || readOnly()" (click)="moveRequirement($index, -1)"><lucide-icon name="ChevronUp" size="15"></lucide-icon></button>
@@ -275,7 +275,7 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
             @if (activeTab() === 'preferences') {
               <section class="rounded-2xl border border-slate-200 bg-white p-4">
                 <div class="mb-4">
-                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Prefer&ecirc;ncias</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Prefer&ecirc;ncias</p>
                   <p class="mt-1 text-sm text-slate-500">Registre refer&ecirc;ncias est&eacute;ticas, materiais e expectativas do cliente.</p>
                 </div>
                 <div class="grid gap-4 md:grid-cols-2">
@@ -302,7 +302,7 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
             @if (activeTab() === 'restrictions') {
               <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                 <div class="mb-4">
-                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Restri&ccedil;&otilde;es</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Restri&ccedil;&otilde;es</p>
                   <p class="mt-1 text-sm text-slate-500">Mapeie limites legais, t&eacute;cnicos e decis&otilde;es importantes do cliente.</p>
                 </div>
                 <div class="grid gap-4 md:grid-cols-2">
@@ -329,12 +329,12 @@ interface BriefingStats { total: number; inProgress: number; completed: number; 
             @if (activeTab() === 'summary') {
               <section class="rounded-2xl border border-slate-200 bg-white p-4">
                 <div class="mb-4">
-                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Resumo</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Resumo</p>
                   <p class="mt-1 text-sm text-slate-500">Revise as principais informa&ccedil;&otilde;es antes de gerar a proposta.</p>
                 </div>
                 <div class="grid gap-4 lg:grid-cols-[1fr_0.8fr]">
                   <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
-                    <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-vectk-700">Briefing</p>
+                    <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-veckt-700">Briefing</p>
                     <h5 class="mt-2 text-2xl font-extrabold text-slate-950">{{ form.value.title || untitledLabel }}</h5>
                     <p class="mt-3 text-sm text-slate-500">{{ form.value.description || noDescriptionLabel }}</p>
                     <div class="mt-5 grid gap-3 text-sm text-slate-600">
@@ -428,7 +428,7 @@ export class BriefingsComponent implements OnInit {
     { id: 'restrictions', label: 'Restri\u00e7\u00f5es' },
     { id: 'summary', label: 'Resumo' }
   ];
-  readonly statusOptions: VectkSelectOption[] = [
+  readonly statusOptions: VecktSelectOption[] = [
     { label: 'Rascunho', value: 'DRAFT' },
     { label: 'Em andamento', value: 'IN_PROGRESS' },
     { label: 'Conclu\u00eddo', value: 'COMPLETED' },
@@ -596,15 +596,15 @@ export class BriefingsComponent implements OnInit {
     });
   }
 
-  clientOptions(): VectkSelectOption[] {
+  clientOptions(): VecktSelectOption[] {
     return this.clients().map((client) => ({ label: client.displayName, value: client.id }));
   }
 
-  templateOptions(): VectkSelectOption[] {
+  templateOptions(): VecktSelectOption[] {
     return this.templates().map((template) => ({ label: template.name, value: template.id }));
   }
 
-  userOptions(): VectkSelectOption[] {
+  userOptions(): VecktSelectOption[] {
     return this.users().map((user) => ({ label: `${user.name} · ${user.tenantAdmin ? 'Administrador' : 'Usuário comum'}`, value: user.id }));
   }
 

@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('vectk.token');
+  const token = localStorage.getItem('veckt.token');
   if (!token) {
     return next(req);
   }

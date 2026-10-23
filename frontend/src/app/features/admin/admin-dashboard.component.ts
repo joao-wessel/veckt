@@ -23,7 +23,7 @@ interface AdminDashboard {
     <div class="space-y-8">
       <div>
         <h2 class="text-3xl font-extrabold tracking-tight">Dashboard administrativo</h2>
-        <p class="mt-2 text-slate-500">Visão geral da operação Vectk e dos tenants cadastrados.</p>
+        <p class="mt-2 text-slate-500">Visão geral da operação Veckt e dos tenants cadastrados.</p>
       </div>
 
       <div class="grid gap-5 md:grid-cols-3">
@@ -36,7 +36,7 @@ interface AdminDashboard {
         <section class="card p-6">
           <div class="mb-5 flex items-center justify-between">
             <h3 class="text-lg font-bold">Últimos tenants criados</h3>
-            <lucide-icon name="Building2" class="text-vectk-600" size="22"></lucide-icon>
+            <lucide-icon name="Building2" class="text-veckt-600" size="22"></lucide-icon>
           </div>
           <div class="space-y-4">
             @for (tenant of dashboard()?.latestTenants || []; track tenant.id) {
@@ -45,7 +45,7 @@ interface AdminDashboard {
                   <p class="font-bold">{{ tenant.tradeName }}</p>
                   <p class="text-sm text-slate-500">{{ tenant.primaryEmail }}</p>
                 </div>
-                <span class="rounded-full bg-vectk-50 px-3 py-1 text-xs font-bold text-vectk-700">{{ tenant.createdAt | date:'dd/MM/yyyy' }}</span>
+                <span class="rounded-full bg-veckt-50 px-3 py-1 text-xs font-bold text-veckt-700">{{ tenant.createdAt | date:'dd/MM/yyyy' }}</span>
               </div>
             } @empty {
               <p class="text-sm text-slate-500">Nenhum tenant criado ainda.</p>
@@ -56,7 +56,7 @@ interface AdminDashboard {
         <section class="card p-6">
           <div class="mb-5 flex items-center justify-between">
             <h3 class="text-lg font-bold">Últimos acessos</h3>
-            <lucide-icon name="Clock" class="text-vectk-600" size="22"></lucide-icon>
+            <lucide-icon name="Clock" class="text-veckt-600" size="22"></lucide-icon>
           </div>
           <div class="space-y-4">
             @for (access of dashboard()?.latestAccesses || []; track access.email) {

@@ -29,14 +29,14 @@ ensure_staging_dependencies
 require_command git
 require_command df
 
-mkdir -p "$VECTK_BACKUP_DIR"
-chmod 700 "$VECTK_BACKUP_DIR"
-BACKUP_LOG="$VECTK_BACKUP_DIR/backup.log"
+mkdir -p "$VECKT_BACKUP_DIR"
+chmod 700 "$VECKT_BACKUP_DIR"
+BACKUP_LOG="$VECKT_BACKUP_DIR/backup.log"
 touch "$BACKUP_LOG"
 chmod 600 "$BACKUP_LOG"
 
-available_kb="$(df -Pk "$VECTK_BACKUP_DIR" | awk 'NR==2 {print $4}')"
-minimum_kb="${VECTK_BACKUP_MIN_FREE_KB:-1048576}"
+available_kb="$(df -Pk "$VECKT_BACKUP_DIR" | awk 'NR==2 {print $4}')"
+minimum_kb="${VECKT_BACKUP_MIN_FREE_KB:-1048576}"
 [[ "$available_kb" =~ ^[0-9]+$ ]] || fail "Não foi possível verificar o espaço livre"
 (( available_kb >= minimum_kb )) || fail "Espaço livre insuficiente para backup: ${available_kb}KB disponíveis, ${minimum_kb}KB exigidos"
 
@@ -44,8 +44,8 @@ compose up -d postgres >/dev/null
 wait_for_postgres
 
 timestamp="$(date +%Y-%m-%d_%H%M%S)"
-WORK_DIR="$VECTK_BACKUP_DIR/.${timestamp}.partial"
-FINAL_DIR="$VECTK_BACKUP_DIR/$timestamp"
+WORK_DIR="$VECKT_BACKUP_DIR/.${timestamp}.partial"
+FINAL_DIR="$VECKT_BACKUP_DIR/$timestamp"
 [[ ! -e "$FINAL_DIR" ]] || fail "Diretório de backup já existe: $FINAL_DIR"
 mkdir -p "$WORK_DIR"
 chmod 700 "$WORK_DIR"
@@ -66,7 +66,7 @@ docker_run --rm --user "$(id -u):$(id -g)" \
 
 finished_at="$(date -Is)"
 duration="$(( $(date +%s) - START_EPOCH ))"
-commit="$(git -C "$VECTK_ROOT" rev-parse --short HEAD 2>/dev/null || printf 'unknown')"
+commit="$(git -C "$VECKT_ROOT" rev-parse --short HEAD 2>/dev/null || printf 'unknown')"
 {
   printf 'status=COMPLETE\n'
   printf 'started_at=%s\n' "$(date -d "@$START_EPOCH" -Is)"
@@ -85,6 +85,6 @@ mv "$WORK_DIR" "$FINAL_DIR"
 WORK_DIR=""
 log "COMPLETE directory=$FINAL_DIR duration_seconds=$duration"
 
-if [[ "${VECTK_SKIP_BACKUP_CLEANUP:-false}" != "true" ]]; then
+if [[ "${VECKT_SKIP_BACKUP_CLEANUP:-false}" != "true" ]]; then
   "$SCRIPT_DIR/cleanup-backups.sh" --apply
 fi

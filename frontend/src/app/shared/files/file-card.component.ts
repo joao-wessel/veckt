@@ -8,9 +8,9 @@ import { FileItem } from './file.models';
   standalone: true,
   imports: [DatePipe, LucideAngularModule],
   template: `
-    <article class="rounded-2xl border border-slate-200 bg-white p-4 transition hover:border-vectk-200 hover:shadow-sm">
+    <article class="rounded-2xl border border-slate-200 bg-white p-4 transition hover:border-veckt-200 hover:shadow-sm">
       <div class="flex items-start gap-3">
-        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-vectk-50 text-vectk-700">
+        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-veckt-50 text-veckt-700">
           <lucide-icon [name]="icon()" size="20" />
         </span>
         <div class="min-w-0 flex-1"><p class="truncate font-extrabold">{{ file.name }}</p><p class="mt-1 text-xs text-slate-400">{{ sizeLabel(file.size) }} · v{{ file.version }}</p></div>

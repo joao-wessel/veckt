@@ -20,10 +20,10 @@ interface UploadEntry {
   imports: [LucideAngularModule],
   template: `
     <div class="rounded-2xl border-2 border-dashed p-5 text-center transition"
-      [class.border-vectk-400]="dragging()" [class.bg-vectk-50]="dragging()"
+      [class.border-veckt-400]="dragging()" [class.bg-veckt-50]="dragging()"
       [class.border-slate-200]="!dragging()" (dragover)="dragOver($event)" (dragleave)="dragging.set(false)" (drop)="drop($event)">
       <input #fileInput class="hidden" type="file" multiple (change)="selectFiles($any($event.target).files)">
-      <span class="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-vectk-50 text-vectk-700"><lucide-icon name="Upload" size="22" /></span>
+      <span class="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-veckt-50 text-veckt-700"><lucide-icon name="Upload" size="22" /></span>
       <p class="mt-3 font-extrabold">Arraste arquivos para cá</p>
       <p class="mt-1 text-xs text-slate-500">ou selecione vários arquivos no dispositivo</p>
       <button class="btn-secondary mx-auto mt-4" type="button" (click)="fileInput.click()"><lucide-icon name="Plus" size="16" />Selecionar arquivos</button>
@@ -37,7 +37,7 @@ interface UploadEntry {
               <div class="min-w-0"><p class="truncate text-sm font-bold">{{ entry.file.name }}</p><p class="text-xs text-slate-400">{{ statusLabel(entry) }}</p></div>
               @if (entry.status === 'uploading') {<button class="btn-secondary px-2 py-1.5" title="Cancelar upload" type="button" (click)="cancel(entry)"><lucide-icon name="X" size="14" /></button>}
             </div>
-            <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-vectk-600 transition-all" [style.width.%]="entry.progress"></div></div>
+            <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-veckt-600 transition-all" [style.width.%]="entry.progress"></div></div>
           </div>
         }
       </div>

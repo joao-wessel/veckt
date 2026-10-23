@@ -46,7 +46,7 @@ interface PortalProposal {
               Voltar
             </button>
             @if (portal()) {
-              <span class="rounded-full bg-vectk-50 px-4 py-2 text-sm font-bold text-vectk-700">{{ statusLabel(portal()!.proposal.status) }}</span>
+              <span class="rounded-full bg-veckt-50 px-4 py-2 text-sm font-bold text-veckt-700">{{ statusLabel(portal()!.proposal.status) }}</span>
               @if (portal()!.proposal.validUntil) {
                 <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-bold text-slate-600">Válida até {{ portal()!.proposal.validUntil | date:'dd/MM/yyyy' }}</span>
               }
@@ -58,7 +58,7 @@ interface PortalProposal {
           <article class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
             <div class="grid gap-6 border-b border-slate-200 bg-slate-50/70 p-6 md:grid-cols-[1fr_19rem] md:p-8">
               <div>
-                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">{{ data.proposal.number }}</p>
+                <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">{{ data.proposal.number }}</p>
                 <h1 class="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight md:text-4xl">{{ data.proposal.title }}</h1>
                 <p class="mt-3 max-w-3xl leading-7 text-slate-500">{{ data.proposal.description || data.message }}</p>
                 <div class="mt-6 grid gap-3 sm:grid-cols-2">
@@ -70,14 +70,14 @@ interface PortalProposal {
                   <div class="rounded-2xl border border-slate-200 bg-white p-4">
                     <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-slate-500">Contato</p>
                     <p class="mt-2 font-extrabold">{{ data.client.phone || 'Telefone não informado' }}</p>
-                    <p class="mt-1 text-sm text-slate-500">Portal do cliente Vectk</p>
+                    <p class="mt-1 text-sm text-slate-500">Portal do cliente Veckt</p>
                   </div>
                 </div>
               </div>
 
-              <aside class="rounded-3xl border border-vectk-100 bg-white p-5">
+              <aside class="rounded-3xl border border-veckt-100 bg-white p-5">
                 <p class="text-sm font-bold text-slate-500">Valor final</p>
-                <strong class="mt-2 block text-4xl text-vectk-700">R$ {{ data.proposal.total || 0 | number:'1.2-2' }}</strong>
+                <strong class="mt-2 block text-4xl text-veckt-700">R$ {{ data.proposal.total || 0 | number:'1.2-2' }}</strong>
                 <div class="mt-5 space-y-3 text-sm text-slate-600">
                   <div class="flex justify-between gap-4"><span>Subtotal</span><strong>R$ {{ data.proposal.subtotal || 0 | number:'1.2-2' }}</strong></div>
                   <div class="flex justify-between gap-4"><span>Desconto</span><strong>R$ {{ data.proposal.discount || 0 | number:'1.2-2' }}</strong></div>
@@ -198,8 +198,8 @@ interface PortalProposal {
           <section class="modal-panel card w-full max-w-md space-y-5 p-6">
             <div class="flex items-start gap-4">
               <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"
-                    [class.bg-vectk-50]="decision() === 'accept'"
-                    [class.text-vectk-700]="decision() === 'accept'"
+                    [class.bg-veckt-50]="decision() === 'accept'"
+                    [class.text-veckt-700]="decision() === 'accept'"
                     [class.bg-red-50]="decision() === 'reject'"
                     [class.text-red-700]="decision() === 'reject'">
                 <lucide-icon [name]="decision() === 'accept' ? 'Check' : 'X'" size="22"></lucide-icon>

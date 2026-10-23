@@ -2,10 +2,10 @@
 set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VECTK_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-VECTK_ENV_FILE="${VECTK_ENV_FILE:-$VECTK_ROOT/.env}"
-VECTK_BACKUP_DIR="${VECTK_BACKUP_DIR:-$VECTK_ROOT/backups}"
-VECTK_STAGING_HTTPS="${VECTK_STAGING_HTTPS:-true}"
+VECKT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+VECKT_ENV_FILE="${VECKT_ENV_FILE:-$VECKT_ROOT/.env}"
+VECKT_BACKUP_DIR="${VECKT_BACKUP_DIR:-$VECKT_ROOT/backups}"
+VECKT_STAGING_HTTPS="${VECKT_STAGING_HTTPS:-true}"
 
 fail() {
   printf 'ERROR: %s\n' "$*" >&2
@@ -17,32 +17,32 @@ require_command() {
 }
 
 load_environment() {
-  [[ -f "$VECTK_ENV_FILE" ]] || fail "Arquivo de ambiente não encontrado: $VECTK_ENV_FILE"
+  [[ -f "$VECKT_ENV_FILE" ]] || fail "Arquivo de ambiente não encontrado: $VECKT_ENV_FILE"
   set -a
   # shellcheck disable=SC1090
-  source "$VECTK_ENV_FILE"
+  source "$VECKT_ENV_FILE"
   set +a
 
   : "${POSTGRES_DB:?POSTGRES_DB é obrigatório}"
   : "${POSTGRES_USER:?POSTGRES_USER é obrigatório}"
-  : "${VECTK_VOLUME_PREFIX:=vectk_staging}"
+  : "${VECKT_VOLUME_PREFIX:=veckt_staging}"
 
   [[ "$POSTGRES_DB" != "postgres" ]] || fail "POSTGRES_DB não pode ser o banco administrativo postgres"
 }
 
 configure_compose() {
-  local env_file="$VECTK_ENV_FILE"
-  local staging_file="$VECTK_ROOT/docker-compose.staging.yml"
-  local https_file="$VECTK_ROOT/docker-compose.staging.https.yml"
+  local env_file="$VECKT_ENV_FILE"
+  local staging_file="$VECKT_ROOT/docker-compose.staging.yml"
+  local https_file="$VECKT_ROOT/docker-compose.staging.https.yml"
   if [[ "${OSTYPE:-}" == msys* || "${OSTYPE:-}" == mingw* ]]; then
     env_file="$(cygpath -w "$env_file")"
     staging_file="$(cygpath -w "$staging_file")"
     https_file="$(cygpath -w "$https_file")"
   fi
   COMPOSE=(docker compose --env-file "$env_file")
-  [[ -n "${VECTK_COMPOSE_PROJECT:-}" ]] && COMPOSE+=(-p "$VECTK_COMPOSE_PROJECT")
+  [[ -n "${VECKT_COMPOSE_PROJECT:-}" ]] && COMPOSE+=(-p "$VECKT_COMPOSE_PROJECT")
   COMPOSE+=(-f "$staging_file")
-  if [[ "$VECTK_STAGING_HTTPS" == "true" ]]; then
+  if [[ "$VECKT_STAGING_HTTPS" == "true" ]]; then
     COMPOSE+=(-f "$https_file")
   fi
 }
@@ -65,7 +65,7 @@ docker_run() {
 }
 
 uploads_volume() {
-  printf '%s_uploads\n' "$VECTK_VOLUME_PREFIX"
+  printf '%s_uploads\n' "$VECKT_VOLUME_PREFIX"
 }
 
 ensure_staging_dependencies() {

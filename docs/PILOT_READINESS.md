@@ -39,7 +39,7 @@ Preencher no staging real:
 
 ## Subida e validação operacional
 
-1. Criar `/opt/vectk/app/.env` a partir de `.env.example`, preencher valores reais e executar `chmod 600 .env`.
+1. Criar `/opt/veckt/app/.env` a partir de `.env.example`, preencher valores reais e executar `chmod 600 .env`.
 2. Executar `docker compose -f docker-compose.staging.yml build`.
 3. Executar `docker compose -f docker-compose.staging.yml up -d`.
 4. Confirmar PostgreSQL e backend saudáveis com `docker compose ... ps` e `docker compose ... logs backend`.
@@ -97,7 +97,7 @@ Criar volume razoável de dados fictícios antes da verificação final, observa
 
 ## Backup e recuperação no staging real
 
-1. Definir `VECTK_BACKUP_DIR=/opt/vectk/backups` e executar `./scripts/backup.sh`.
+1. Definir `VECKT_BACKUP_DIR=/opt/veckt/backups` e executar `./scripts/backup.sh`.
 2. Conferir `./scripts/backup-status.sh`, manifest, checksums e permissões.
 3. Configurar cron diário e executar `./scripts/cleanup-backups.sh --dry-run` antes da primeira limpeza automática.
 4. Configurar cópia externa via `scripts/copy-backup.sh`; uma cópia fora da VPS é obrigatória antes de dados reais.

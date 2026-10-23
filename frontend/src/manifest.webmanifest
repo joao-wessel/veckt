@@ -1,6 +1,6 @@
 {
-  "name": "Vectk",
-  "short_name": "Vectk",
+  "name": "Veckt",
+  "short_name": "Veckt",
   "description": "Plataforma SaaS para gerenciamento de projetos de arquitetura.",
   "start_url": "/",
   "scope": "/",
@@ -10,13 +10,13 @@
   "theme_color": "#5B7F86",
   "icons": [
     {
-      "src": "assets/brand/vectk-app-icon.svg",
+      "src": "assets/brand/veckt-app-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "assets/brand/vectk-app-icon.svg",
+      "src": "assets/brand/veckt-app-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }

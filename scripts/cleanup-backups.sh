@@ -11,15 +11,15 @@ MODE="dry-run"
 [[ "${1:-}" == "--apply" ]] && MODE="apply"
 [[ $# -le 1 ]] || { printf 'Uso: %s [--apply]\n' "$0" >&2; exit 2; }
 
-mkdir -p "$VECTK_BACKUP_DIR"
-mapfile -t backups < <(find "$VECTK_BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d -name '20??-??-??_??????' -printf '%f\n' | sort -r)
+mkdir -p "$VECKT_BACKUP_DIR"
+mapfile -t backups < <(find "$VECKT_BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d -name '20??-??-??_??????' -printf '%f\n' | sort -r)
 declare -A kept_week kept_month
 weekly=0
 monthly=0
 now_epoch="$(date +%s)"
 
 for name in "${backups[@]}"; do
-  directory="$VECTK_BACKUP_DIR/$name"
+  directory="$VECKT_BACKUP_DIR/$name"
   grep -qx 'status=COMPLETE' "$directory/manifest.txt" 2>/dev/null || continue
   timestamp="${name:0:10} ${name:11:2}:${name:13:2}:${name:15:2}"
   epoch="$(backup_epoch_from_name "$name" 2>/dev/null || printf 0)"

@@ -37,15 +37,15 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
         <div class="grid min-h-screen lg:grid-cols-[17rem_1fr]">
           <aside class="border-r border-slate-200 bg-white p-5">
             <app-logo />
-            <div class="mt-8 rounded-2xl bg-vectk-50 p-4">
-              <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-vectk-700">Portal do cliente</p>
+            <div class="mt-8 rounded-2xl bg-veckt-50 p-4">
+              <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-veckt-700">Portal do cliente</p>
               <h2 class="mt-2 font-extrabold">{{ data.client.displayName }}</h2>
               <p class="mt-1 text-sm text-slate-500">{{ data.client.email || 'E-mail não informado' }}</p>
             </div>
             <nav class="mt-6 space-y-2">
               @for (item of menu; track item.value) {
                 <button type="button" class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold transition"
-                        [class.bg-vectk-700]="view() === item.value"
+                        [class.bg-veckt-700]="view() === item.value"
                         [class.text-white]="view() === item.value"
                         [class.text-slate-600]="view() !== item.value"
                         [class.hover:bg-slate-50]="view() !== item.value"
@@ -61,7 +61,7 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
             <header class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 px-5 py-4 backdrop-blur md:px-8">
               <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">Vectk Portal</p>
+                  <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">Veckt Portal</p>
                   <h1 class="mt-1 text-2xl font-extrabold">Olá, {{ firstName(data.client.displayName) }}.</h1>
                 </div>
                 <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
@@ -74,7 +74,7 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
             <div class="space-y-5 p-5 md:p-8">
               @if (view() === 'dashboard') {
                 <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                  <article class="card p-5"><p class="text-sm font-bold text-slate-500">Projetos ativos</p><strong class="mt-3 block text-3xl text-vectk-700">{{ data.activeProjects }}</strong></article>
+                  <article class="card p-5"><p class="text-sm font-bold text-slate-500">Projetos ativos</p><strong class="mt-3 block text-3xl text-veckt-700">{{ data.activeProjects }}</strong></article>
                   <article class="card p-5"><p class="text-sm font-bold text-slate-500">Projetos concluídos</p><strong class="mt-3 block text-3xl">{{ data.completedProjects }}</strong></article>
                   <article class="card p-5"><p class="text-sm font-bold text-slate-500">Propostas pendentes</p><strong class="mt-3 block text-3xl">{{ data.pendingProposals }}</strong></article>
                   <article class="card p-5"><p class="text-sm font-bold text-slate-500">Documentos</p><strong class="mt-3 block text-3xl">{{ data.documentCount }}</strong></article>
@@ -88,17 +88,17 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
                     </div>
                     <div class="mt-4 grid gap-3">
                       @for (project of projects().slice(0, 3); track project.id) {
-                        <button class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-left transition hover:border-vectk-200 hover:bg-vectk-50"
+                        <button class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-left transition hover:border-veckt-200 hover:bg-veckt-50"
                                 type="button" (click)="openProject(project.id)">
                           <div class="flex items-start justify-between gap-4">
                             <div>
-                              <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-vectk-700">{{ project.code }}</p>
+                              <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-veckt-700">{{ project.code }}</p>
                               <h3 class="mt-1 font-extrabold">{{ project.name }}</h3>
                               <p class="mt-1 text-sm text-slate-500">Responsável: {{ project.responsibleName || 'Equipe' }}</p>
                             </div>
                             <span class="rounded-full px-3 py-1 text-xs font-bold" [class]="statusClass(project.status)">{{ statusLabel(project.status) }}</span>
                           </div>
-                          <div class="mt-4 h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-vectk-700" [style.width.%]="project.progressPercentage || 0"></div></div>
+                          <div class="mt-4 h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-veckt-700" [style.width.%]="project.progressPercentage || 0"></div></div>
                         </button>
                       } @empty {
                         <p class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-500">Nenhum projeto disponível no portal.</p>
@@ -111,7 +111,7 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
                     <div class="mt-5 space-y-4">
                       @for (activity of data.latestActivities; track activity.id) {
                         <div class="flex gap-3">
-                          <span class="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-vectk-50 text-vectk-700"><lucide-icon [name]="activityIcon(activity.type)" size="17"></lucide-icon></span>
+                          <span class="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-veckt-50 text-veckt-700"><lucide-icon [name]="activityIcon(activity.type)" size="17"></lucide-icon></span>
                           <div>
                             <p class="text-sm font-bold">{{ activity.title }}</p>
                             <p class="mt-1 text-sm text-slate-500">{{ activity.description }}</p>
@@ -134,7 +134,7 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
                       <div class="border-b border-slate-200 bg-slate-50/70 p-6">
                         <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                           <div>
-                            <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-vectk-700">{{ project.code }}</p>
+                            <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-veckt-700">{{ project.code }}</p>
                             <h2 class="mt-2 text-3xl font-extrabold">{{ project.name }}</h2>
                             <p class="mt-2 max-w-3xl text-slate-500">{{ project.description || 'Projeto em acompanhamento pelo escritório.' }}</p>
                           </div>
@@ -155,7 +155,7 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
                                 <div class="rounded-2xl border border-slate-200 bg-white p-4">
                                   <div class="flex items-center justify-between gap-3">
                                     <div class="flex items-center gap-3">
-                                      <span class="h-3 w-3 rounded-full" [style.background]="phase.color || 'var(--vectk-600)'"></span>
+                                      <span class="h-3 w-3 rounded-full" [style.background]="phase.color || 'var(--veckt-600)'"></span>
                                       <strong>{{ phase.name }}</strong>
                                     </div>
                                     <span class="text-sm font-bold text-slate-500">{{ phase.completionPercentage || 0 }}%</span>
@@ -163,7 +163,7 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
                                   <div class="mt-4 space-y-3">
                                     @for (stage of phase.stages; track stage.id) {
                                       <div class="flex items-center gap-4 rounded-xl bg-slate-50 p-3">
-                                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full" [class]="stage.status === 'COMPLETED' ? 'bg-vectk-700 text-white' : 'bg-white text-slate-400'">
+                                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full" [class]="stage.status === 'COMPLETED' ? 'bg-veckt-700 text-white' : 'bg-white text-slate-400'">
                                           <lucide-icon [name]="stage.status === 'COMPLETED' ? 'Check' : 'Clock'" size="16"></lucide-icon>
                                         </span>
                                         <div class="min-w-0 flex-1">
@@ -179,14 +179,14 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
                             </div>
                           </section>
                           <section class="order-1 rounded-2xl border border-slate-200 p-5">
-                            <div class="flex items-center gap-3"><span class="rounded-xl bg-vectk-50 p-2 text-vectk-700"><lucide-icon name="ClipboardList" size="18"></lucide-icon></span><div><h3 class="font-extrabold">Diário de Obra</h3><p class="text-sm text-slate-500">Atualizações publicadas pelo escritório.</p></div></div>
-                            <div class="mt-4 space-y-3">@for (entry of projectDiary(); track entry.id) {<article class="rounded-xl bg-slate-50 p-4"><div class="flex flex-wrap items-center justify-between gap-2"><strong>{{ entry.title }}</strong><span class="text-xs font-bold text-slate-500">{{ entry.entryDate | date:'dd/MM/yyyy' }}</span></div><p class="mt-2 text-sm text-slate-600">{{ entry.summary }}</p><p class="mt-2 text-xs font-bold text-slate-400">{{ entry.responsibleName }} @if(entry.stages.length){ · {{ entry.stages.join(', ') }} }</p>@if(entry.photos.length){<div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">@for(photo of entry.photos; track photo.fileId){<article class="overflow-hidden rounded-xl border border-slate-200 bg-white"><button class="group block w-full text-left" type="button" (click)="openPhotoPreview(photo)"><div class="h-28 overflow-hidden bg-vectk-50">@if(isImage(photo.mimeType)){<img class="h-full w-full object-cover transition duration-200 group-hover:scale-105" [src]="filePreviewUrl(photo.fileId)" [alt]="photo.caption || photo.fileName"/>} @else {<div class="grid h-full place-items-center text-vectk-700"><lucide-icon name="Image" size="20"></lucide-icon></div>}</div><p class="truncate px-2 py-2 text-xs font-bold text-slate-600" [title]="photo.caption || photo.fileName">{{ photo.caption || photo.fileName }}</p></button><a class="flex items-center justify-center gap-1 border-t border-slate-100 px-2 py-2 text-xs font-bold text-vectk-700" [href]="fileDownloadUrl(photo.fileId)"><lucide-icon name="Download" size="13"></lucide-icon>Baixar</a></article>}</div>}</article>} @empty {<p class="py-3 text-sm text-slate-500">Nenhum registro do Diário foi compartilhado ainda.</p>}</div>
+                            <div class="flex items-center gap-3"><span class="rounded-xl bg-veckt-50 p-2 text-veckt-700"><lucide-icon name="ClipboardList" size="18"></lucide-icon></span><div><h3 class="font-extrabold">Diário de Obra</h3><p class="text-sm text-slate-500">Atualizações publicadas pelo escritório.</p></div></div>
+                            <div class="mt-4 space-y-3">@for (entry of projectDiary(); track entry.id) {<article class="rounded-xl bg-slate-50 p-4"><div class="flex flex-wrap items-center justify-between gap-2"><strong>{{ entry.title }}</strong><span class="text-xs font-bold text-slate-500">{{ entry.entryDate | date:'dd/MM/yyyy' }}</span></div><p class="mt-2 text-sm text-slate-600">{{ entry.summary }}</p><p class="mt-2 text-xs font-bold text-slate-400">{{ entry.responsibleName }} @if(entry.stages.length){ · {{ entry.stages.join(', ') }} }</p>@if(entry.photos.length){<div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">@for(photo of entry.photos; track photo.fileId){<article class="overflow-hidden rounded-xl border border-slate-200 bg-white"><button class="group block w-full text-left" type="button" (click)="openPhotoPreview(photo)"><div class="h-28 overflow-hidden bg-veckt-50">@if(isImage(photo.mimeType)){<img class="h-full w-full object-cover transition duration-200 group-hover:scale-105" [src]="filePreviewUrl(photo.fileId)" [alt]="photo.caption || photo.fileName"/>} @else {<div class="grid h-full place-items-center text-veckt-700"><lucide-icon name="Image" size="20"></lucide-icon></div>}</div><p class="truncate px-2 py-2 text-xs font-bold text-slate-600" [title]="photo.caption || photo.fileName">{{ photo.caption || photo.fileName }}</p></button><a class="flex items-center justify-center gap-1 border-t border-slate-100 px-2 py-2 text-xs font-bold text-veckt-700" [href]="fileDownloadUrl(photo.fileId)"><lucide-icon name="Download" size="13"></lucide-icon>Baixar</a></article>}</div>}</article>} @empty {<p class="py-3 text-sm text-slate-500">Nenhum registro do Diário foi compartilhado ainda.</p>}</div>
                           </section>
                         </div>
                         <aside class="space-y-4">
                           <div class="rounded-2xl border border-slate-200 p-5">
-                            <div class="flex items-center justify-between"><h3 class="font-extrabold">Progresso</h3><strong class="text-vectk-700">{{ project.progressPercentage || 0 }}%</strong></div>
-                            <div class="mt-4 h-3 rounded-full bg-slate-100"><div class="h-3 rounded-full bg-vectk-700" [style.width.%]="project.progressPercentage || 0"></div></div>
+                            <div class="flex items-center justify-between"><h3 class="font-extrabold">Progresso</h3><strong class="text-veckt-700">{{ project.progressPercentage || 0 }}%</strong></div>
+                            <div class="mt-4 h-3 rounded-full bg-slate-100"><div class="h-3 rounded-full bg-veckt-700" [style.width.%]="project.progressPercentage || 0"></div></div>
                           </div>
                           <div class="rounded-2xl border border-slate-200 p-5">
                             <h3 class="font-extrabold">Aprovações</h3>
@@ -203,19 +203,19 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
                 } @else {
                   <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                     @for (project of projects(); track project.id) {
-                      <button class="card p-5 text-left transition hover:-translate-y-0.5 hover:border-vectk-200" type="button" (click)="openProject(project.id)">
+                      <button class="card p-5 text-left transition hover:-translate-y-0.5 hover:border-veckt-200" type="button" (click)="openProject(project.id)">
                         <div class="flex items-start justify-between gap-3">
-                          <span class="rounded-2xl bg-vectk-50 p-3 text-vectk-700"><lucide-icon name="Folder" size="21"></lucide-icon></span>
+                          <span class="rounded-2xl bg-veckt-50 p-3 text-veckt-700"><lucide-icon name="Folder" size="21"></lucide-icon></span>
                           <span class="rounded-full px-3 py-1 text-xs font-bold" [class]="statusClass(project.status)">{{ statusLabel(project.status) }}</span>
                         </div>
-                        <p class="mt-5 text-xs font-extrabold uppercase tracking-[0.18em] text-vectk-700">{{ project.code }}</p>
+                        <p class="mt-5 text-xs font-extrabold uppercase tracking-[0.18em] text-veckt-700">{{ project.code }}</p>
                         <h2 class="mt-2 text-xl font-extrabold">{{ project.name }}</h2>
                         <p class="mt-2 text-sm text-slate-500">Responsável: {{ project.responsibleName || 'Equipe' }}</p>
-                        <div class="mt-5 h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-vectk-700" [style.width.%]="project.progressPercentage || 0"></div></div>
+                        <div class="mt-5 h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-veckt-700" [style.width.%]="project.progressPercentage || 0"></div></div>
                       </button>
                     } @empty {
                       <div class="card col-span-full p-8 text-center">
-                        <span class="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-vectk-50 text-vectk-700"><lucide-icon name="Folder" size="22"></lucide-icon></span>
+                        <span class="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-veckt-50 text-veckt-700"><lucide-icon name="Folder" size="22"></lucide-icon></span>
                         <h2 class="mt-4 text-xl font-extrabold">Nenhum projeto disponível</h2>
                         <p class="mt-2 text-sm text-slate-500">Quando um projeto for iniciado, o acompanhamento aparecerá aqui.</p>
                       </div>
@@ -247,7 +247,7 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
                     @for (file of files(); track file.id) {
                       <article class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                         <div class="flex items-start gap-3">
-                          <span class="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-white text-vectk-700">@if(isImage(file.mimeType)){<img class="h-full w-full object-cover" [src]="filePreviewUrl(file.id)" [alt]="file.name"/>} @else {<lucide-icon name="FileText" size="20"></lucide-icon>}</span>
+                          <span class="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-white text-veckt-700">@if(isImage(file.mimeType)){<img class="h-full w-full object-cover" [src]="filePreviewUrl(file.id)" [alt]="file.name"/>} @else {<lucide-icon name="FileText" size="20"></lucide-icon>}</span>
                           <div class="min-w-0 flex-1">
                             <p class="truncate font-extrabold">{{ file.name }}</p>
                             <p class="mt-1 text-xs font-bold uppercase text-slate-400">{{ file.extension || 'arquivo' }} · v{{ file.version }}</p>
@@ -272,7 +272,7 @@ interface PortalDiary { id: string; title: string; entryType: string; entryDate:
                   @if (proposals().length) {
                     <div class="card overflow-hidden">
                       <div class="border-b border-slate-200 p-5">
-                        <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-vectk-700">Propostas</p>
+                        <p class="text-xs font-extrabold uppercase tracking-[0.2em] text-veckt-700">Propostas</p>
                         <h2 class="mt-1 text-xl font-extrabold">Propostas para análise</h2>
                       </div>
                       <div class="divide-y divide-slate-100">
@@ -426,7 +426,7 @@ export class ClientPortalComponent implements OnInit {
   stageStatusLabel(status: StageStatus) { return ({ NOT_STARTED: 'Não iniciada', IN_PROGRESS: 'Em andamento', WAITING_CLIENT: 'Aguardando cliente', WAITING_APPROVAL: 'Aguardando aprovação', ON_HOLD: 'Pausada', COMPLETED: 'Concluída', CANCELLED: 'Cancelada' } as Record<string, string>)[status] || status; }
   approvalLabel(status: ApprovalStatus) { return ({ PENDING: 'Pendente', APPROVED: 'Aprovada', REJECTED: 'Ajustes solicitados', EXPIRED: 'Expirada', CANCELLED: 'Cancelada' } as Record<string, string>)[status] || status; }
   proposalLabel(status: string) { return ({ SENT: 'Aguardando análise', VIEWED: 'Em análise', ACCEPTED: 'Aceita', REJECTED: 'Recusada', EXPIRED: 'Expirada', CANCELLED: 'Cancelada' } as Record<string, string>)[status] || status; }
-  statusClass(status: ProjectStatus) { if (status === 'COMPLETED') return 'bg-vectk-50 text-vectk-700'; if (status === 'IN_PROGRESS') return 'bg-blue-50 text-blue-700'; if (status === 'ON_HOLD') return 'bg-amber-50 text-amber-700'; if (status === 'CANCELLED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
-  approvalClass(status: ApprovalStatus) { if (status === 'APPROVED') return 'bg-vectk-50 text-vectk-700'; if (status === 'REJECTED') return 'bg-red-50 text-red-700'; if (status === 'PENDING') return 'bg-amber-50 text-amber-700'; return 'bg-slate-100 text-slate-600'; }
-  proposalClass(status: string) { if (status === 'ACCEPTED') return 'bg-vectk-50 text-vectk-700'; if (status === 'SENT' || status === 'VIEWED') return 'bg-amber-50 text-amber-700'; if (status === 'REJECTED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
+  statusClass(status: ProjectStatus) { if (status === 'COMPLETED') return 'bg-veckt-50 text-veckt-700'; if (status === 'IN_PROGRESS') return 'bg-blue-50 text-blue-700'; if (status === 'ON_HOLD') return 'bg-amber-50 text-amber-700'; if (status === 'CANCELLED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
+  approvalClass(status: ApprovalStatus) { if (status === 'APPROVED') return 'bg-veckt-50 text-veckt-700'; if (status === 'REJECTED') return 'bg-red-50 text-red-700'; if (status === 'PENDING') return 'bg-amber-50 text-amber-700'; return 'bg-slate-100 text-slate-600'; }
+  proposalClass(status: string) { if (status === 'ACCEPTED') return 'bg-veckt-50 text-veckt-700'; if (status === 'SENT' || status === 'VIEWED') return 'bg-amber-50 text-amber-700'; if (status === 'REJECTED') return 'bg-red-50 text-red-700'; return 'bg-slate-100 text-slate-600'; }
 }

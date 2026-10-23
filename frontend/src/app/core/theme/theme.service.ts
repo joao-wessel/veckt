@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { ApiResponse, AuthResponse, AuthScope } from '../auth/auth.models';
 
-export type ColorPalette = 'vectk' | 'terracotta' | 'indigo';
+export type ColorPalette = 'veckt' | 'terracotta' | 'indigo';
 export type ThemeMode = 'light' | 'dark';
 
-const THEME_STORAGE_KEY = 'vectk.theme';
-const PALETTE_STORAGE_KEY = 'vectk.palette';
+const THEME_STORAGE_KEY = 'veckt.theme';
+const PALETTE_STORAGE_KEY = 'veckt.palette';
 const API_URL = '/api';
 
 interface AppearancePreferences {
@@ -16,7 +16,7 @@ interface AppearancePreferences {
 }
 
 const THEME_COLORS: Record<ColorPalette, string> = {
-  vectk: '#5B7F86',
+  veckt: '#5B7F86',
   terracotta: '#b0522f',
   indigo: '#524aae'
 };
@@ -46,7 +46,7 @@ export class ThemeService {
   applyUserPreferences(user: AuthResponse | null) {
     if (!user) return;
     this.mode.set(user.themeMode || 'light');
-    this.palette.set(user.colorPalette || 'vectk');
+    this.palette.set(user.colorPalette || 'veckt');
     this.apply();
     this.persistLocal();
   }
@@ -83,8 +83,8 @@ export class ThemeService {
   }
 
   private saveRemote() {
-    const token = localStorage.getItem('vectk.token');
-    const scope = localStorage.getItem('vectk.scope') as AuthScope | null;
+    const token = localStorage.getItem('veckt.token');
+    const scope = localStorage.getItem('veckt.scope') as AuthScope | null;
     if (!token || !scope) return;
 
     const preferences = { themeMode: this.mode(), colorPalette: this.palette() };
@@ -95,10 +95,10 @@ export class ThemeService {
   }
 
   private updateStoredUser(preferences: AppearancePreferences) {
-    const raw = localStorage.getItem('vectk.user');
+    const raw = localStorage.getItem('veckt.user');
     if (!raw) return;
     const user = JSON.parse(raw) as AuthResponse;
-    localStorage.setItem('vectk.user', JSON.stringify({
+    localStorage.setItem('veckt.user', JSON.stringify({
       ...user,
       themeMode: preferences.themeMode,
       colorPalette: preferences.colorPalette
@@ -114,8 +114,8 @@ export class ThemeService {
     }
     favicon.type = 'image/svg+xml';
     favicon.href = this.mode() === 'dark'
-      ? 'assets/brand/vectk-favicon-light.svg?v=2'
-      : 'assets/brand/vectk-favicon.svg?v=2';
+      ? 'assets/brand/veckt-favicon-light.svg?v=2'
+      : 'assets/brand/veckt-favicon.svg?v=2';
   }
 
   private applyThemeColor() {
@@ -135,6 +135,6 @@ export class ThemeService {
 
   private readStoredPalette(): ColorPalette {
     const palette = localStorage.getItem(PALETTE_STORAGE_KEY);
-    return palette === 'terracotta' || palette === 'indigo' ? palette : 'vectk';
+    return palette === 'terracotta' || palette === 'indigo' ? palette : 'veckt';
   }
 }

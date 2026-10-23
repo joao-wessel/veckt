@@ -24,7 +24,7 @@ require_command sha256sum
 require_command tar
 configure_compose
 if ! docker volume inspect "$(uploads_volume)" >/dev/null 2>&1; then
-  compose_project="${VECTK_COMPOSE_PROJECT:-$(basename "$VECTK_ROOT" | tr '[:upper:]' '[:lower:]')}"
+  compose_project="${VECKT_COMPOSE_PROJECT:-$(basename "$VECKT_ROOT" | tr '[:upper:]' '[:lower:]')}"
   docker volume create \
     --label "com.docker.compose.project=$compose_project" \
     --label "com.docker.compose.volume=uploads" \

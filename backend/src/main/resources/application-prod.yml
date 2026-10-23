@@ -10,6 +10,6 @@ spring:
 logging:
   level:
     root: INFO
-    com.vectk: INFO
+    com.veckt: INFO
     org.springframework.web: WARN
     org.hibernate.SQL: WARN

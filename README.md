@@ -1,4 +1,4 @@
-# Vectk
+# Veckt
 
 Fundação SaaS para gerenciamento de projetos de arquitetura.
 
@@ -19,7 +19,7 @@ Organize o escritório. Liberte a criação.
 
 Crie um arquivo `.env` a partir de `.env.example` e substitua todos os valores de exemplo por segredos exclusivos. Em especial, gere duas chaves JWT independentes com pelo menos 32 caracteres e defina a origem pública em `APP_ALLOWED_ORIGINS`.
 
-O bootstrap do primeiro administrador de plataforma é opcional e fica desativado por padrão. Em banco vazio, preencha `VECTK_INITIAL_ADMIN_NAME`, `VECTK_INITIAL_ADMIN_EMAIL` e `VECTK_INITIAL_ADMIN_PASSWORD`, então defina `VECTK_INITIAL_BOOTSTRAP_ENABLED=true` somente para a primeira subida. Ele não cria Tenant. Depois de confirmar o acesso administrativo, altere `VECTK_INITIAL_BOOTSTRAP_ENABLED=false` e reinicie o backend. Nunca versione essa senha no `.env`.
+O bootstrap do primeiro administrador de plataforma é opcional e fica desativado por padrão. Em banco vazio, preencha `VECKT_INITIAL_ADMIN_NAME`, `VECKT_INITIAL_ADMIN_EMAIL` e `VECKT_INITIAL_ADMIN_PASSWORD`, então defina `VECKT_INITIAL_BOOTSTRAP_ENABLED=true` somente para a primeira subida. Ele não cria Tenant. Depois de confirmar o acesso administrativo, altere `VECKT_INITIAL_BOOTSTRAP_ENABLED=false` e reinicie o backend. Nunca versione essa senha no `.env`.
 
 Os Tenants continuam sendo criados exclusivamente pelo fluxo administrativo normal. Como todo `ProjectTemplate` pertence a um Tenant, cada Tenant recém-criado recebe o modelo padrão `Residencial`, com as fases e etapas residenciais já adotadas pelo sistema. Esse seed é idempotente e transacional junto à criação do Tenant.
 
@@ -48,17 +48,17 @@ sudo apt install -y ca-certificates curl git ufw
 Crie um usuário operacional dedicado e permita o uso do Docker sem executar a operação cotidiana como root:
 
 ```bash
-sudo adduser vectk
-sudo usermod -aG docker vectk
-sudo install -d -o vectk -g vectk -m 750 /opt/vectk /opt/vectk/backups
-sudo -iu vectk
-git clone <URL_DO_REPOSITORIO> /opt/vectk/app
-cd /opt/vectk/app
+sudo adduser veckt
+sudo usermod -aG docker veckt
+sudo install -d -o veckt -g veckt -m 750 /opt/veckt /opt/veckt/backups
+sudo -iu veckt
+git clone <URL_DO_REPOSITORIO> /opt/veckt/app
+cd /opt/veckt/app
 cp .env.example .env
 chmod 600 .env
 ```
 
-Preencha `.env` exclusivamente no servidor. Não use valores de exemplo nem versione esse arquivo. As variáveis obrigatórias são `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `VECTK_PLATFORM_JWT_SECRET`, `VECTK_TENANT_JWT_SECRET`, `APP_ALLOWED_ORIGINS`, `APP_PUBLIC_WEBSITE_URL`, `APP_PUBLIC_FRONTEND_URL`, `APP_PUBLIC_BACKEND_URL`, `APP_DOMAIN`, `LETSENCRYPT_EMAIL`, `APP_TIMEZONE`, `APP_STORAGE_PATH` e `VECTK_BACKUP_DIR`. SMTP usa, quando disponível, `SPRING_MAIL_HOST`, `SPRING_MAIL_PORT`, `SPRING_MAIL_USERNAME` e `SPRING_MAIL_PASSWORD`.
+Preencha `.env` exclusivamente no servidor. Não use valores de exemplo nem versione esse arquivo. As variáveis obrigatórias são `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `VECKT_PLATFORM_JWT_SECRET`, `VECKT_TENANT_JWT_SECRET`, `APP_ALLOWED_ORIGINS`, `APP_PUBLIC_WEBSITE_URL`, `APP_PUBLIC_FRONTEND_URL`, `APP_PUBLIC_BACKEND_URL`, `APP_DOMAIN`, `LETSENCRYPT_EMAIL`, `APP_TIMEZONE`, `APP_STORAGE_PATH` e `VECKT_BACKUP_DIR`. SMTP usa, quando disponível, `SPRING_MAIL_HOST`, `SPRING_MAIL_PORT`, `SPRING_MAIL_USERNAME` e `SPRING_MAIL_PASSWORD`.
 
 Gere segredos localmente no servidor, por exemplo:
 
@@ -152,12 +152,12 @@ Os serviços usam `restart: unless-stopped`, portanto retornam após o reboot da
 
 ## Backup e recuperação
 
-O backup do Vectk é composto obrigatoriamente por banco PostgreSQL e uploads locais. Os scripts operacionais ficam em `scripts/` e usam o mesmo `.env` do staging. Por padrão, os backups são gravados em `backups/`; na VPS, defina `VECTK_BACKUP_DIR=/opt/vectk/backups` e mantenha esse diretório fora da raiz publicada pelo Nginx.
+O backup do Veckt é composto obrigatoriamente por banco PostgreSQL e uploads locais. Os scripts operacionais ficam em `scripts/` e usam o mesmo `.env` do staging. Por padrão, os backups são gravados em `backups/`; na VPS, defina `VECKT_BACKUP_DIR=/opt/veckt/backups` e mantenha esse diretório fora da raiz publicada pelo Nginx.
 
 Cada execução gera uma pasta exclusiva, com permissões restritas:
 
 ```text
-/opt/vectk/backups/2026-09-17_020000/
+/opt/veckt/backups/2026-09-17_020000/
   database.dump
   database.dump.sha256
   uploads.tar.gz
@@ -175,12 +175,12 @@ O banco é exportado em formato customizado do PostgreSQL (`pg_dump -Fc`), próp
 ./scripts/cleanup-backups.sh --dry-run
 ```
 
-O backup exige ao menos 1 GiB livre por padrão (`VECTK_BACKUP_MIN_FREE_KB`) e registra início, fim, duração e resultado em `backup.log`. A política do piloto preserva os últimos 7 backups diários, 4 semanais e 3 mensais. A limpeza é executada após um backup bem-sucedido; ela pode ser revisada antes com `--dry-run`.
+O backup exige ao menos 1 GiB livre por padrão (`VECKT_BACKUP_MIN_FREE_KB`) e registra início, fim, duração e resultado em `backup.log`. A política do piloto preserva os últimos 7 backups diários, 4 semanais e 3 mensais. A limpeza é executada após um backup bem-sucedido; ela pode ser revisada antes com `--dry-run`.
 
 Agendamento diário às 02:00 na VPS:
 
 ```cron
-0 2 * * * cd /opt/vectk/app && /opt/vectk/app/scripts/backup.sh >> /opt/vectk/backups/cron.log 2>&1
+0 2 * * * cd /opt/veckt/app && /opt/veckt/app/scripts/backup.sh >> /opt/veckt/backups/cron.log 2>&1
 ```
 
 Antes de atualizações que possam executar migrations, faça um backup, atualize a aplicação e valide a saúde. Ao restaurar um banco de uma versão anterior, o Flyway preserva o histórico restaurado e aplica migrations posteriores compatíveis quando o backend voltar a iniciar.
@@ -190,29 +190,29 @@ Antes de atualizações que possam executar migrations, faça um backup, atualiz
 Restore substitui integralmente o banco e os uploads atuais. Ele valida manifest, checksums e todas as `storage_key` ativas antes de iniciar os serviços novamente:
 
 ```bash
-./scripts/restore.sh /opt/vectk/backups/2026-09-17_020000
+./scripts/restore.sh /opt/veckt/backups/2026-09-17_020000
 ```
 
-O script exige digitar `RESTORE`. Para automação controlada, use explicitamente `--yes`. Em uma instalação limpa sem certificado ainda emitido, execute com `VECTK_STAGING_HTTPS=false` durante a recuperação, emita/recupere o certificado e só então suba a composição HTTPS.
+O script exige digitar `RESTORE`. Para automação controlada, use explicitamente `--yes`. Em uma instalação limpa sem certificado ainda emitido, execute com `VECKT_STAGING_HTTPS=false` durante a recuperação, emita/recupere o certificado e só então suba a composição HTTPS.
 
 ### Cópia externa e proteção
 
 Backup somente na VPS não protege contra perda da própria VPS. Configure uma chave SSH restrita e use, por exemplo:
 
 ```bash
-VECTK_BACKUP_REMOTE='backup@backup.example:/srv/vectk-backups' \
-  ./scripts/copy-backup.sh /opt/vectk/backups/2026-09-17_020000
+VECKT_BACKUP_REMOTE='backup@backup.example:/srv/veckt-backups' \
+  ./scripts/copy-backup.sh /opt/veckt/backups/2026-09-17_020000
 ```
 
 O destino externo deve restringir permissões ao usuário de backup. Como os artefatos contêm dados pessoais, financeiros e documentos, use um canal protegido e criptografia no destino, como disco criptografado, `restic` ou `age`; não há chaves nem credenciais externas versionadas neste repositório.
 
 ## Migração de ambientes pré-piloto
 
-Esta versão altera a migration histórica `V2` para que bancos novos recebam a paleta padrão Vectk desde a primeira criação. Como o Flyway valida checksums, um banco criado antes desta renomeação precisa de um procedimento explícito antes de iniciar a versão nova.
+Esta versão altera a migration histórica `V2` para que bancos novos recebam a paleta padrão Veckt desde a primeira criação. Como o Flyway valida checksums, um banco criado antes desta renomeação precisa de um procedimento explícito antes de iniciar a versão nova.
 
 1. Faça backup completo de PostgreSQL e uploads com `./scripts/backup.sh`.
 2. Como os ambientes anteriores ao piloto ainda são descartáveis, a opção preferida é recriar explicitamente o banco a partir das migrations atuais e restaurar somente os dados que precisem ser mantidos em uma janela planejada.
 3. Não use `docker compose down -v` como atalho e não altere manualmente `flyway_schema_history`.
-4. A troca de `VECTK_VOLUME_PREFIX` cria volumes novos. Os volumes anteriores não são removidos pelo Compose; preserve-os até validar um backup e um restore completos para os volumes Vectk.
+4. A troca de `VECKT_VOLUME_PREFIX` cria volumes novos. Os volumes anteriores não são removidos pelo Compose; preserve-os até validar um backup e um restore completos para os volumes Veckt.
 
 Em banco vazio, o Flyway aplica `V2` já com a paleta correta e `V32` normaliza apenas preferências que não correspondam às paletas suportadas, preservando as escolhas Terracota e Índigo.

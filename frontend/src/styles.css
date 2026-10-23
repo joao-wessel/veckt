@@ -4,13 +4,13 @@
 
 :root {
   color-scheme: light;
-  --vectk-50: 240 245 245;
-  --vectk-100: 224 234 236;
-  --vectk-200: 199 217 220;
-  --vectk-500: 91 127 134;
-  --vectk-600: 77 108 115;
-  --vectk-700: 63 90 96;
-  --vectk-900: 31 41 55;
+  --veckt-50: 240 245 245;
+  --veckt-100: 224 234 236;
+  --veckt-200: 199 217 220;
+  --veckt-500: 91 127 134;
+  --veckt-600: 77 108 115;
+  --veckt-700: 63 90 96;
+  --veckt-900: 31 41 55;
   --color-primary: #5b7f86;
   --color-primary-dark: #3f5a60;
   --color-primary-soft: #e0eaec;
@@ -42,29 +42,29 @@
 .markdown-document p { margin: 0.45rem 0; }
 .markdown-document ul { margin: 0.75rem 0; padding-left: 1.4rem; list-style: disc; }
 .markdown-document li { margin: 0.25rem 0; }
-.markdown-document a { color: rgb(var(--vectk-700)); font-weight: 700; text-decoration: underline; }
+.markdown-document a { color: rgb(var(--veckt-700)); font-weight: 700; text-decoration: underline; }
 
 :root[data-palette="terracotta"] {
-  --vectk-50: 255 247 242;
-  --vectk-100: 252 232 218;
-  --vectk-200: 247 198 168;
-  --vectk-500: 197 101 62;
-  --vectk-600: 176 82 47;
-  --vectk-700: 135 60 39;
-  --vectk-900: 81 40 31;
+  --veckt-50: 255 247 242;
+  --veckt-100: 252 232 218;
+  --veckt-200: 247 198 168;
+  --veckt-500: 197 101 62;
+  --veckt-600: 176 82 47;
+  --veckt-700: 135 60 39;
+  --veckt-900: 81 40 31;
   --color-primary: #b0522f;
   --color-primary-dark: #873c27;
   --color-primary-soft: #fce8da;
 }
 
 :root[data-palette="indigo"] {
-  --vectk-50: 246 247 255;
-  --vectk-100: 229 232 255;
-  --vectk-200: 199 206 255;
-  --vectk-500: 101 91 197;
-  --vectk-600: 82 74 174;
-  --vectk-700: 64 57 135;
-  --vectk-900: 41 37 82;
+  --veckt-50: 246 247 255;
+  --veckt-100: 229 232 255;
+  --veckt-200: 199 206 255;
+  --veckt-500: 101 91 197;
+  --veckt-600: 82 74 174;
+  --veckt-700: 64 57 135;
+  --veckt-900: 41 37 82;
   --color-primary: #524aae;
   --color-primary-dark: #403987;
   --color-primary-soft: #e5e8ff;
@@ -88,7 +88,7 @@ body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--color-heading);
-  background: radial-gradient(circle at top right, rgb(var(--vectk-500) / 0.08), transparent 32rem), var(--color-bg);
+  background: radial-gradient(circle at top right, rgb(var(--veckt-500) / 0.08), transparent 32rem), var(--color-bg);
 }
 
 .card {
@@ -97,7 +97,7 @@ body {
 }
 
 .field {
-  @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-vectk-500 focus:ring-4 focus:ring-vectk-100;
+  @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-veckt-500 focus:ring-4 focus:ring-veckt-100;
 }
 
 input.field,
@@ -131,23 +131,23 @@ select.field,
   margin-right: -0.25rem;
   padding: 0.35rem;
   border-radius: 0.7rem;
-  background-color: rgb(var(--vectk-50));
+  background-color: rgb(var(--veckt-50));
   cursor: pointer;
   transition: background-color 150ms ease, box-shadow 150ms ease;
 }
 
 .field[type="date"]::-webkit-calendar-picker-indicator:hover {
-  background-color: rgb(var(--vectk-100));
-  box-shadow: 0 0 0 0.35rem rgb(var(--vectk-100) / 0.7);
+  background-color: rgb(var(--veckt-100));
+  box-shadow: 0 0 0 0.35rem rgb(var(--veckt-100) / 0.7);
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-vectk-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-vectk-700;
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-veckt-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-veckt-700;
   min-height: 2.75rem;
 }
 
 .btn-secondary {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-vectk-200 hover:text-vectk-700;
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-veckt-200 hover:text-veckt-700;
   min-height: 2.75rem;
 }
 
@@ -181,13 +181,13 @@ select.field,
 }
 
 .checkbox,
-.vectk-checkbox {
+.veckt-checkbox {
   appearance: none;
   width: 1.2rem;
   height: 1.2rem;
-  border: 1.5px solid rgb(var(--vectk-200));
+  border: 1.5px solid rgb(var(--veckt-200));
   border-radius: 0.4rem;
-  background-color: rgb(var(--vectk-50));
+  background-color: rgb(var(--veckt-50));
   display: inline-grid;
   place-content: center;
   box-shadow: none;
@@ -195,7 +195,7 @@ select.field,
 }
 
 .checkbox:checked,
-.vectk-checkbox:checked {
+.veckt-checkbox:checked {
   border-color: var(--color-primary);
   background-color: var(--color-primary);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 8.3 6.6 11.2 12.7 4.8' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -205,20 +205,20 @@ select.field,
 }
 
 .checkbox:focus,
-.vectk-checkbox:focus {
+.veckt-checkbox:focus {
   outline: none;
-  box-shadow: 0 0 0 0.45rem rgb(var(--vectk-100) / 0.82);
+  box-shadow: 0 0 0 0.45rem rgb(var(--veckt-100) / 0.82);
 }
 
 .checkbox:hover,
-.vectk-checkbox:hover {
-  border-color: rgb(var(--vectk-500));
-  box-shadow: 0 0 0 0.45rem rgb(var(--vectk-100) / 0.78);
+.veckt-checkbox:hover {
+  border-color: rgb(var(--veckt-500));
+  box-shadow: 0 0 0 0.45rem rgb(var(--veckt-100) / 0.78);
 }
 
 :root.dark body {
   background:
-    radial-gradient(circle at top right, rgb(var(--vectk-500) / 0.16), transparent 30rem),
+    radial-gradient(circle at top right, rgb(var(--veckt-500) / 0.16), transparent 30rem),
     linear-gradient(180deg, #101010 0%, var(--color-bg) 34rem);
 }
 
@@ -268,7 +268,7 @@ select.field,
 }
 
 :root.dark .field[type="date"]::-webkit-calendar-picker-indicator {
-  background-color: rgb(var(--vectk-500) / 0.18);
+  background-color: rgb(var(--veckt-500) / 0.18);
   filter: invert(1) brightness(1.2);
 }
 
@@ -277,9 +277,9 @@ select.field,
 }
 
 :root.dark .checkbox,
-:root.dark .vectk-checkbox {
-  background-color: rgb(var(--vectk-900) / 0.34);
-  border-color: rgb(var(--vectk-500) / 0.72);
+:root.dark .veckt-checkbox {
+  background-color: rgb(var(--veckt-900) / 0.34);
+  border-color: rgb(var(--veckt-500) / 0.72);
   box-shadow: none;
 }
 
@@ -289,18 +289,18 @@ select.field,
   box-shadow: 0 18px 60px var(--shadow-soft-color) !important;
 }
 
-/* FullCalendar is intentionally styled here so every calendar view inherits the active Vectk palette. */
-.fc { --fc-border-color: #e2e8f0; --fc-page-bg-color: transparent; --fc-neutral-bg-color: #f8fafc; --fc-today-bg-color: rgb(var(--vectk-50) / .72); font-family: inherit; }
+/* FullCalendar is intentionally styled here so every calendar view inherits the active Veckt palette. */
+.fc { --fc-border-color: #e2e8f0; --fc-page-bg-color: transparent; --fc-neutral-bg-color: #f8fafc; --fc-today-bg-color: rgb(var(--veckt-50) / .72); font-family: inherit; }
 .fc .fc-scrollgrid { border-radius: .9rem; overflow: hidden; }
 .fc .fc-col-header-cell { padding: .65rem .25rem; font-size: .69rem; font-weight: 800; text-transform: uppercase; color: #64748b; }
 .fc .fc-daygrid-day-number { padding: .55rem; font-size: .82rem; font-weight: 700; color: #475569; }
-.fc .fc-day-today .fc-daygrid-day-number { color: rgb(var(--vectk-700)); }
+.fc .fc-day-today .fc-daygrid-day-number { color: rgb(var(--veckt-700)); }
 .fc .fc-event { border: 0; border-radius: .5rem; padding: .18rem .35rem; font-size: .72rem; font-weight: 700; box-shadow: none; }
 .fc .fc-list { border: 0; }
 .fc .fc-list-day-cushion { background: #f8fafc; color: #475569; font-size: .78rem; font-weight: 800; text-transform: uppercase; }
-.fc .fc-list-event:hover td { background: rgb(var(--vectk-50) / .65); }
+.fc .fc-list-event:hover td { background: rgb(var(--veckt-50) / .65); }
 .fc .fc-timegrid-slot-label-cushion { color: #94a3b8; font-size: .7rem; }
-:root.dark .fc { --fc-border-color: var(--color-border); --fc-neutral-bg-color: #202020; --fc-today-bg-color: rgb(var(--vectk-500) / .12); }
+:root.dark .fc { --fc-border-color: var(--color-border); --fc-neutral-bg-color: #202020; --fc-today-bg-color: rgb(var(--veckt-500) / .12); }
 :root.dark .fc .fc-col-header-cell, :root.dark .fc .fc-daygrid-day-number, :root.dark .fc .fc-list-day-text { color: var(--color-muted); }
 :root.dark .fc .fc-list-day-cushion { background: #202020; }
 @media (max-width: 767px) { .fc .fc-toolbar-title { font-size: 1rem; } .fc .fc-list-event-title { font-size: .82rem; } }

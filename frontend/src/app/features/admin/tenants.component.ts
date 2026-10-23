@@ -4,7 +4,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { ApiResponse } from '../../core/auth/auth.models';
-import { VectkSelectComponent } from '../../shared/components/vectk-select.component';
+import { VecktSelectComponent } from '../../shared/components/veckt-select.component';
 import { ToastService } from '../../shared/components/toast/toast.service';
 
 type PersonType = 'NATURAL_PERSON' | 'LEGAL_ENTITY';
@@ -42,13 +42,13 @@ interface ViaCepResponse {
 @Component({
   selector: 'app-tenants',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, LucideAngularModule, VectkSelectComponent],
+  imports: [ReactiveFormsModule, DatePipe, LucideAngularModule, VecktSelectComponent],
   template: `
     <section class="card overflow-hidden">
       <div class="flex flex-col gap-4 border-b border-slate-200 p-6 md:flex-row md:items-center md:justify-between">
         <div>
           <h2 class="text-3xl font-extrabold tracking-tight">Tenants</h2>
-          <p class="mt-2 text-slate-500">Escritórios cadastrados na plataforma Vectk.</p>
+          <p class="mt-2 text-slate-500">Escritórios cadastrados na plataforma Veckt.</p>
         </div>
         <button class="btn-primary" type="button" (click)="openTenantModal()">
           <lucide-icon name="Plus" size="18"></lucide-icon>
@@ -80,7 +80,7 @@ interface ViaCepResponse {
                 <td class="px-6 py-4 text-slate-600">{{ tenant.primaryEmail }}</td>
                 <td class="px-6 py-4 text-slate-600">{{ tenant.city || '-' }}{{ tenant.state ? '/' + tenant.state : '' }}</td>
                 <td class="px-6 py-4">
-                  <span class="rounded-full bg-vectk-50 px-3 py-1 text-xs font-bold text-vectk-700">{{ tenant.status }}</span>
+                  <span class="rounded-full bg-veckt-50 px-3 py-1 text-xs font-bold text-veckt-700">{{ tenant.status }}</span>
                 </td>
                 <td class="px-6 py-4 text-slate-500">{{ tenant.createdAt | date:'dd/MM/yyyy' }}</td>
                 <td class="px-6 py-4">
@@ -114,7 +114,7 @@ interface ViaCepResponse {
                 <p class="truncate font-extrabold">{{ tenant.tradeName }}</p>
                 <p class="mt-1 truncate text-xs text-slate-500">{{ tenant.legalName }}</p>
               </div>
-              <span class="shrink-0 rounded-full bg-vectk-50 px-3 py-1 text-xs font-bold text-vectk-700">{{ tenant.status }}</span>
+              <span class="shrink-0 rounded-full bg-veckt-50 px-3 py-1 text-xs font-bold text-veckt-700">{{ tenant.status }}</span>
             </div>
             <div class="mt-4 space-y-1 text-sm text-slate-600">
               <p>{{ tenant.primaryEmail }}</p>
@@ -153,13 +153,13 @@ interface ViaCepResponse {
           <div class="grid gap-2 rounded-2xl bg-slate-50/70 p-2 md:grid-cols-2">
             <button class="rounded-xl px-4 py-3 text-sm font-bold transition" type="button"
                     [class.bg-white]="activeTenantTab() === 'primary'"
-                    [class.text-vectk-700]="activeTenantTab() === 'primary'"
+                    [class.text-veckt-700]="activeTenantTab() === 'primary'"
                     [class.shadow-sm]="activeTenantTab() === 'primary'"
                     [class.text-slate-500]="activeTenantTab() !== 'primary'"
                     (click)="activeTenantTab.set('primary')">Dados primários</button>
             <button class="rounded-xl px-4 py-3 text-sm font-bold transition" type="button"
                     [class.bg-white]="activeTenantTab() === 'address'"
-                    [class.text-vectk-700]="activeTenantTab() === 'address'"
+                    [class.text-veckt-700]="activeTenantTab() === 'address'"
                     [class.shadow-sm]="activeTenantTab() === 'address'"
                     [class.text-slate-500]="activeTenantTab() !== 'address'"
                     (click)="activeTenantTab.set('address')">Endereço</button>
@@ -174,7 +174,7 @@ interface ViaCepResponse {
               <div class="grid gap-4 md:grid-cols-2">
                 <label class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Tipo de pessoa <span class="text-red-500">*</span></span>
-                  <app-vectk-select formControlName="personType" placeholder="Tipo de pessoa" [options]="personTypeOptions" panelMode="fixed" />
+                  <app-veckt-select formControlName="personType" placeholder="Tipo de pessoa" [options]="personTypeOptions" panelMode="fixed" />
                 </label>
                 <label class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Nome fantasia <span class="text-red-500">*</span></span>
@@ -198,7 +198,7 @@ interface ViaCepResponse {
                 </label>
                 <label class="space-y-1">
                   <span class="text-xs font-bold text-slate-500">Status <span class="text-red-500">*</span></span>
-                  <app-vectk-select formControlName="status" placeholder="Status" [options]="tenantStatusOptions" panelMode="fixed" />
+                  <app-veckt-select formControlName="status" placeholder="Status" [options]="tenantStatusOptions" panelMode="fixed" />
                 </label>
               </div>
             </section>
@@ -255,7 +255,7 @@ interface ViaCepResponse {
             <input class="field" type="email" placeholder="admin@escritorio.com" formControlName="email">
           </label>
           @if (firstAccessUrl()) {
-            <p class="rounded-xl bg-vectk-50 p-3 text-sm font-semibold text-vectk-800">Link enviado por e-mail com validade de 1 hora.</p>
+            <p class="rounded-xl bg-veckt-50 p-3 text-sm font-semibold text-veckt-800">Link enviado por e-mail com validade de 1 hora.</p>
           }
           <div class="flex justify-end gap-3">
             <button class="btn-secondary" type="button" (click)="closeFirstAccessModal()">Cancelar</button>

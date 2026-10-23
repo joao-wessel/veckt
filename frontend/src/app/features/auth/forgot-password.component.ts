@@ -14,17 +14,17 @@ import { ToastService } from '../../shared/components/toast/toast.service';
     <main class="flex min-h-screen items-center justify-center bg-slate-50 p-6">
       <section class="card w-full max-w-md p-8">
         <app-logo />
-        <p class="mt-6 text-sm font-bold uppercase tracking-[0.18em] text-vectk-600">{{ scope === 'platform' ? 'Área administrativa' : 'Área do escritório' }}</p>
+        <p class="mt-6 text-sm font-bold uppercase tracking-[0.18em] text-veckt-600">{{ scope === 'platform' ? 'Área administrativa' : 'Área do escritório' }}</p>
         <h1 class="mt-3 text-3xl font-extrabold">Recuperar senha</h1>
         <p class="mt-2 text-sm text-slate-500">Informe seu e-mail para receber um link seguro de redefinição.</p>
         <form class="mt-6 space-y-4" [formGroup]="form" (ngSubmit)="submit()">
           <input class="field" type="email" placeholder="E-mail" formControlName="email">
           @if (message) {
-            <p class="rounded-xl bg-vectk-50 px-4 py-3 text-sm text-vectk-700">{{ message }}</p>
+            <p class="rounded-xl bg-veckt-50 px-4 py-3 text-sm text-veckt-700">{{ message }}</p>
           }
           <button class="btn-primary w-full" type="submit">Enviar instruções</button>
         </form>
-        <a [routerLink]="scope === 'platform' ? '/login/admin' : '/login'" class="mt-5 inline-block text-sm font-semibold text-vectk-700">Voltar ao login</a>
+        <a [routerLink]="scope === 'platform' ? '/login/admin' : '/login'" class="mt-5 inline-block text-sm font-semibold text-veckt-700">Voltar ao login</a>
       </section>
     </main>
   `

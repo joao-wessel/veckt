@@ -1,3 +1,0 @@
-package com.vectk.backend.dto;
-import com.vectk.backend.entity.*;import java.time.Instant;import java.util.*;
-public final class NotificationDtos {private NotificationDtos(){} public record NotificationResponse(UUID id,NotificationType type,NotificationCategory category,String title,String message,NotificationPriority priority,NotificationStatus status,NotificationSourceType sourceType,UUID sourceId,String actionUrl,boolean mandatory,Instant createdAt,Instant readAt){} public record NotificationPreferenceResponse(NotificationCategory category,boolean inAppEnabled,boolean emailEnabled){} public record NotificationPreferenceRequest(NotificationCategory category,boolean inAppEnabled,boolean emailEnabled){} }
